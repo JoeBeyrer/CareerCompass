@@ -4,7 +4,6 @@ This application is designed for currently enrolled students and recent graduate
 # Dependencies
 - [PostgreSQL](https://www.postgresql.org/download/)
 - Django 
-- Psycopg2
 
 # File Structure
 - env/: This directory contains the virtual environment created using the python -m venv env command. It typically includes Python executable, libraries, and other necessary files for the environment.
@@ -24,13 +23,18 @@ careercompassdb/: This directory represents a Django app within your project (ca
 
 # How to Work on the Project
 1. Once you have set your terminals current directory to the repository's location, run the following command to activate the virtual environment in VSCode: `env/Scripts/activate`
+
 2. Run the following command to install all requirements: `pip install -r requirements.txt`
+
 3. Open `pgAdmin4` on your local device and navigate to server and choose PostgreSQL on the hierarchy found on the left side of the window.
+
 4. Right-click on `Databases` and create a new database with a name of your choosing (the current configuration is preset with the database name `careercompassdb`). 
+
 5. Next, navigate to `settings.py`, found in `/careercompass/careercompassapp/` and change the `NAME`, `USER`, `PASSWORD`, `HOST`, and `PORT` firlds under `DATABASES` as needed:
-NAME → Database name e.g. dbtest previously created in pgAdmin
-USER → Database username (default is postgres)
-PASSWORD → Database password
-HOST → Database host (In development stage, use localhost or IP Address 127.0.0.1 also available)
-PORT → The port that used to run the database (Default port is 5432)
+   NAME → Database name e.g. dbtest previously created in pgAdmin
+   USER → Database username (default is postgres)
+   PASSWORD → Database password
+   HOST → Database host (In development stage, use localhost or IP Address 127.0.0.1 also available)
+   PORT → The port that used to run the database (Default port is 5432)
+
 6. Now, you should be able to make any changes to this project.
