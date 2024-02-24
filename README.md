@@ -48,9 +48,9 @@ careercompassdb/: This directory represents a Django app within your project (ca
 3. Open `pgAdmin4` on your local device and navigate to server and choose PostgreSQL on the hierarchy found on the left side of the window.
 4. Right-click on `Databases` and create a new database with a name of your choosing (the current configuration is preset with the database name `careercompassdb`). 
 5. Next, navigate to `settings.py`, found in `/careercompass/careercompassapp/` and change the `NAME`, `USER`, `PASSWORD`, `HOST`, and `PORT` firlds under `DATABASES` as needed:
-- NAME → Database name e.g. dbtest previously created in pgAdmin
-- USER → Database username (default is postgres)
-- PASSWORD → Database password
-- HOST → Database host (In development stage, use localhost or IP Address 127.0.0.1 also available)
-- PORT → The port that used to run the database (Default port is 5432)
+  - NAME → Database name e.g. dbtest previously created in pgAdmin
+  - USER → Database username (default is postgres)
+  - PASSWORD → Database password
+  - HOST → Database host (In development stage, use localhost or IP Address 127.0.0.1 also available)
+  - PORT → The port that used to run the database (Default port is 5432)
 6. Now, you should be able to make any changes to this project.
