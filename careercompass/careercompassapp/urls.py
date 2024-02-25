@@ -5,7 +5,7 @@ from . import views
 urlpatterns = [
     path('', views.home_page),
     path('profile/', views.profile_page),
-    path('edit-profile/', views.profile_edit_page),
+    path('edit-profile/', views.edit_profile_page),
 
     # TODO: Add all pages here
 ]

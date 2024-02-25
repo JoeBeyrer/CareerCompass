@@ -5,10 +5,10 @@ from django.http import HttpResponse
 #TODO: Fill in requests for entering pages - will need to make view functions for queries
 
 def home_page(request):
-    return HttpResponse('Home Page')
+    return render(request, 'index.html')
 
 def profile_page(request):
-    return HttpResponse('Profile Page')
+    return render(request, 'profile.html')
 
-def profile_edit_page(request): 
-    return HttpResponse('Profile Edit Page')
+def edit_profile_page(request): 
+    return render(request, 'edit-profile.html')
