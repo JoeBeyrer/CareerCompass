@@ -6,20 +6,21 @@ This application is designed for currently enrolled students and recent graduate
 - Django 
 
 # File Structure
-- env/: This directory contains the virtual environment created using the python -m venv env command. It typically includes Python executable, libraries, and other necessary files for the environment.
+- env/: This directory contains the virtual environment created using the python -m venv env command. It includes Python executable, libraries, and other necessary files for the environment.
 
-- careercompass/: This is the main directory of your Django project.
+- `careercompass/`: This is the main directory of the Django project.
 
-- careercompassapp/: This directory represents your Django project (careercompassapp is just a placeholder name). It contains your project-level files such as settings.py, urls.py, wsgi.py, etc.
+- `./careercompass/careercompass/`: This directory represents the Django project. It contains the project-level files such as settings.py, urls.py, wsgi.py, etc.
 
-- settings.py: This file contains your Django project settings, including installed apps and database credentials.
-careercompassdb/: This directory represents a Django app within your project (careercompassdb is just a placeholder name). It contains your app-specific files, such as models, views, migrations, etc.
+- `./careercompass/careercompass/settings.py`: This file contains the Django project settings, including installed apps and database credentials.
 
-- models.py: This file contains the Django models for your database tables, where you define your database schema using Django's ORM (Object-Relational Mapping).
+- `./careercompass/careercompassapp/`: This directory represents the main Django app within the project. It contains the app-specific files, such as models, views, migrations, etc.
 
-- migrations/: This directory contains Django migration files generated when you run python manage.py makemigrations. These files manage changes to your database schema over time.
+- `./careercompass/careercompassapp/models.py`: This file contains the Django models for the PostgreSQL database tables, where we define the database schema using Django's ORM (Object-Relational Mapping).
 
-- Other Django app files: These include files such as admin.py, apps.py, views.py, tests.py, etc., depending on what functionality your app requires.
+- `./careercompass/careercompassapp/migrations/`: This directory contains Django migration files generated when running python manage.py makemigrations. These files manage changes to the database schema over time.
+
+- Other Django app files: These include files such as admin.py, apps.py, views.py, tests.py, etc., depending on what functionality the app requires.
 
 # How to Work on the Project
 1. Once you have set your terminals current directory to the repository's location, run the following command to activate the virtual environment in VSCode: `env/Scripts/activate`
