@@ -39,3 +39,14 @@ This application is designed for currently enrolled students and recent graduate
    - PORT → The port that used to run the database (Default port is 5432)
 
 6. Now, you should be able to make any changes to this project.
+
+# How to Apply Database Schema Changes
+1. Set your current directory to `CareerCompass/careercompass`.
+
+2. Run the command: `python manage.py makemigrations`.
+   - You should see a list of all the schema changes you made.
+
+3. Run the command: `python manage.py migrate`.
+   - You should see a list of the chema changes you made, each followed by an `OK` message.
+
+4. Check your database schema in `pgAdmin4` to make sure the changes have been successfully mad.
