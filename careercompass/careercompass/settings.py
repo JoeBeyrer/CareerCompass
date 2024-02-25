@@ -29,7 +29,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'careercompassdb',
+    'careercompassapp',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -75,7 +75,7 @@ WSGI_APPLICATION = 'careercompass.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'careercompassdb',
+        'NAME': 'dbcareercompass',
         'USER': 'postgres',
         'PASSWORD': '2645',
         'HOST': 'localhost',

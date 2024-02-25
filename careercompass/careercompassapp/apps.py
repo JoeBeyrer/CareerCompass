@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class CareercompassdbConfig(AppConfig):
+class CareercompassappConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'careercompassdb'
+    name = 'careercompassapp'
