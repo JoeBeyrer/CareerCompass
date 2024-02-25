@@ -1,11 +1,11 @@
 # CareerCompass
 This application is designed for currently enrolled students and recent graduates, offering a platform akin to LinkedIn but focused on entry-level job seekers. Recruiters can post job openings and events, while users can connect, message, create posts, and engage with communities aligned with their interests or career goals.
 
-# Dependencies
+## Dependencies
 - [PostgreSQL](https://www.postgresql.org/download/)
 - Django 
 
-# File Structure
+## File Structure
 - env/: This directory contains the virtual environment created using the python -m venv env command. It includes Python executable, libraries, and other necessary files for the environment.
 
 - `careercompass/`: This is the main directory of the Django project.
@@ -22,7 +22,7 @@ This application is designed for currently enrolled students and recent graduate
 
 - Other Django app files: These include files such as admin.py, apps.py, views.py, tests.py, etc., depending on what functionality the app requires.
 
-# How to Work on the Project
+## How to Work on the Project
 1. Once you have set your terminals current directory to the repository's location, run the following command to activate the virtual environment in VSCode: `env/Scripts/activate`
 
 2. Run the following command to install all requirements: `pip install -r requirements.txt`
@@ -40,7 +40,7 @@ This application is designed for currently enrolled students and recent graduate
 
 6. Now, you should be able to make any changes to this project.
 
-# How to Apply Database Schema Changes
+## How to Apply Database Schema Changes
 1. Set your current directory to `CareerCompass/careercompass`.
 
 2. Run the command: `python manage.py makemigrations`.
