@@ -15,3 +15,6 @@ def edit_profile_page(request):
 
 def login_page(request): 
     return render(request, 'login.html')
+
+def create_account_page(request): 
+    return render(request, 'create-account.html')
