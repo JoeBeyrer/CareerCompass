@@ -12,3 +12,6 @@ def profile_page(request):
 
 def edit_profile_page(request): 
     return render(request, 'edit-profile.html')
+
+def login_page(request): 
+    return render(request, 'login.html')
