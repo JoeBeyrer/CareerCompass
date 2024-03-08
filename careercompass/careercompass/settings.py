@@ -75,7 +75,7 @@ WSGI_APPLICATION = 'careercompass.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dbcareercompass',
+        'NAME': 'careercompassdb',
         'USER': 'postgres',
         'PASSWORD': '2645',
         'HOST': 'localhost',

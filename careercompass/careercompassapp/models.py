@@ -8,7 +8,7 @@ class Users(models.Model):
     PhoneNumber = models.CharField(max_length=10) # CHAR(10)
     PasswordHash = models.CharField(max_length=127)
     DOB = models.DateField()
-    AboutMe = models.TextField()
+    AboutMe = models.TextField(null=True, blank=True)
     Email = models.CharField(max_length=63) # UNIQUE
 
     class Meta:

@@ -17,8 +17,19 @@ def edit_profile(request):
     return render(request, 'edit-profile.html')
 
 def create_account(request): 
-
-    return render(request, 'create-account.html')
+    if request.method == "POST":
+        username = request.POST['userID']
+        password = request.POST['password']
+        fName = request.POST['fName']
+        lName = request.POST['lName']
+        phone = request.POST['phone']
+        email = request.POST['email']
+        dob = request.POST['dob']
+        add_user(username, fName, lName, phone, password, dob, email)
+        return redirect('login')
+    else:
+        # Render form html page if GET request
+        return render(request, 'create-account.html')
 
 def user_login(request): 
     return render(request, 'login.html')

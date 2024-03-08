@@ -4,12 +4,12 @@
 from django.db import connection
 
 # Add the user to the database
-def add_user(UserID, FirstName, LastName, PhoneNumber, PasswordHash, DOB, AboutMe, Email):
+def add_user(UserID, FirstName, LastName, PhoneNumber, PasswordHash, DOB, Email, AboutMe=None):
      with connection.cursor() as cursor:
         # Using cursor.execute with %s fields keeps the query safe from SQL injections
         cursor.execute(
             """
-            INSERT INTO Users VALUES (%s, %s, %s, %s, %s, %s, %s, %s);
+            INSERT INTO careercompassapp_users VALUES (%s, %s, %s, %s, %s, %s, %s, %s);
             """,
             [UserID, FirstName, LastName, PhoneNumber, PasswordHash, DOB, AboutMe, Email]
         )
