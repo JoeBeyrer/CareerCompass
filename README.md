@@ -20,7 +20,11 @@ This application is designed for currently enrolled students and recent graduate
 
 - `./careercompass/careercompassapp/migrations/`: This directory contains Django migration files generated when running python manage.py makemigrations. These files manage changes to the database schema over time.
 
-- Other Django app files: These include files such as admin.py, apps.py, views.py, tests.py, etc., depending on what functionality the app requires.
+- `./careercompass/careercompassapp/database_utils.py`: This file contains functions used to execute raw SQL queries. These functions will be called on certain actions within the `./careercompass/careercompassapp/views.py` file.
+
+- `./careercompass/careercompassapp/views.py`: This file contains the views for the Django app, which handle HTTP requests and responses. It includes logic to interact with the database, process user input, and render HTML templates.
+
+- Other Django app files: These include files such as admin.py, apps.py, tests.py, etc., depending on what functionality the app requires.
 
 ## How to Work on the Project
 1. Once you have set your terminals current directory to the repository's location, run the following command to activate the virtual environment in VSCode: `env/Scripts/activate`
@@ -29,7 +33,7 @@ This application is designed for currently enrolled students and recent graduate
 
 3. Open `pgAdmin4` on your local device and navigate to server and choose PostgreSQL on the hierarchy found on the left side of the window.
 
-4. Right-click on `Databases` and create a new database with a name of your choosing (the current configuration is preset with the database name `careercompassdb`). 
+4. Right-click on `Databases` and create a new database with a name of your choosing (the current configuration is preset with the database name `dbcareercompass`). 
 
 5. Next, navigate to `settings.py`, found in `/careercompass/careercompassapp/` and change the `NAME`, `USER`, `PASSWORD`, `HOST`, and `PORT` firlds under `DATABASES` as needed:
    - NAME → Database name e.g. dbtest previously created in pgAdmin
