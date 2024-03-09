@@ -6,7 +6,7 @@ class Users(models.Model):
     FirstName = models.CharField(max_length=20)
     LastName = models.CharField(max_length=20)
     PhoneNumber = models.CharField(max_length=10) # CHAR(10)
-    PasswordHash = models.CharField(max_length=127)
+    PasswordHash = models.CharField(max_length=128)
     DOB = models.DateField()
     AboutMe = models.TextField(null=True, blank=True)
     Email = models.CharField(max_length=63) # UNIQUE

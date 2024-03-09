@@ -20,7 +20,7 @@ def get_user(UserID):
         # Using cursor.execute with %s fields keeps the query safe from SQL injections
         cursor.execute(
             """
-            SELECT * FROM Users WHERE UserID = %s;
+            SELECT * FROM careercompassapp_users WHERE careercompassapp_users."UserID" = %s;
             """,
             [UserID]
         )
