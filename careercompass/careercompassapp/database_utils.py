@@ -70,6 +70,25 @@ def get_student_data(UserID):
         else:
             return None
 
+def get_recruiter_data(UserID):
+    with connection.cursor() as cursor:
+        # Using cursor.execute with %s fields keeps the query safe from SQL injections
+        cursor.execute(
+            """
+            SELECT * FROM careercompassapp_recruiters JOIN careercompassapp_users 
+            ON careercompassapp_recruiters."UserID_id" = careercompassapp_users."UserID" 
+            WHERE careercompassapp_users."UserID" = %s;
+            """,
+            [UserID]
+        )
+        # Fetch the row with the correct UserID
+        recruiter_data = cursor.fetchone()
+        print(recruiter_data)
+        if recruiter_data:
+            return recruiter_data
+        else:
+            return None
+
 def get_follower_count(UserID):
     with connection.cursor() as cursor:
         # Using cursor.execute with %s fields keeps the query safe from SQL injections

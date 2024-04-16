@@ -21,8 +21,12 @@ def student_profile(request, username):
 
     return render(request, 'profile-student.html', {'student': student, 'followers': followers, 'following': following})
 
-def recruiter_profile(request):
-    return render(request, 'profile-recruiter.html')
+def recruiter_profile(request, username):
+    recruiter = get_recruiter_data(username)
+    followers = get_follower_count(username)
+    following = get_following_count(username)
+
+    return render(request, 'profile-recruiter.html', {'recruiter': recruiter, 'followers': followers, 'following': following})
 
 def edit_profile(request): 
     return render(request, 'edit-profile.html')

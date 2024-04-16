@@ -136,27 +136,27 @@
     <div class="main">
         <div class="profile-header">
             <div class="profile-info">
-                <p class="profile-name">John Doe</p>
-                <p class="profile-username">@JohnDoe23</p>
+                <p class="profile-name">{{ recruiter.6 }} {{ recruiter.7 }}</p>
+                <p class="profile-username">@{{ recruiter.0 }}</p>
                 <p class="profile-followers">
-                    <a href="#">5 Followers</a>
-                    <a href="#">10 Following</a>
+                    <a href="#">{{ followers.0 }} Followers</a>
+                    <a href="#">{{ following.0 }} Following</a>
                 </p>
                 <!-- Dynamic fields for student -->
                 <div class="dynamic-fields">
                     <div class="dynamic-field">
                         <p class="field-label">Company</p>
-                        <p class="field-content">Example Company</p>
+                        <p class="field-content">{{ recruiter.1 }}</p>
                     </div>
                     <div class="dynamic-field">
                         <p class="field-label">Position</p>
-                        <p class="field-content">Head Recruiter</p>
+                        <p class="field-content">{{ recruiter.3 }}</p>
                     </div>
                 </div>
                 <!-- End of dynamic fields -->
                 <div>
                     <p class="field-label">About the Company</p>
-                    <p class="description">Company description goes here...</p>
+                    <p class="description">{{ recruiter.2 }}</p>
                 </div>
                 <div>
                     <p class="field-label">About Me</p>
