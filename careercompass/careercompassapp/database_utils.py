@@ -61,3 +61,36 @@ def get_student_data(UserID):
         else:
             return None
 
+def get_follower_count(UserID):
+    with connection.cursor() as cursor:
+        # Using cursor.execute with %s fields keeps the query safe from SQL injections
+        cursor.execute(
+            """
+            SELECT COUNT(*) FROM careercompassapp_followers WHERE careercompassapp_followers."UserID_id" = %s;
+            """,
+            [UserID]
+        )
+        # Fetch the row with the correct UserID
+        followers = cursor.fetchone()
+        print(followers)
+        if followers:
+            return followers
+        else:
+            return None
+
+def get_following_count(UserID):
+    with connection.cursor() as cursor:
+        # Using cursor.execute with %s fields keeps the query safe from SQL injections
+        cursor.execute(
+            """
+            SELECT COUNT(*) FROM careercompassapp_followers WHERE careercompassapp_followers."FollowerID_id" = %s;
+            """,
+            [UserID]
+        )
+        # Fetch the row with the correct UserID
+        following = cursor.fetchone()
+        print(following)
+        if following:
+            return following
+        else:
+            return None

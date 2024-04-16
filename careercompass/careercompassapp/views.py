@@ -16,8 +16,10 @@ def index(request):
 
 def student_profile(request, username):
     student = get_student_data(username)
+    followers = get_follower_count(username)
+    following = get_following_count(username)
 
-    return render(request, 'profile-student.html', {'student': student})
+    return render(request, 'profile-student.html', {'student': student, 'followers': followers, 'following': following})
 
 def recruiter_profile(request):
     return render(request, 'profile-recruiter.html')
