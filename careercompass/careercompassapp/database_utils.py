@@ -23,7 +23,16 @@ def add_student(UserID, University, Degree, CurrentYear, ExpectedGraduation, GPA
             """,
             [UserID, University, Degree, CurrentYear, ExpectedGraduation, GPA, OpenToWork]
         )
-    
+
+def add_recruiter(UserID, CompanyName, AboutCompany, Position, CompanyLink):
+     with connection.cursor() as cursor:
+        # Using cursor.execute with %s fields keeps the query safe from SQL injections
+        cursor.execute(
+            """
+            INSERT INTO careercompassapp_recruiters VALUES (%s, %s, %s, %s, %s);
+            """,
+            [UserID, CompanyName, AboutCompany, Position, CompanyLink]
+        ) 
 
 # Get the user information from the database
 def get_user(UserID):

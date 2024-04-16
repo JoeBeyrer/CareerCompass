@@ -27,7 +27,7 @@ def recruiter_profile(request):
 def edit_profile(request): 
     return render(request, 'edit-profile.html')
 
-def create_account(request): 
+def create_recruiter_account(request): 
     if request.method == "POST":
         # Get all data entered in the html form fields
         username = request.POST['userID']
@@ -37,12 +37,18 @@ def create_account(request):
         phone = request.POST['phone']
         email = request.POST['email']
         dob = request.POST['dob']
+        # Get all recruiter specific data in the html form fields
+        company_name = request.POST['company_name']
+        about_company = request.POST['about_company']
+        position = request.POST['position']
+        company_link = request.POST['company_link']
         # Add the user to the Users table in PostgreSQL
         add_user(username, fName, lName, phone, password, dob, email)
+        add_recruiter(username, company_name, about_company, position, company_link)
         return redirect('login')
     else:
         # Render form html page if GET request
-        return render(request, 'create-account.html')
+        return render(request, 'create-recruiter-account.html')
     
 def create_student_account(request): 
     if request.method == "POST":
