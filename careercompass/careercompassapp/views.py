@@ -14,8 +14,11 @@ UserModel = get_user_model()
 def index(request):
     return render(request, 'index.html')
 
-def profile(request):
-    return render(request, 'profile.html')
+def student_profile(request):
+    return render(request, 'profile-student.html')
+
+def recruiter_profile(request):
+    return render(request, 'profile-recruiter.html')
 
 def edit_profile(request): 
     return render(request, 'edit-profile.html')

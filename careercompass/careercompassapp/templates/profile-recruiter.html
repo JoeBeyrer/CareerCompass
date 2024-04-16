@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        body {
+            background-color: #F3EBF6;
+            font-family: 'Ubuntu', sans-serif;
+        }
+
+        .main {
+            background-color: #FFFFFF;
+            border-radius: 1.5em;
+            box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .profile-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .profile-info {
+            flex-grow: 1;
+            padding-left: 10px;
+        }
+
+        .profile-name {
+            color: #8C55AA;
+            font-size: 23px;
+            font-weight: bold;
+            margin: 0;
+        }
+        
+        .field-content {
+            color: #8C55AA;
+            font-size: 23px;
+        }
+
+        .profile-username {
+            color: rgba(0, 0, 0, 0.7);
+            font-size: 14px;
+        }
+
+        .profile-followers {
+            display: flex;
+            align-items: center;
+        }
+
+        .profile-followers a {
+            text-decoration: none;
+            color: #8C55AA;
+            margin-right: 10px;
+            padding-right: 10px;
+            border-right: 1px solid rgba(0, 0, 0, 0.2);
+        }
+
+        .profile-followers a:last-child {
+            border-right: none;
+        }
+
+        .follow-button {
+            cursor: pointer;
+            border-radius: 5em;
+            color: #fff;
+            background: linear-gradient(to right, #9C27B0, #E040FB);
+            border: 0;
+            padding: 10px 20px;
+            font-size: 13px;
+            box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
+        }
+
+        .description {
+            color: rgba(0, 0, 0, 0.7);
+            font-size: 14px;
+        }
+
+        .dynamic-fields {
+            display: flex;
+            flex-wrap: wrap; /* Allow dynamic fields to wrap */
+            width: 70%; /* Take full width */
+        }
+
+        .dynamic-field {
+            width: 35%; /* Show dynamic fields in half width */
+            padding-right: 20px;
+            
+        }
+
+        .dynamic-field p {
+            margin-top: 5px; /* Add margin between label and field */
+        }
+
+        .dynamic-field p:first-child {
+            margin-top: 0; /* Remove margin from first label */
+        }
+
+        .field-label {
+            font-size: 10px; /* Make the label smaller */
+            color: rgba(0, 0, 0, 0.7); /* Black color for the labels */
+        }
+        .posts-section {
+            padding-top: 20px;
+            overflow-y: scroll;
+            max-height: 300px; /* Adjust as needed */
+        }
+
+        .posts {
+            /* Your styles for posts */
+        }
+
+        a {
+            text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);
+            color: #8C55AA;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            .dynamic-field {
+                width: 100%; /* Show dynamic fields in full width on smaller screens */
+                margin-right: 0; /* Remove margin on smaller screens */
+            }
+        }
+    </style>
+    <title>Profile Page</title>
+</head>
+
+<body>
+    <div class="main">
+        <div class="profile-header">
+            <div class="profile-info">
+                <p class="profile-name">John Doe</p>
+                <p class="profile-username">@JohnDoe23</p>
+                <p class="profile-followers">
+                    <a href="#">5 Followers</a>
+                    <a href="#">10 Following</a>
+                </p>
+                <!-- Dynamic fields for student -->
+                <div class="dynamic-fields">
+                    <div class="dynamic-field">
+                        <p class="field-label">Company</p>
+                        <p class="field-content">Example Company</p>
+                    </div>
+                    <div class="dynamic-field">
+                        <p class="field-label">Position</p>
+                        <p class="field-content">Head Recruiter</p>
+                    </div>
+                </div>
+                <!-- End of dynamic fields -->
+                <div>
+                    <p class="field-label">About the Company</p>
+                    <p class="description">Company description goes here...</p>
+                </div>
+                <div>
+                    <p class="field-label">About Me</p>
+                    <p class="description">User description goes here...</p>
+                </div>
+            </div>
+            <button type="button" class="follow-button">Follow</button>
+        </div>
+        <div class="posts-section">
+            <div class="posts">
+                <!-- Your posts content goes here -->
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

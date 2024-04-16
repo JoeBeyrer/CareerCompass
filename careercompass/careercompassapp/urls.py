@@ -4,7 +4,8 @@ from . import views
 # URL configuration - all start with careercompass/
 urlpatterns = [
     path('', views.index, name='home'),
-    path('profile/', views.profile, name='profile'),
+    path('student/', views.student_profile, name='student'),
+    path('recruiter/', views.recruiter_profile, name='recruiter'),
     path('edit-profile/', views.edit_profile, name='edit-profile'),
     path('login/', views.user_login, name='login'),
     path('create-account/', views.create_account, name='create-account'),
