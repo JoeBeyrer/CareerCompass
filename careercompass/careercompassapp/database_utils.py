@@ -14,6 +14,17 @@ def add_user(UserID, FirstName, LastName, PhoneNumber, PasswordHash, DOB, Email,
             [UserID, FirstName, LastName, PhoneNumber, PasswordHash, DOB, AboutMe, Email]
         )
 
+def add_student(UserID, University, Degree, CurrentYear, ExpectedGraduation, GPA, OpenToWork):
+     with connection.cursor() as cursor:
+        # Using cursor.execute with %s fields keeps the query safe from SQL injections
+        cursor.execute(
+            """
+            INSERT INTO careercompassapp_students VALUES (%s, %s, %s, %s, %s, %s, %s);
+            """,
+            [UserID, University, Degree, CurrentYear, ExpectedGraduation, GPA, OpenToWork]
+        )
+    
+
 # Get the user information from the database
 def get_user(UserID):
      with connection.cursor() as cursor:
@@ -30,3 +41,23 @@ def get_user(UserID):
             return user_data
         else:
             return None
+
+def get_student_data(UserID):
+    with connection.cursor() as cursor:
+        # Using cursor.execute with %s fields keeps the query safe from SQL injections
+        cursor.execute(
+            """
+            SELECT * FROM careercompassapp_students JOIN careercompassapp_users 
+            ON careercompassapp_students."UserID_id" = careercompassapp_users."UserID" 
+            WHERE careercompassapp_users."UserID" = %s;
+            """,
+            [UserID]
+        )
+        # Fetch the row with the correct UserID
+        student_data = cursor.fetchone()
+        print(student_data)
+        if student_data:
+            return student_data
+        else:
+            return None
+

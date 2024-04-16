@@ -38,7 +38,7 @@ class Students(models.Model):
     Degree = models.CharField(max_length=48)
     CurrentYear = models.CharField(max_length=9)
     ExpectedGraduation = models.DateField()
-    GPA = models.DecimalField(max_digits=1, decimal_places=1) # NUMERIC(1, 1)
+    GPA = models.DecimalField(max_digits=3, decimal_places=2) # NUMERIC(1, 1)
     OpenToWork = models.CharField(max_length=1) # CHAR(1)
 
 # Initial creation of the posts table. Posts are created by users

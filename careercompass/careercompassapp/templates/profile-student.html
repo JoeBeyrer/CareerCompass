@@ -136,8 +136,8 @@
     <div class="main">
         <div class="profile-header">
             <div class="profile-info">
-                <p class="profile-name">John Doe</p>
-                <p class="profile-username">@JohnDoe23</p>
+                <p class="profile-name">{{ student.8 }} {{ student.9 }}</p>
+                <p class="profile-username">@{{ student.0 }}</p>
                 <p class="profile-followers">
                     <a href="#">5 Followers</a>
                     <a href="#">10 Following</a>
@@ -146,23 +146,23 @@
                 <div class="dynamic-fields">
                     <div class="dynamic-field">
                         <p class="field-label">University</p>
-                        <p class="field-content">Example University</p>
+                        <p class="field-content">{{ student.1 }}</p>
                     </div>
                     <div class="dynamic-field">
                         <p class="field-label">Expected Graduation</p>
-                        <p class="field-content">May 2025</p>
+                        <p class="field-content">{{ student.4 }}</p>
                     </div>
                     <div class="dynamic-field">
                         <p class="field-label">Area of Study</p>
-                        <p class="field-content">Computer Science</p>
+                        <p class="field-content">{{ student.2 }}</p>
                     </div>
                     <div class="dynamic-field">
                         <p class="field-label">GPA</p>
-                        <p class="field-content">3.5</p>
+                        <p class="field-content">{{ student.5 }}</p>
                     </div>
                     <div class="dynamic-field">
                         <p class="field-label">Open to Work?</p>
-                        <p class="field-content">Yes</p>
+                        <p class="field-content">{{ student.6 }}</p>
                     </div>
                 </div>
                 <!-- End of dynamic fields -->
