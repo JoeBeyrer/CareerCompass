@@ -41,13 +41,14 @@ def create_recruiter_account(request):
         phone = request.POST['phone']
         email = request.POST['email']
         dob = request.POST['dob']
+        about_me = request.POST['about_me']
         # Get all recruiter specific data in the html form fields
         company_name = request.POST['company_name']
         about_company = request.POST['about_company']
         position = request.POST['position']
         company_link = request.POST['company_link']
         # Add the user to the Users table in PostgreSQL
-        add_user(username, fName, lName, phone, password, dob, email)
+        add_user(username, fName, lName, phone, password, dob, email, about_me)
         add_recruiter(username, company_name, about_company, position, company_link)
         return redirect('login')
     else:
@@ -64,6 +65,7 @@ def create_student_account(request):
         phone = request.POST['phone']
         email = request.POST['email']
         dob = request.POST['dob']
+        about_me = request.POST['about_me']
         # Get all student specific data in the html form fields
         university = request.POST['university']
         degree = request.POST['degree']
@@ -72,7 +74,7 @@ def create_student_account(request):
         gpa = request.POST['gpa']
         open_to_work = request.POST['open_to_work']
         # Add the user to the Users table in PostgreSQL
-        add_user(username, fName, lName, phone, password, dob, email)
+        add_user(username, fName, lName, phone, password, dob, email, about_me)
         add_student(username, university, degree, current_year, expected, gpa, open_to_work)
         return redirect('login')
     else:

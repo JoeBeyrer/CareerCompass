@@ -109,7 +109,7 @@
 
 <body>
     <div class="main">
-        <p class="sign">Create Account</p>
+        <p class="sign">Create Student Account</p>
         <form action="http://127.0.0.1:8000/careercompass/create-student-account/" method="post" class="create_account_form">
             {% csrf_token %}
             <input name="userID" type="text" placeholder="Username">
@@ -123,8 +123,9 @@
             <input name="degree" type="text" placeholder="Degree">
             <input name="current_year" type="text" placeholder="Current Year">
             <input name="expected" type="date" placeholder="Expected Graduation Date">
-            <input name="gpa" type="text" placeholder="GPA">
-            <input name="open_to_work" type="text" placeholder="Open to Work?">
+            <input name="gpa" type="text" placeholder="GPA (2 Decimal Places)">
+            <input name="open_to_work" type="text" placeholder="Open to Work? 'Y' or 'N'" >
+            <input name="about_me" type="text" placeholder="About You (Max: 255 Chars)">
             <button type="submit" class="submit">Sign Up</button>
         </form>
         <p class="login_link"><a href="http://127.0.0.1:8000/careercompass/login/">Already have an account? Sign in</a></p>
