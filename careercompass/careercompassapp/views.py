@@ -2,8 +2,9 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from .database_utils import *
 from django.contrib.auth.hashers import check_password, make_password
-from django.contrib.auth import login, get_user_model
+from django.contrib.auth import login, get_user_model, authenticate
 from django.contrib import messages
+from django.contrib.auth.models import User
 
 UserModel = get_user_model()
 
@@ -35,7 +36,7 @@ def create_recruiter_account(request):
     if request.method == "POST":
         # Get all data entered in the html form fields
         username = request.POST['userID']
-        password = make_password(request.POST['password']) # Password hashed with django's built-in make_password()
+        password = request.POST['password'] # Password hashed with django's built-in make_password()
         fName = request.POST['fName']
         lName = request.POST['lName']
         phone = request.POST['phone']
@@ -48,7 +49,9 @@ def create_recruiter_account(request):
         position = request.POST['position']
         company_link = request.POST['company_link']
         # Add the user to the Users table in PostgreSQL
-        add_user(username, fName, lName, phone, password, dob, email, about_me)
+        user = User.objects.create_user(username=username, email=email,   password=password)
+        user.save()
+        add_user(username, fName, lName, phone, make_password(password), dob, email, about_me)
         add_recruiter(username, company_name, about_company, position, company_link)
         return redirect('login')
     else:
@@ -74,6 +77,8 @@ def create_student_account(request):
         gpa = request.POST['gpa']
         open_to_work = request.POST['open_to_work']
         # Add the user to the Users table in PostgreSQL
+        user = User.objects.create_user(username=username, password=password)
+        user.save()
         add_user(username, fName, lName, phone, password, dob, email, about_me)
         add_student(username, university, degree, current_year, expected, gpa, open_to_work)
         return redirect('login')
@@ -91,9 +96,15 @@ def user_login(request):
         if user is not None and check_password(password, user[4]):
             # Set up session for the user
             request.session['user_id'] = user[0]
+            print(username)
+            print(password)
+            auth_user = authenticate(request, username="whatever", password="password")
+            print(auth_user)
+            login(request, auth_user)
+
 
             # Redirect the user to their account session
-            return HttpResponseRedirect('http://127.0.0.1:8000/careercompass/')
+            return HttpResponseRedirect('/careercompass/')
         else:
             # Display an error message for invalid credentials
             messages.error(request, 'Invalid username or password.')

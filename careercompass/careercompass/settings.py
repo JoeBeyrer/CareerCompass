@@ -46,7 +46,17 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'careercompassapp.middleware.LoginRequiredMiddleware',
 ]
+
+
+LOGIN_EXEMPT_URLS =( #<-- I am using allauth, so left some examples here)
+    r'careercompass/login',
+    r'careercompass/create-recruiter-account/',
+    r'careercompass/create-student-account/',
+)
+
+LOGIN_URL = '/careercompass/login/'
 
 ROOT_URLCONF = 'careercompass.urls'
 
