@@ -122,3 +122,54 @@ def get_following_count(UserID):
             return following
         else:
             return None
+        
+def create_post(PostID, PostedBy, Title, BodyText, Field, Link=None):
+    with connection.cursor() as cursor:
+        # Using cursor.execute with %s fields keeps the query safe from SQL injections
+        cursor.execute(
+            """
+            INSERT INTO careercompassapp_posts VALUES (%s, %s, %s, %s, %s, NOW(), %s);
+            """,
+            [PostID, PostedBy, Title, BodyText, Field, Link]
+        )
+
+def follow(UserID, FollowerID):
+    with connection.cursor() as cursor:
+        # Using cursor.execute with %s fields keeps the query safe from SQL injections
+        cursor.execute(
+            """
+            INSERT INTO careercompassapp_followers VALUES ('UserID_id'=%s, 'FollowerID_id'=%s);
+            """,
+            [UserID, FollowerID]
+        )
+
+def unfollow(UserID, FollowerID):
+    with connection.cursor() as cursor:
+        # Using cursor.execute with %s fields keeps the query safe from SQL injections
+        cursor.execute(
+            """
+            DELETE FROM careercompassapp_followers WHERE 'UserID_id'=%s AND 'FollowerID_id'=%s;
+            """,
+            [UserID, FollowerID]
+        )
+
+def liked(UserID, PostID):
+    with connection.cursor() as cursor:
+        # Using cursor.execute with %s fields keeps the query safe from SQL injections
+        cursor.execute(
+            """
+            INSERT INTO careercompassapp_likes VALUES (%s, %s);
+            """,
+            [UserID, PostID]
+        )
+
+def unlike(UserID, PostID):
+    with connection.cursor() as cursor:
+        # Using cursor.execute with %s fields keeps the query safe from SQL injections
+        cursor.execute(
+            """
+            DELETE FROM careercompassapp_likes WHERE 'UserID_id'=%s AND 'PostID_id'=%s;
+            """,
+            [UserID, PostID]
+        )
+
