@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        /* CSS styling for navbar */
+        .navbar {
+            background-color: #8C55AA;
+            padding: 10px 0px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Ubuntu', sans-serif;
+        }
+
+        .navbar-brand {
+            color: #FFFFFF;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 23px;
+            padding: 0px 10px;
+        }
+
+        .nav-links {
+            list-style-type: none;
+            margin: 0;
+            padding: 3;
+            display: flex;
+            align-items: center; /* Center items vertically */
+
+        }
+
+        .nav-links {
+            list-style-type: none;
+            margin: 0;
+            padding: 3;
+            display: flex;
+            align-items: center; /* Center items vertically */
+
+        }
+
+
+        .nav-link {
+            margin-right: 5px;
+            margin-left: 20px;
+            color: #FFFFFF;
+            text-decoration: none;
+        }
+
+        .nav-link:hover {
+            color: #CCCCCC; /* Darken the color on hover */
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #8C55AA;
+            min-width: 120px;
+            z-index: 1;
+            right: 0; /* Align the right side of the dropdown */
+            top: 100%; /* Position the dropdown below the button */
+            font-size: 16px;
+        }
+
+        .dropdown-content a {
+            color: #FFFFFF;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #6A1B9A;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .account-button {
+            background-color: #8C55AA;
+            color: #FFFFFF;
+            border: none;
+            cursor: pointer;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        .account-button:hover {
+            color: #CCCCCC; /* Darken the color on hover */
+        }
+
+        .account-button img {
+            margin-right: 5px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="navbar">
+        <a href="/careercompass/" class="navbar-brand">CareerCompass</a>
+        <ul class="nav-links">
+            <li><a href="/careercompass/" class="nav-link" style="font-size: 18px">
+                <i class="fa fa-home"></i>
+            </a></li>
+            <li><a href="#" class="nav-link" style="font-size: 16px">
+                <i class="fa fa-search"></i>
+            </a></li>
+            <li class="dropdown">
+                <button class="account-button" style="font-size: 18px">
+                    <i class="fa fa-user"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a href="#">My Profile</a>
+                    <a href="/careercompass/edit-profile/">Edit Profile</a>
+                    <a href="#">Logout</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+
+</html>

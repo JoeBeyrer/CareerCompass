@@ -13,7 +13,7 @@
 
         .main {
             background-color: #FFFFFF;
-            border-radius: 1.5em;
+            
             box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
             padding: 20px;
             box-sizing: border-box;
@@ -133,52 +133,55 @@
 </head>
 
 <body>
-    <div class="main">
-        <div class="profile-header">
-            <div class="profile-info">
-                <p class="profile-name">{{ student.8 }} {{ student.9 }}</p>
-                <p class="profile-username">@{{ student.0 }}</p>
-                <p class="profile-followers">
-                    <a href="#">{{ followers.0 }} Followers</a>
-                    <a href="#">{{ following.0 }} Following</a>
-                </p>
-                <!-- Dynamic fields for student -->
-                <div class="dynamic-fields">
-                    <div class="dynamic-field">
-                        <p class="field-label">University</p>
-                        <p class="field-content">{{ student.1 }}</p>
+    {% extends 'base.html' %}
+    {% block content %}
+        <div class="main">
+            <div class="profile-header">
+                <div class="profile-info">
+                    <p class="profile-name">{{ student.8 }} {{ student.9 }}</p>
+                    <p class="profile-username">@{{ student.0 }}</p>
+                    <p class="profile-followers">
+                        <a href="#">{{ followers.0 }} Followers</a>
+                        <a href="#">{{ following.0 }} Following</a>
+                    </p>
+                    <!-- Dynamic fields for student -->
+                    <div class="dynamic-fields">
+                        <div class="dynamic-field">
+                            <p class="field-label">University</p>
+                            <p class="field-content">{{ student.1 }}</p>
+                        </div>
+                        <div class="dynamic-field">
+                            <p class="field-label">Expected Graduation</p>
+                            <p class="field-content">{{ student.4 }}</p>
+                        </div>
+                        <div class="dynamic-field">
+                            <p class="field-label">Area of Study</p>
+                            <p class="field-content">{{ student.2 }}</p>
+                        </div>
+                        <div class="dynamic-field">
+                            <p class="field-label">GPA</p>
+                            <p class="field-content">{{ student.5 }}</p>
+                        </div>
+                        <div class="dynamic-field">
+                            <p class="field-label">Open to Work?</p>
+                            <p class="field-content">{{ student.6 }}</p>
+                        </div>
                     </div>
-                    <div class="dynamic-field">
-                        <p class="field-label">Expected Graduation</p>
-                        <p class="field-content">{{ student.4 }}</p>
-                    </div>
-                    <div class="dynamic-field">
-                        <p class="field-label">Area of Study</p>
-                        <p class="field-content">{{ student.2 }}</p>
-                    </div>
-                    <div class="dynamic-field">
-                        <p class="field-label">GPA</p>
-                        <p class="field-content">{{ student.5 }}</p>
-                    </div>
-                    <div class="dynamic-field">
-                        <p class="field-label">Open to Work?</p>
-                        <p class="field-content">{{ student.6 }}</p>
+                    <!-- End of dynamic fields -->
+                    <div>
+                        <p class="field-label">About Me</p>
+                        <p class="description">{{ student.13 }}</p>
                     </div>
                 </div>
-                <!-- End of dynamic fields -->
-                <div>
-                    <p class="field-label">About Me</p>
-                    <p class="description">{{ student.13 }}</p>
+                <button type="button" class="follow-button">Follow</button>
+            </div>
+            <div class="posts-section">
+                <div class="posts">
+                    <!-- Posts content goes here -->
                 </div>
             </div>
-            <button type="button" class="follow-button">Follow</button>
         </div>
-        <div class="posts-section">
-            <div class="posts">
-                <!-- Posts content goes here -->
-            </div>
-        </div>
-    </div>
+    {% endblock %}
 </body>
 
 </html>
