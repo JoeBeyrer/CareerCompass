@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from .database_utils import *
 from django.contrib.auth.hashers import check_password, make_password
-from django.contrib.auth import login, get_user_model, authenticate
+from django.contrib.auth import login, get_user_model, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.models import User
 
@@ -113,4 +113,5 @@ def user_login(request):
         return render(request, 'login.html')
 
 def user_logout(request):
+    logout(request)
     return redirect('login')
