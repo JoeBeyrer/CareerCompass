@@ -1,0 +1,142 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        body {
+            background-color: #F3EBF6;
+            font-family: 'Ubuntu', sans-serif;
+        }
+
+        .main {
+            background-color: #FFFFFF;
+            width: 400px;
+            margin: 20px auto;
+            border-radius: 1.5em;
+            box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
+            padding: 20px;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .post {
+            margin-bottom: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+
+        .post-username {
+            font-size: 16px;
+            font-weight: bold;
+            color: #8C55AA;
+            margin-bottom: 10px;
+        }
+
+        .post-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .post-field {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .post-date {
+            font-size: 12px;
+            color: #777;
+            position: absolute;
+            bottom: 15px;
+            right: 30px;
+        }
+        
+        .post-user {
+            font-size: 16px;
+            position: absolute;
+            bottom: 15px;
+            left: 30px;
+            font-family: 'Ubuntu', sans-serif;
+        }
+
+        .post-info {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 10px;
+        }
+
+        .post-info span {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .post-info a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        .post-buttons {
+            margin-top: 10px;
+            bottom:5px;
+            left: 30px;
+        }
+
+        .post-buttons button {
+            cursor: pointer;
+                
+            border: 0;
+            font-family: 'Ubuntu', sans-serif;
+            font-size: 20px;
+            padding-top: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .post-buttons a {
+            text-decoration: none;
+            color: #fff;
+        }
+
+        @media (max-width: 600px) {
+            .main {
+                width: 90%;
+                border-radius: 0px;
+            }
+        }
+    </style>
+    <title>Post</title>
+</head>
+
+<body>
+    <div class="main">
+        <div class="post">
+            <div class="post-title">Title of the Post</div>
+            <div class="post-field">
+                Computer Science
+            </div>
+            <p class="post-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec placerat,
+                tellus nec lobortis fringilla.</p>
+            <div class="post-buttons">
+                <button><i class="fa fa-heart" style="color: #B3A3C8;"></i></button>
+                <span class="like-count">10 Likes</span>
+            </div>
+            <div class="post-user">
+                <a href="#" style="text-decoration:none; color: #8C55AA"><i class="fa fa-user"></i> Username</a>
+            </div>
+            <div class="post-date">April 18, 2024</div>
+        </div>
+    </div>
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+
+</html>
