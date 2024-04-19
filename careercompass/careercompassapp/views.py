@@ -22,10 +22,13 @@ create_likes_table()
 #TODO: Fill in requests for entering pages - will need to make view functions for queries
 
 def index(request):
-    return render(request, 'index.html')
+    current_user = request.user.username
+    user_type = get_user_type(current_user)
+    return render(request, 'index.html', {'type': user_type})
 
 def student_profile(request, username):
     current_user = request.user.username
+    user_type = get_user_type(current_user)
     if request.method == "POST":
         action = request.POST['follow']
         if action =='unfollow':
@@ -38,10 +41,11 @@ def student_profile(request, username):
     followsList = following_list(current_user)
 
     return render(request, 'profile-student.html', {'student': student, 'followers': 
-                    followers, 'following': following, 'following_list': followsList})
+                    followers, 'following': following, 'following_list': followsList, 'type': user_type})
 
 def recruiter_profile(request, username):
     current_user = request.user.username
+    user_type = get_user_type(current_user)
     if request.method == "POST":
         action = request.POST['follow']
         if action =='unfollow':
@@ -55,10 +59,12 @@ def recruiter_profile(request, username):
 
     return render(request, 'profile-recruiter.html', {'recruiter': recruiter, 
                     'followers': followers, 'following': following, 'following_list': 
-                    followsList})
+                    followsList, 'type': user_type})
 
 def edit_profile(request): 
-    return render(request, 'edit-profile.html')
+    current_user = request.user.username
+    user_type = get_user_type(current_user)
+    return render(request, 'edit-profile.html', {'type': user_type})
 
 def create_recruiter_account(request): 
     if request.method == "POST":
@@ -79,7 +85,7 @@ def create_recruiter_account(request):
         # Add the user to the Users table in PostgreSQL
         user = User.objects.create_user(username=username, email=email,   password=password)
         user.save()
-        add_user(username, fName, lName, phone, make_password(password), dob, email, about_me)
+        add_user(username, fName, lName, phone, make_password(password), dob, email, 'R', about_me)
         add_recruiter(username, company_name, about_company, position, company_link)
         return redirect('login')
     else:
@@ -107,7 +113,7 @@ def create_student_account(request):
         # Add the user to the Users table in PostgreSQL
         user = User.objects.create_user(username=username, password=password)
         user.save()
-        add_user(username, fName, lName, phone, make_password(password), dob, email, about_me)
+        add_user(username, fName, lName, phone, make_password(password), dob, email, 'S', about_me)
         add_student(username, university, degree, current_year, expected, gpa, open_to_work)
         return redirect('login')
     else:
@@ -145,6 +151,8 @@ def user_logout(request):
     return redirect('login')
 
 def create_new_post(request):
+    current_user = request.user.username
+    user_type = get_user_type(current_user)
     if request.method == "POST":
         Title = request.POST['Title']
         BodyText = request.POST['BodyText']
@@ -153,4 +161,4 @@ def create_new_post(request):
         create_post(request.user.username, Title, BodyText, Field, Link)
     else:
         # Render form html page if GET request
-        return render(request, 'create-post.html')
+        return render(request, 'create-post.html', {'type': user_type})

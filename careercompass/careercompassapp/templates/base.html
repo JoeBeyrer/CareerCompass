@@ -122,7 +122,11 @@
                     <i class="fa fa-user"></i>
                 </button>
                 <div class="dropdown-content">
-                    <a href="#">My Profile</a>
+                    {% if type.0 == "R" %} 
+                        <a href="/careercompass/recruiter/{{ user.username }}">My Profile</a>
+                    {% else %}  
+                        <a href="/careercompass/student/{{ user.username }}">My Profile</a>
+                    {% endif %} 
                     <a href="/careercompass/edit-profile/">Edit Profile</a>
                     <a href="{% url 'logout' %}">Logout</a>
                 </div>

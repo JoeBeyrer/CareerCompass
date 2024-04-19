@@ -11,7 +11,8 @@ def create_users_table():
                 PasswordHash VARCHAR(128) NOT NULL,
                 DOB DATE NOT NULL,
                 AboutMe TEXT,
-                Email VARCHAR(63) UNIQUE NOT NULL
+                Email VARCHAR(63) UNIQUE NOT NULL,
+                Type CHAR(1)
             );
         """)
 

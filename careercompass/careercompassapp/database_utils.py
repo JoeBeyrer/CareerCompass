@@ -4,14 +4,14 @@
 from django.db import connection
 
 # Add the user to the database
-def add_user(UserID, FirstName, LastName, PhoneNumber, PasswordHash, DOB, Email, AboutMe=None):
+def add_user(UserID, FirstName, LastName, PhoneNumber, PasswordHash, DOB, Email, Type, AboutMe=None):
      with connection.cursor() as cursor:
         # Using cursor.execute with %s fields keeps the query safe from SQL injections
         cursor.execute(
             """
-            INSERT INTO users VALUES (%s, %s, %s, %s, %s, %s, %s, %s);
+            INSERT INTO users VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s);
             """,
-            [UserID, FirstName, LastName, PhoneNumber, PasswordHash, DOB, AboutMe, Email]
+            [UserID, FirstName, LastName, PhoneNumber, PasswordHash, DOB, AboutMe, Email, Type]
         )
 
 def add_student(UserID, University, Degree, CurrentYear, ExpectedGraduation, GPA, OpenToWork):
@@ -188,3 +188,18 @@ def following_list(UserID):
         else:
             return None
 
+def get_user_type(UserID):
+    with connection.cursor() as cursor:
+        # Using cursor.execute with %s fields keeps the query safe from SQL injections
+        cursor.execute(
+            """
+            SELECT Type FROM users WHERE UserID=%s;
+            """,
+            [UserID]
+        )
+        user_type = cursor.fetchone()
+        print(user_type)
+        if user_type:
+            return user_type
+        else:
+            return None
