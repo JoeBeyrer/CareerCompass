@@ -9,7 +9,7 @@ def add_user(UserID, FirstName, LastName, PhoneNumber, PasswordHash, DOB, Email,
         # Using cursor.execute with %s fields keeps the query safe from SQL injections
         cursor.execute(
             """
-            INSERT INTO careercompassapp_users VALUES (%s, %s, %s, %s, %s, %s, %s, %s);
+            INSERT INTO users VALUES (%s, %s, %s, %s, %s, %s, %s, %s);
             """,
             [UserID, FirstName, LastName, PhoneNumber, PasswordHash, DOB, AboutMe, Email]
         )
@@ -19,7 +19,7 @@ def add_student(UserID, University, Degree, CurrentYear, ExpectedGraduation, GPA
         # Using cursor.execute with %s fields keeps the query safe from SQL injections
         cursor.execute(
             """
-            INSERT INTO careercompassapp_students VALUES (%s, %s, %s, %s, %s, %s, %s);
+            INSERT INTO students VALUES (%s, %s, %s, %s, %s, %s, %s);
             """,
             [UserID, University, Degree, CurrentYear, ExpectedGraduation, GPA, OpenToWork]
         )
@@ -29,7 +29,7 @@ def add_recruiter(UserID, CompanyName, AboutCompany, Position, CompanyLink):
         # Using cursor.execute with %s fields keeps the query safe from SQL injections
         cursor.execute(
             """
-            INSERT INTO careercompassapp_recruiters VALUES (%s, %s, %s, %s, %s);
+            INSERT INTO recruiters VALUES (%s, %s, %s, %s, %s);
             """,
             [UserID, CompanyName, AboutCompany, Position, CompanyLink]
         ) 
@@ -40,7 +40,7 @@ def get_user(UserID):
         # Using cursor.execute with %s fields keeps the query safe from SQL injections
         cursor.execute(
             """
-            SELECT * FROM careercompassapp_users WHERE careercompassapp_users."UserID" = %s;
+            SELECT * FROM users WHERE users.UserID = %s;
             """,
             [UserID]
         )
@@ -56,9 +56,9 @@ def get_student_data(UserID):
         # Using cursor.execute with %s fields keeps the query safe from SQL injections
         cursor.execute(
             """
-            SELECT * FROM careercompassapp_students JOIN careercompassapp_users 
-            ON careercompassapp_students."UserID_id" = careercompassapp_users."UserID" 
-            WHERE careercompassapp_users."UserID" = %s;
+            SELECT * FROM students JOIN users 
+            ON students.UserID = users.UserID 
+            WHERE users.UserID = %s;
             """,
             [UserID]
         )
@@ -75,9 +75,9 @@ def get_recruiter_data(UserID):
         # Using cursor.execute with %s fields keeps the query safe from SQL injections
         cursor.execute(
             """
-            SELECT * FROM careercompassapp_recruiters JOIN careercompassapp_users 
-            ON careercompassapp_recruiters."UserID_id" = careercompassapp_users."UserID" 
-            WHERE careercompassapp_users."UserID" = %s;
+            SELECT * FROM recruiters JOIN users 
+            ON recruiters.UserID = users.UserID 
+            WHERE users.UserID = %s;
             """,
             [UserID]
         )
@@ -94,7 +94,7 @@ def get_follower_count(UserID):
         # Using cursor.execute with %s fields keeps the query safe from SQL injections
         cursor.execute(
             """
-            SELECT COUNT(*) FROM careercompassapp_followers WHERE careercompassapp_followers."UserID_id" = %s;
+            SELECT COUNT(*) FROM followers WHERE followers.UserID = %s;
             """,
             [UserID]
         )
@@ -111,7 +111,7 @@ def get_following_count(UserID):
         # Using cursor.execute with %s fields keeps the query safe from SQL injections
         cursor.execute(
             """
-            SELECT COUNT(*) FROM careercompassapp_followers WHERE careercompassapp_followers."FollowerID_id" = %s;
+            SELECT COUNT(*) FROM followers WHERE followers.FollowerID = %s;
             """,
             [UserID]
         )
@@ -123,14 +123,14 @@ def get_following_count(UserID):
         else:
             return None
         
-def create_post(PostID, PostedBy, Title, BodyText, Field, Link=None):
+def create_post(PostedBy, Title, BodyText, Field, Link=None):
     with connection.cursor() as cursor:
         # Using cursor.execute with %s fields keeps the query safe from SQL injections
         cursor.execute(
             """
-            INSERT INTO careercompassapp_posts VALUES (%s, %s, %s, %s, %s, NOW(), %s);
+            INSERT INTO posts VALUES (%s, NOW(), %s, %s, %s, %s);
             """,
-            [PostID, PostedBy, Title, BodyText, Field, Link]
+            [PostedBy, Title, BodyText, Field, Link]
         )
 
 def follow(UserID, FollowerID):
@@ -138,7 +138,7 @@ def follow(UserID, FollowerID):
         # Using cursor.execute with %s fields keeps the query safe from SQL injections
         cursor.execute(
             """
-            INSERT INTO careercompassapp_followers VALUES ('UserID_id'=%s, 'FollowerID_id'=%s);
+            INSERT INTO followers VALUES (UserID=%s, FollowerID=%s);
             """,
             [UserID, FollowerID]
         )
@@ -148,28 +148,28 @@ def unfollow(UserID, FollowerID):
         # Using cursor.execute with %s fields keeps the query safe from SQL injections
         cursor.execute(
             """
-            DELETE FROM careercompassapp_followers WHERE 'UserID_id'=%s AND 'FollowerID_id'=%s;
+            DELETE FROM followers WHERE UserID=%s AND FollowerID=%s;
             """,
             [UserID, FollowerID]
         )
 
-def liked(UserID, PostID):
+def liked(UserID, PostedBy, DatePosted):
     with connection.cursor() as cursor:
         # Using cursor.execute with %s fields keeps the query safe from SQL injections
         cursor.execute(
             """
-            INSERT INTO careercompassapp_likes VALUES (%s, %s);
+            INSERT INTO likes VALUES (%s, %s, %s);
             """,
-            [UserID, PostID]
+            [UserID, PostedBy, DatePosted]
         )
 
-def unlike(UserID, PostID):
+def unlike(UserID, PostedBy, DatePosted):
     with connection.cursor() as cursor:
         # Using cursor.execute with %s fields keeps the query safe from SQL injections
         cursor.execute(
             """
-            DELETE FROM careercompassapp_likes WHERE 'UserID_id'=%s AND 'PostID_id'=%s;
+            DELETE FROM likes WHERE UserID=%s AND PostedBy=%s AND DatePosted=%s;
             """,
-            [UserID, PostID]
+            [UserID, PostedBy, DatePosted]
         )
 
