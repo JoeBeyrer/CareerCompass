@@ -71,7 +71,7 @@ def create_student_account(request):
     if request.method == "POST":
         # Get all user data entered in the html form fields
         username = request.POST['userID']
-        password = make_password(request.POST['password']) # Password hashed with django's built-in make_password()
+        password = request.POST['password'] # Password hashed with django's built-in make_password()
         fName = request.POST['fName']
         lName = request.POST['lName']
         phone = request.POST['phone']
@@ -88,7 +88,7 @@ def create_student_account(request):
         # Add the user to the Users table in PostgreSQL
         user = User.objects.create_user(username=username, password=password)
         user.save()
-        add_user(username, fName, lName, phone, password, dob, email, about_me)
+        add_user(username, fName, lName, phone, make_password(password), dob, email, about_me)
         add_student(username, university, degree, current_year, expected, gpa, open_to_work)
         return redirect('login')
     else:
@@ -107,7 +107,7 @@ def user_login(request):
             request.session['user_id'] = user[0]
             print(username)
             print(password)
-            auth_user = authenticate(request, username="whatever", password="password")
+            auth_user = authenticate(request, username=username, password=password)
             print(auth_user)
             login(request, auth_user)
 
@@ -131,7 +131,7 @@ def create_new_post(request):
         BodyText = request.POST['BodyText']
         Field = request.POST['Field']
         Link = request.POST['Link'] # May need to change
-        create_post(PostID, request.user.username, Title, BodyText, Field, Link)
+        create_post(request.user.username, Title, BodyText, Field, Link)
     else:
         # Render form html page if GET request
         return render(request, 'create-post.html')
