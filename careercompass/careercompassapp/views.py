@@ -5,8 +5,17 @@ from django.contrib.auth.hashers import check_password, make_password
 from django.contrib.auth import login, get_user_model, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.models import User
+from .create_tables import *
 
 UserModel = get_user_model()
+create_users_table()
+create_students_table()
+create_recruiters_table()
+create_posts_table()
+create_followers_table()
+create_likes_table()
+
+
 
 # Create your views here.
 
@@ -115,3 +124,14 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect('login')
+
+def create_new_post(request):
+    if request.method == "POST":
+        Title = request.POST['Title']
+        BodyText = request.POST['BodyText']
+        Field = request.POST['Field']
+        Link = request.POST['Link'] # May need to change
+        create_post(PostID, request.user.username, Title, BodyText, Field, Link)
+    else:
+        # Render form html page if GET request
+        return render(request, 'create-post.html')
