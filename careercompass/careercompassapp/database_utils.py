@@ -117,7 +117,6 @@ def get_following_count(UserID):
         )
         # Fetch the row with the correct UserID
         following = cursor.fetchone()
-        print(following)
         if following:
             return following
         else:
@@ -138,7 +137,7 @@ def follow(UserID, FollowerID):
         # Using cursor.execute with %s fields keeps the query safe from SQL injections
         cursor.execute(
             """
-            INSERT INTO followers VALUES (UserID=%s, FollowerID=%s);
+            INSERT INTO followers VALUES (%s, %s);
             """,
             [UserID, FollowerID]
         )
@@ -172,4 +171,20 @@ def unlike(UserID, PostedBy, DatePosted):
             """,
             [UserID, PostedBy, DatePosted]
         )
+
+def following_list(UserID):
+    with connection.cursor() as cursor:
+        # Using cursor.execute with %s fields keeps the query safe from SQL injections
+        cursor.execute(
+            """
+            SELECT UserID FROM followers WHERE FollowerID=%s;
+            """,
+            [UserID]
+        )
+        following = cursor.fetchall()
+        print(following)
+        if following:
+            return [item[0] for item in following]
+        else:
+            return None
 

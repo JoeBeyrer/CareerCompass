@@ -165,7 +165,18 @@
                         <p class="description">{{ recruiter.11 }}</p>
                     </div>
                 </div>
-                <button type="button" class="follow-button">Follow</button>
+                <form method="POST">
+                    {% csrf_token %}
+                    {% if recruiter.0 != user.username %}
+                        {% if recruiter.0 in following_list %}
+                            <button type="submit" class="follow-button" name="follow" 
+                            value="unfollow" type="submit">Unfollow</button>
+                        {% else %}
+                            <button type="submit" class="follow-button" name="follow" 
+                            value="follow" type="submit">Follow</button>
+                        {% endif %}
+                    {% endif %}
+                </form>
             </div>
             <div class="posts-section">
                 <div class="posts">

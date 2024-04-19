@@ -25,18 +25,37 @@ def index(request):
     return render(request, 'index.html')
 
 def student_profile(request, username):
+    current_user = request.user.username
+    if request.method == "POST":
+        action = request.POST['follow']
+        if action =='unfollow':
+            unfollow(username, current_user)
+        elif action =='follow':
+            follow(username, current_user)
     student = get_student_data(username)
     followers = get_follower_count(username)
     following = get_following_count(username)
+    followsList = following_list(current_user)
 
-    return render(request, 'profile-student.html', {'student': student, 'followers': followers, 'following': following})
+    return render(request, 'profile-student.html', {'student': student, 'followers': 
+                    followers, 'following': following, 'following_list': followsList})
 
 def recruiter_profile(request, username):
+    current_user = request.user.username
+    if request.method == "POST":
+        action = request.POST['follow']
+        if action =='unfollow':
+            unfollow(username, current_user)
+        elif action =='follow':
+            follow(username, current_user)
     recruiter = get_recruiter_data(username)
     followers = get_follower_count(username)
     following = get_following_count(username)
+    followsList = following_list(current_user)
 
-    return render(request, 'profile-recruiter.html', {'recruiter': recruiter, 'followers': followers, 'following': following})
+    return render(request, 'profile-recruiter.html', {'recruiter': recruiter, 
+                    'followers': followers, 'following': following, 'following_list': 
+                    followsList})
 
 def edit_profile(request): 
     return render(request, 'edit-profile.html')

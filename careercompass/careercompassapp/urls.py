@@ -11,5 +11,6 @@ urlpatterns = [
     path('create-recruiter-account/', views.create_recruiter_account, name='create-recruiter-account'),
     path('create-student-account/', views.create_student_account, name='create-student-account'),
     path('logout', views.user_logout, name='logout'),
+    path('create-post/', views.create_new_post, name='create-post'),
     # TODO: Add all pages here
 ]
