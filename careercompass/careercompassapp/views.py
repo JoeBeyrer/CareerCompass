@@ -109,7 +109,7 @@ def create_student_account(request):
         current_year = request.POST['current_year']
         expected = request.POST['expected']
         gpa = request.POST['gpa']
-        open_to_work = request.POST['open_to_work']
+        open_to_work = 'Y' if request.POST['open_to_work'] else 'N'
         # Add the user to the Users table in PostgreSQL
         user = User.objects.create_user(username=username, password=password)
         user.save()
