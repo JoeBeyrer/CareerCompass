@@ -122,8 +122,8 @@
                     <i class="fa fa-user"></i>
                 </button>
                 <div class="dropdown-content">
-                    {% if request.user.about_company %}
-                    <a href="/careercompass/recruiter/{{ request.user.username }}">My Profile</a>
+                    {% if type.0 == 'R' %}
+                        <a href="/careercompass/recruiter/{{ request.user.username }}">My Profile</a>
                     {% else %}
                         <a href="/careercompass/student/{{ request.user.username }}">My Profile</a>
                     {% endif %}

@@ -9,9 +9,9 @@ def add_user(UserID, FirstName, LastName, PhoneNumber, PasswordHash, DOB, Email,
         # Using cursor.execute with %s fields keeps the query safe from SQL injections
         cursor.execute(
             """
-            INSERT INTO users VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s);
+            INSERT INTO users VALUES (%s, %s, %s, %s, %s, %s, %s, %s);
             """,
-            [UserID, FirstName, LastName, PhoneNumber, PasswordHash, DOB, AboutMe, Email, Type]
+            [UserID, FirstName, LastName, PhoneNumber, PasswordHash, DOB, AboutMe, Email]
         )
 
 def add_student(UserID, University, Degree, CurrentYear, ExpectedGraduation, GPA, OpenToWork):
@@ -193,13 +193,19 @@ def get_user_type(UserID):
         # Using cursor.execute with %s fields keeps the query safe from SQL injections
         cursor.execute(
             """
-            SELECT Type FROM users WHERE UserID=%s;
+            SELECT 
+            CASE 
+                WHEN EXISTS (SELECT UserID FROM recruiters WHERE UserID=%s) THEN 'R'
+                ELSE 'S'
+            END;
             """,
             [UserID]
         )
         user_type = cursor.fetchone()
+        
         print(user_type)
         if user_type:
             return user_type
         else:
             return None
+        

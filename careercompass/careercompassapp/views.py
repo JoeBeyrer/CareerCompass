@@ -85,7 +85,7 @@ def create_recruiter_account(request):
         # Add the user to the Users table in PostgreSQL
         user = User.objects.create_user(username=username, email=email,   password=password)
         user.save()
-        add_user(username, fName, lName, phone, make_password(password), dob, email, 'R', about_me)
+        add_user(username, fName, lName, phone, make_password(password), dob, email, about_me)
         add_recruiter(username, company_name, about_company, position, company_link)
         return redirect('login')
     else:
@@ -113,7 +113,7 @@ def create_student_account(request):
         # Add the user to the Users table in PostgreSQL
         user = User.objects.create_user(username=username, password=password)
         user.save()
-        add_user(username, fName, lName, phone, make_password(password), dob, email, 'S', about_me)
+        add_user(username, fName, lName, phone, make_password(password), dob, email, about_me)
         add_student(username, university, degree, current_year, expected, gpa, open_to_work)
         return redirect('login')
     else:
