@@ -214,7 +214,7 @@ def get_user_posts(UserID):
         # Using cursor.execute with %s fields keeps the query safe from SQL injections
         cursor.execute(
             """
-            SELECT * FROM posts WHERE PostedBy=%s;
+            SELECT * FROM posts WHERE PostedBy=%s ORDER BY DatePosted DESC;
             """,
             [UserID]
         )

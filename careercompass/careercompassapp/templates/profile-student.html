@@ -115,14 +115,14 @@
             font-size: 10px; 
             color: rgba(0, 0, 0, 0.7); 
         }
-        .posts-section {
-            padding-top: 20px;
-            overflow-y: scroll;
-            max-height: 300px; 
-        }
 
-        .posts {
-            /* Styles for posts */
+
+        .posts-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between; /* Distribute items evenly */
+            background-color: #F3EBF6;
+            border-radius: 1.5EM;
         }
 
         a {
@@ -130,7 +130,14 @@
             color: #8C55AA;
             text-decoration: none;
             display: block;
+        }
+
+        .no-posts {
+            color: #8C55AA;
+            margin: auto;
+            font-size: 20px;
             text-align: center;
+
         }
 
         @media (max-width: 600px) {
@@ -199,9 +206,19 @@
                         {% endif %}
                 </form>
             </div>
-            <div class="posts-section">
                 <div class="posts">
-                    <!-- Posts content goes here -->
+                    <div class="posts-section">
+                        {% if posts %}
+                            {% for post in posts %}
+                                {% include './post-card.html' %}
+                            {% endfor %}
+                        {% else %}
+                            <div class="no-posts">
+                                <i class="fa fa-ban" style="font-size: 40px"></i>
+                                <p>This User Has No Posts</p>
+                            </div>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>

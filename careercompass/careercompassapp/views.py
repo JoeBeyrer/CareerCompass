@@ -28,11 +28,12 @@ def index(request):
     posts = get_following_posts(current_user)
     print(posts)
     post_data = []
-    for post in posts:
-        has_liked = check_liked_post(request.user.username, post[0], post[1])
-        likes_count = get_like_count(post[0], post[1])
-        poster_type = get_user_type(post[0])
-        post_data.append({'post': post, 'likes_count': likes_count, 'user_type': poster_type, 'has_liked': has_liked})
+    if posts:
+        for post in posts:
+            has_liked = check_liked_post(request.user.username, post[0], post[1])
+            likes_count = get_like_count(post[0], post[1])
+            poster_type = get_user_type(post[0])
+            post_data.append({'post': post, 'likes_count': likes_count, 'user_type': poster_type, 'has_liked': has_liked})
     print(post_data)
     return render(request, 'index.html', {'type': user_type, 'posts': post_data})
 
@@ -71,9 +72,18 @@ def student_profile(request, username):
     followers = get_follower_count(username)
     following = get_following_count(username)
     followsList = following_list(current_user)
+    posts = get_user_posts(username)
+    post_data = []
+    if posts:
+        for post in posts:
+            has_liked = check_liked_post(request.user.username, post[0], post[1])
+            likes_count = get_like_count(post[0], post[1])
+            poster_type = get_user_type(post[0])
+            post_data.append({'post': post, 'likes_count': likes_count, 'user_type': poster_type, 'has_liked': has_liked})
 
     return render(request, 'profile-student.html', {'student': student, 'followers': 
-                    followers, 'following': following, 'following_list': followsList, 'type': user_type})
+                    followers, 'following': following, 'following_list': followsList, 
+                    'type': user_type, 'posts': post_data})
 
 def recruiter_profile(request, username):
     current_user = request.user.username
@@ -88,10 +98,18 @@ def recruiter_profile(request, username):
     followers = get_follower_count(username)
     following = get_following_count(username)
     followsList = following_list(current_user)
+    posts = get_user_posts(username)
+    post_data = []
+    if posts:
+        for post in posts:
+            has_liked = check_liked_post(request.user.username, post[0], post[1])
+            likes_count = get_like_count(post[0], post[1])
+            poster_type = get_user_type(post[0])
+            post_data.append({'post': post, 'likes_count': likes_count, 'user_type': poster_type, 'has_liked': has_liked})
 
     return render(request, 'profile-recruiter.html', {'recruiter': recruiter, 
                     'followers': followers, 'following': following, 'following_list': 
-                    followsList, 'type': user_type})
+                    followsList, 'type': user_type, 'posts': post_data})
 
 def edit_profile(request): 
     current_user = request.user.username
