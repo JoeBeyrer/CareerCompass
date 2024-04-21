@@ -104,12 +104,34 @@
             margin-right: 5px;
         }
 
+        .new-post-button {
+            margin-left: auto; /* Push the button to the right */
+            margin-right: auto; /* Push the button to the left */
+            text-decoration: none;
+            background-color: #8C55AA;
+            border: none;
+            cursor: pointer;
+            padding: 0px 20px;
+            border-radius: 5px;
+            font-size: 30px;
+            transition: background-color 0.3s ease;
+        }
+
+        .new-post-icon:hover {
+            color: #CCCCCC; /* Darken the color on hover */
+        }
+
+        
+
     </style>
 </head>
 
 <body>
     <div class="navbar">
         <a href="/careercompass/" class="navbar-brand">CareerCompass</a>
+        <button class="new-post-button"><a href="/careercompass/create-post/" style="color: #FFFFFF">
+            <i class="fa fa-plus-circle new-post-icon"></i>
+        </a></button>
         <ul class="nav-links">
             <li><a href="/careercompass/" class="nav-link" style="font-size: 18px">
                 <i class="fa fa-home"></i>
@@ -128,6 +150,7 @@
                         <a href="/careercompass/student/{{ request.user.username }}">My Profile</a>
                     {% endif %}
                     <a href="/careercompass/edit-profile/">Edit Profile</a>
+                    <a href="/careercompass/create-post/">Create Post</a>
                     <a href="{% url 'logout' %}">Logout</a>
                 </div>
             </li>

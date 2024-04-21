@@ -1,0 +1,116 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        body {
+            background-color: #F3EBF6;
+            font-family: 'Ubuntu', sans-serif;
+        }
+
+        .main {
+            background-color: #FFFFFF;
+            box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .sign {
+            padding-top: 10px;
+            color: #8C55AA;
+            font-family: 'Ubuntu', sans-serif;
+            font-weight: bold;
+            font-size: 23px;
+            text-align: center;
+        }
+
+        input[type="text"] {
+            width: 90%;
+            color: rgb(38, 50, 56);
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 1px;
+            background: rgba(136, 126, 126, 0.04);
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            outline: none;
+            box-sizing: border-box;
+            border: 2px solid rgba(0, 0, 0, 0.02);
+            margin-bottom: 20px;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+            font-family: 'Ubuntu', sans-serif;
+            max-width: 400px; /* Set a maximum width */
+        }
+
+        input[type="text"]:focus {
+            border: 2px solid rgba(0, 0, 0, 0.18) !important;
+        }
+
+        .submit {
+            cursor: pointer;
+            border-radius: 5em;
+            color: #fff;
+            background: linear-gradient(to right, #9C27B0, #E040FB);
+            border: 0;
+            padding-left: 40px;
+            padding-right: 40px;
+            padding-bottom: 10px;
+            padding-top: 10px;
+            font-family: 'Ubuntu', sans-serif;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+            font-size: 13px;
+            box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
+        }
+
+        .cancel {
+            text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);
+            color: #8C55AA;
+            padding-top: 5px;
+            text-align: center;
+        }
+
+        a {
+            text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);
+            color: #8C55AA;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            .main {
+                width: 90%;
+                border-radius: 0px;
+            }
+        }
+    </style>
+    <title>Edit Profile</title>
+</head>
+
+<body>
+    {% extends './base.html' %}
+    {% block content %}
+        <div class="main">
+            <p class="sign">Create Post</p>
+            <form action="http://127.0.0.1:8000/careercompass/create-post/" method="post" class="create_post_form">
+                {% csrf_token %}
+                <input name="Title" type="text" placeholder="Title">
+                <input name="Field" type="text" placeholder="Related Job Field">
+                <input name="BodyText" type="text" placeholder="Body Text">
+                <input name="Link" type="text" placeholder="Link (Optional)">
+                <button type="submit" class="submit">Post</button>
+            </form>
+            <p class="cancel"><a href="/careercompass/">Cancel</a></p>
+        </div>
+    {% endblock %}
+</body>
+
+</html>

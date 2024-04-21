@@ -1,3 +1,58 @@
-{% extends './base.html' %}
-{% block content %}
-{% endblock %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        body {
+            background-color: #F3EBF6;
+            font-family: 'Ubuntu', sans-serif;
+        }
+
+        .main {
+            background-color: #FFFFFF;
+            box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .posts {
+            /* Styles for posts */
+        }
+
+        a {
+            text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);
+            color: #8C55AA;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+        }
+
+        
+        @media (max-width: 600px) {
+            .dynamic-field {
+                width: 100%; /* Show dynamic fields in full width on smaller screens */
+                margin-right: 0; /* Remove margin on smaller screens */
+            }
+        }
+    </style>
+    <title>Home Page</title>
+</head>
+
+<body>
+    {% extends './base.html' %}
+    {% block content %}
+        <div class="main">
+            <div class="posts-section">
+                {% for post in posts %}
+                    {% include './post.html' %}
+                {% endfor %}
+            </div>
+        </div>
+    {% endblock %}
+</body>
+
+</html>

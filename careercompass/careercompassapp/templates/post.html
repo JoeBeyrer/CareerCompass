@@ -117,20 +117,22 @@
 <body>
     <div class="main">
         <div class="post">
-            <div class="post-title">Title of the Post</div>
-            <div class="post-field">
-                Computer Science
-            </div>
-            <p class="post-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec placerat,
-                tellus nec lobortis fringilla.</p>
+            <div class="post-title">{{ post.post.2 }}</div>
+            <div class="post-field">{{ post.post.4 }}</div>
+            <p class="post-body">{{ post.post.3 }}</p>
             <div class="post-buttons">
                 <button><i class="fa fa-heart" style="color: #B3A3C8;"></i></button>
-                <span class="like-count">10 Likes</span>
+                <span class="like-count">{{ post.likes_count.0  }}</span>
             </div>
             <div class="post-user">
-                <a href="#" style="text-decoration:none; color: #8C55AA"><i class="fa fa-user"></i> Username</a>
+                
+                {% if post.user_type.0 == 'R' %}
+                    <a href="/careercompass/recruiter/{{ post.post.0 }}" style="text-decoration:none; color: #8C55AA"><i class="fa fa-user"></i> {{ post.post.0 }}</a>
+                {% else %}
+                    <a href="/careercompass/student/{{ post.post.0 }}" style="text-decoration:none; color: #8C55AA"><i class="fa fa-user"></i> {{ post.post.0 }}</a>
+                {% endif %}
             </div>
-            <div class="post-date">April 18, 2024</div>
+            <div class="post-date">{{ post.post.1 }}</div>
         </div>
     </div>
     <div class="content">
