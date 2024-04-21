@@ -24,7 +24,15 @@ create_likes_table()
 def index(request):
     current_user = request.user.username
     user_type = get_user_type(current_user)
-    return render(request, 'index.html', {'type': user_type})
+    posts = get_following_posts(current_user)
+    print(posts)
+    post_data = []
+    for post in posts:
+        likes_count = get_post_likes(post[0], post[1])  # Adjust parameters accordingly
+        poster_type = get_user_type(post[0])
+        post_data.append({'post': post, 'likes_count': likes_count, 'user_type': poster_type})
+    print(post_data)
+    return render(request, 'index.html', {'type': user_type, 'posts': post_data})
 
 def student_profile(request, username):
     current_user = request.user.username
@@ -159,6 +167,7 @@ def create_new_post(request):
         Field = request.POST['Field']
         Link = request.POST['Link'] # May need to change
         create_post(request.user.username, Title, BodyText, Field, Link)
+        return redirect('home')
     else:
         # Render form html page if GET request
         return render(request, 'create-post.html', {'type': user_type})

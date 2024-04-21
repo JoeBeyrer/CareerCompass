@@ -208,4 +208,55 @@ def get_user_type(UserID):
             return user_type
         else:
             return None
+
+def get_user_posts(UserID):
+    with connection.cursor() as cursor:
+        # Using cursor.execute with %s fields keeps the query safe from SQL injections
+        cursor.execute(
+            """
+            SELECT * FROM posts WHERE UserID=%s;
+            """,
+            [UserID]
+        )
+        posts = cursor.fetchone()
         
+        print(posts)
+        if posts:
+            return posts
+        else:
+            return None
+
+def get_following_posts(UserID):
+    with connection.cursor() as cursor:
+        # Using cursor.execute with %s fields keeps the query safe from SQL injections
+        cursor.execute(
+            """
+            SELECT * FROM posts JOIN followers ON posts.PostedBy=followers.UserID 
+            WHERE followers.FollowerID=%s ORDER BY posts.DatePosted DESC;
+            """,
+            [UserID]
+        )
+        posts = cursor.fetchall()
+        
+        print(posts)
+        if posts:
+            return posts
+        else:
+            return None
+    
+def get_post_likes(PostedBy, DatePosted):
+    with connection.cursor() as cursor:
+        # Using cursor.execute with %s fields keeps the query safe from SQL injections
+        cursor.execute(
+            """
+            SELECT COUNT(*) FROM likes WHERE PostedBy=%s AND DatePosted=%s;
+            """,
+            [PostedBy, DatePosted]
+        )
+        posts = cursor.fetchone()
+        
+        print(posts)
+        if posts:
+            return posts
+        else:
+            return None
