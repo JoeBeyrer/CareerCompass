@@ -214,11 +214,11 @@ def get_user_posts(UserID):
         # Using cursor.execute with %s fields keeps the query safe from SQL injections
         cursor.execute(
             """
-            SELECT * FROM posts WHERE UserID=%s;
+            SELECT * FROM posts WHERE PostedBy=%s;
             """,
             [UserID]
         )
-        posts = cursor.fetchone()
+        posts = cursor.fetchall()
         
         print(posts)
         if posts:
@@ -244,7 +244,7 @@ def get_following_posts(UserID):
         else:
             return None
     
-def get_post_likes(PostedBy, DatePosted):
+def get_like_count(PostedBy, DatePosted):
     with connection.cursor() as cursor:
         # Using cursor.execute with %s fields keeps the query safe from SQL injections
         cursor.execute(
@@ -258,5 +258,39 @@ def get_post_likes(PostedBy, DatePosted):
         print(posts)
         if posts:
             return posts
+        else:
+            return None
+
+def check_liked_post(UserID, PostedBy, DatePosted):
+    with connection.cursor() as cursor:
+        # Using cursor.execute with %s fields keeps the query safe from SQL injections
+        cursor.execute(
+            """
+            SELECT * FROM likes WHERE UserID=%s AND PostedBy=%s AND DatePosted=%s;
+            """,
+            [UserID, PostedBy, DatePosted]
+        )
+        posts = cursor.fetchone()
+        
+        print(posts)
+        if posts:
+            return posts
+        else:
+            return None
+        
+def get_post(PostedBy, DatePosted):
+    with connection.cursor() as cursor:
+        # Using cursor.execute with %s fields keeps the query safe from SQL injections
+        cursor.execute(
+            """
+            SELECT * FROM posts WHERE PostedBy=%s and DatePosted=%s;
+            """,
+            [PostedBy, DatePosted]
+        )
+        post = cursor.fetchone()
+        
+        print(post)
+        if post:
+            return post
         else:
             return None

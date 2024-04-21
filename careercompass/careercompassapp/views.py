@@ -6,6 +6,7 @@ from django.contrib.auth import login, get_user_model, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.models import User
 from .create_tables import *
+from datetime import datetime
 
 UserModel = get_user_model()
 create_users_table()
@@ -28,11 +29,34 @@ def index(request):
     print(posts)
     post_data = []
     for post in posts:
-        likes_count = get_post_likes(post[0], post[1])  # Adjust parameters accordingly
+        has_liked = check_liked_post(request.user.username, post[0], post[1])
+        likes_count = get_like_count(post[0], post[1])
         poster_type = get_user_type(post[0])
-        post_data.append({'post': post, 'likes_count': likes_count, 'user_type': poster_type})
+        post_data.append({'post': post, 'likes_count': likes_count, 'user_type': poster_type, 'has_liked': has_liked})
     print(post_data)
     return render(request, 'index.html', {'type': user_type, 'posts': post_data})
+
+def post(request, postedBy, date):
+    date = datetime.strptime(date, '%Y-%m-%d-%H-%M-%S-%f')
+    print("dog")
+    print(date)
+    print("dog")
+    post = get_post(postedBy, date)
+    print("dog")
+    print(post)
+    print("dog")
+    current_user = request.user.username
+    if request.method == "POST":
+            action = request.POST['like']
+            if action =='like':
+                liked(current_user, postedBy, date)
+            elif action =='unlike':
+                unlike(current_user, postedBy, date)
+    has_liked = check_liked_post(request.user.username, post[0], post[1])
+    likes_count = get_like_count(post[0], post[1])
+    poster_type = get_user_type(post[0])
+    
+    return render(request, 'post.html', {'post': post, 'likes_count': likes_count, 'has_liked': has_liked, 'user_type': poster_type})
 
 def student_profile(request, username):
     current_user = request.user.username

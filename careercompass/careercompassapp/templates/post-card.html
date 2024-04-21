@@ -13,8 +13,11 @@
             font-family: 'Ubuntu', sans-serif;
         }
 
-        .main {
+        .card {
             background-color: #FFFFFF;
+            width: 400px;
+            margin: 20px auto;
+            border-radius: 1.5em;
             box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
             padding: 20px;
             box-sizing: border-box;
@@ -101,8 +104,17 @@
             color: #fff;
         }
 
-        @media (max-width: 800px) {
-            .main {
+        .post-body {
+            font-size: 14px;
+        }
+
+        .post-field {
+            font-size: 14px;
+            color: #777;
+        }
+
+        @media (max-width: 200px) {
+            .card {
                 width: 90%;
                 border-radius: 0px;
             }
@@ -112,35 +124,36 @@
 </head>
 
 <body>
-    {% extends './base.html' %}
-    {% block content %}
-    <div class="main">
-        <div class="post">
-            <div class="post-title">{{ post.2 }}</div>
-            <div class="post-field">{{ post.4 }}</div>
-            <p class="post-body">{{ post.3 }}</p>
-            <div class="post-buttons">
-                <form method="POST" name="like">
-                    {% csrf_token %}
-                    {% if has_liked %}
+    <div class="card">
+        <a href="/careercompass/{{ post.post.0 }}/post/{{ post.post.1|date:'Y-m-d-H-i-s-u' }}"  style="text-decoration:none; color: #333">
+            <div class="post">
+                <div class="post-title">{{ post.post.2 }}</div>
+                <div class="post-field">{{ post.post.4 }}</div>
+                <p class="post-body">{{ post.post.3|slice:":37" }}...</p>
+                <div class="post-buttons">
+                    
+                    {% if post.has_liked %}
                         <button type="submit" name="like" value="unlike" class="like-button"><i class="fa fa-heart" style="color: #8C55AA;"></i></button>
                     {% else %}
                         <button type="submit" name="like" value="like" class="unlike-button"><i class="fa fa-heart" style="color: #B3A3C8;"></i></button>
                     {% endif %}
-                    <span class="like-count">{{ likes_count.0  }}</span>
-                </form>
+                    <span class="like-count">{{ post.likes_count.0  }}</span>
+                </div>
+                <div class="post-user">
+                    {% if post.user_type.0 == 'R' %}
+                        <a href="/careercompass/recruiter/{{ post.post.0 }}" style="text-decoration:none; color: #8C55AA"><i class="fa fa-user"></i> {{ post.post.0 }}</a>
+                    {% else %}
+                        <a href="/careercompass/student/{{ post.post.0 }}" style="text-decoration:none; color: #8C55AA"><i class="fa fa-user"></i> {{ post.post.0 }}</a>
+                    {% endif %}
+                </div>
+                <div class="post-date">{{ post.post.1 }}</div>
             </div>
-            <div class="post-user">
-                {% if post.user_type.0 == 'R' %}
-                    <a href="/careercompass/recruiter/{{ post.0 }}" style="text-decoration:none; color: #8C55AA"><i class="fa fa-user"></i> {{ post.0 }}</a>
-                {% else %}
-                    <a href="/careercompass/student/{{ post.0 }}" style="text-decoration:none; color: #8C55AA"><i class="fa fa-user"></i> {{ post.0 }}</a>
-                {% endif %}
-            </div>
-            <div class="post-date">{{ post.1 }}</div>
-        </div>
+        </a>
     </div>
-    {% endblock %}
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
 </body>
 
 </html>
