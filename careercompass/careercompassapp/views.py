@@ -37,6 +37,9 @@ def index(request):
     print(post_data)
     return render(request, 'index.html', {'type': user_type, 'posts': post_data})
 
+def search(request):
+    return render(request, 'search.html')
+
 def post(request, postedBy, date):
     date = datetime.strptime(date, '%Y-%m-%d-%H-%M-%S-%f')
     print("dog")
@@ -159,7 +162,7 @@ def create_student_account(request):
         current_year = request.POST['current_year']
         expected = request.POST['expected']
         gpa = request.POST['gpa']
-        open_to_work = 'Y' if request.POST['open_to_work'] else 'N'
+        open_to_work = request.POST['open_to_work']
         # Add the user to the Users table in PostgreSQL
         user = User.objects.create_user(username=username, password=password)
         user.save()

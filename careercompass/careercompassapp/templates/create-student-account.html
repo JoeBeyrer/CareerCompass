@@ -60,7 +60,8 @@
         input[type="password"]:focus,
         input[type="email"]:focus,
         input[type="tel"]:focus,
-        input[type="date"]:focus {
+        input[type="date"]:focus,
+        input[type="radio"]:checked {
             border: 2px solid rgba(0, 0, 0, 0.18) !important;
         }
 
@@ -97,6 +98,21 @@
             text-align: center;
         }
 
+        .radio-button-container {
+            display: block;
+            margin-bottom: 10px;
+            margin-left: 25px;
+        }
+
+        .radio-container {
+            margin-bottom: 20px;
+            margin-left: 30px;
+        }
+
+        .open-to-work-label {
+            margin-bottom: 10px;
+        }
+
         @media (max-width: 600px) {
             .main {
                 width: 90%;
@@ -118,13 +134,47 @@
             <input name="lName" type="text" placeholder="Last Name">
             <input name="email" type="email" placeholder="Email">
             <input name="phone" type="tel" placeholder="Phone Number">
-            <input name="dob" type="date" placeholder="Date of Birth">
+            <input name="dob" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Date of Birth">
             <input name="university" type="text" placeholder="University Name">
-            <input name="degree" type="text" placeholder="Degree">
-            <input name="current_year" type="text" placeholder="Current Year">
-            <input name="expected" type="date" placeholder="Expected Graduation Date">
+            <input name="degree" type="text" placeholder="Major">
+
+            <div class="radio-container">
+                <div class="open-to-work-label">Current Year</div>
+                <div class="radio-button-container">
+                    <input id="current_year_freshman" name="current_year" type="radio" value="Freshman">
+                    <label for="current_year_freshman">Freshman</label>
+                </div>
+                <div class="radio-button-container">
+                    <input id="current_year_sophomore" name="current_year" type="radio" value="Sophomore">
+                    <label for="current_year_sophomore">Sophomore</label>
+                </div>
+                <div class="radio-button-container">
+                    <input id="current_year_junior" name="current_year" type="radio" value="Junior">
+                    <label for="current_year_junior">Junior</label>
+                </div>
+                <div class="radio-button-container">
+                    <input id="current_year_senior" name="current_year" type="radio" value="Senior">
+                    <label for="current_year_senior">Senior</label>
+                </div>
+                <div class="radio-button-container">
+                    <input id="current_year_graduate_student" name="current_year" type="radio" value="Graduate_Student">
+                    <label for="current_year_graduate_student">Graduate Student</label>
+                </div>
+            </div>
+
+            <input name="expected" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Expected Graduation Date">
             <input name="gpa" type="text" placeholder="GPA (2 Decimal Places)">
-            <input name="open_to_work" type="text" placeholder="Open to Work? 'Yes' or 'No'" >
+            <div class="radio-container">
+                <div class="open-to-work-label">Open to Work?</div>
+                <div class="radio-button-container">
+                    <input id="open_to_work_yes" name="open_to_work" type="radio" value="Yes">
+                    <label for="open_to_work_yes">Yes</label>
+                </div>
+                <div class="radio-button-container">
+                    <input id="open_to_work_no" name="open_to_work" type="radio" value="No">
+                    <label for="open_to_work_no">No</label>
+                </div>
+            </div>
             <input name="about_me" type="text" placeholder="About You (Max: 255 Chars)">
             <button type="submit" class="submit">Sign Up</button>
         </form>
