@@ -213,3 +213,9 @@ def create_new_post(request):
     else:
         # Render form html page if GET request
         return render(request, 'create-post.html', {'type': user_type})
+
+#code in progress 
+def followers_list(request):
+    current_user = request.user.username
+    followers = get_followers_list(current_user)
+    return render(request, 'followers_list.html', {'followers': followers})
