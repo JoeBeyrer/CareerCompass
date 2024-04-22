@@ -129,7 +129,11 @@
             <div class="post">
                 <div class="post-title">{{ post.post.2 }}</div>
                 <div class="post-field">{{ post.post.4 }}</div>
-                <p class="post-body">{{ post.post.3|slice:":37" }}...</p>
+                {% if post.post.3|length > 37 %}
+                    <p class="post-body">{{ post.post.3|slice:":37" }}...</p>
+                {% else %}
+                    <p class="post-body">{{ post.post.3|slice:":37" }}</p>
+                {% endif %}
                 <div class="post-buttons">
                     
                     {% if post.has_liked %}
