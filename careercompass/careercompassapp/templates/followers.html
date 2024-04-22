@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        body {
+            background-color: #F3EBF6;
+            font-family: 'Ubuntu', sans-serif;
+        }
+
+        .main {
+            background-color: #FFFFFF;
+            box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
+            padding: 20px;
+            box-sizing: border-box;
+            padding-top: 60px;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #ffffff;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000; /* Ensure the navbar stays above other content */
+        }
+
+        .profile-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .profile-info {
+            flex-grow: 1;
+            padding-left: 10px;
+        }
+
+        .profile-name {
+            color: #8C55AA;
+            font-size: 23px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .field-content {
+            color: #8C55AA;
+            font-size: 23px;
+        }
+
+        .profile-username {
+            color: rgba(0, 0, 0, 0.7);
+            font-size: 14px;
+        }
+
+        .follow-button {
+            cursor: pointer;
+            border-radius: 5em;
+            color: #fff;
+            background: linear-gradient(to right, #9C27B0, #E040FB);
+            border: 0;
+            padding: 10px 20px;
+            font-size: 13px;
+            box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
+        }
+
+        .description {
+            color: rgba(0, 0, 0, 0.7);
+            font-size: 14px;
+        }
+
+        .dynamic-fields {
+            display: flex;
+            flex-wrap: wrap; /* Allow dynamic fields to wrap */
+            width: 70%; /* Take 70% width */
+        }
+
+        .dynamic-field {
+            width: 35%; /* Show dynamic fields in 35% width */
+            padding-right: 20px;
+
+        }
+
+        .dynamic-field p {
+            margin-top: 5px; /* Add margin between label and field */
+        }
+
+        .dynamic-field p:first-child {
+            margin-top: 0; /* Remove margin from first label */
+        }
+
+        .field-label {
+            font-size: 10px;
+            color: rgba(0, 0, 0, 0.7);
+        }
+
+        .followers-list {
+            margin-top: 20px;
+            color: #8C55AA;
+        }
+
+        .followers-list li {
+            list-style-type: none;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .dynamic-field {
+                width: 100%; /* Show dynamic fields in full width on smaller screens */
+                margin-right: 0; /* Remove margin on smaller screens */
+            }
+        }
+    </style>
+    <title>Followers</title>
+</head>
+
+<body>
+    <div class="navbar"></div>
+    {% extends './base.html' %}
+    </div>
+    {% block content %}
+    <div class="main">
+        <div class="profile-header">
+            <div class="profile-info">
+                <p class="profile-name">{{ user.username }}'s followers:</p>
+            </div>
+        </div>
+        <div class="followers-list">
+            {% if followers %}
+            <ul>
+                {% for follower in followers %}
+                <li>{{ follower }}</li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p>You don't have any followers yet.</p>
+            {% endif %}
+        </div>
+    </div>
+    {% endblock %}
+</body>
+
+</html>
