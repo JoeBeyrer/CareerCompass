@@ -216,3 +216,7 @@ def create_new_post(request):
     else:
         # Render form html page if GET request
         return render(request, 'create-post.html', {'type': user_type})
+
+def show_followers_view(request, username):
+    followers = show_followers(username)
+    return render(request, 'followers.html', {'followers': followers, 'username': username})
