@@ -232,7 +232,8 @@ def get_following_posts(UserID):
         cursor.execute(
             """
             SELECT * FROM posts JOIN followers ON posts.PostedBy=followers.UserID 
-            WHERE followers.FollowerID=%s ORDER BY posts.DatePosted DESC;
+            WHERE followers.FollowerID=%s AND posts.DatePosted BETWEEN NOW() - INTERVAL 
+            '1 year' AND NOW() ORDER BY posts.DatePosted DESC;
             """,
             [UserID]
         )
@@ -292,5 +293,22 @@ def get_post(PostedBy, DatePosted):
         print(post)
         if post:
             return post
+        else:
+            return None
+
+def search_user(input):
+    with connection.cursor() as cursor:
+        # Using cursor.execute with %s fields keeps the query safe from SQL injections
+        cursor.execute(
+            """
+            SELECT UserID FROM users WHERE UserID LIKE '%' || %s || '%' ORDER BY LENGTH(UserID) LIMIT 10;
+            """,
+            [input]
+        )
+        users = cursor.fetchall()
+        
+        print(users)
+        if users:
+            return users
         else:
             return None
