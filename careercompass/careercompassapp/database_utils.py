@@ -312,3 +312,16 @@ def search_user(input):
             return users
         else:
             return None
+
+def show_followers(UserID):
+    with connection.cursor() as cursor:
+        cursor.execute(
+            """
+            SELECT *
+            FROM followers
+            WHERE userid = %s;
+            """,
+            [UserID]
+        )
+        followers = cursor.fetchall()
+        return [follower[0] for follower in followers]
