@@ -313,7 +313,7 @@ def search_user(input):
         else:
             return None
 
-def get_user_card_data(UserID):
+def get_followers(UserID):
     with connection.cursor() as cursor:
         cursor.execute(
             """
@@ -327,5 +327,22 @@ def get_user_card_data(UserID):
         print(followers)
         if followers:
             return followers
+        else:
+            return None
+
+def get_following(UserID):
+    with connection.cursor() as cursor:
+        cursor.execute(
+            """
+            SELECT f.UserID, u.FirstName, u.LastName
+            FROM followers f JOIN users u ON f.UserID=u.UserID
+            WHERE f.FollowerID = %s;
+            """,
+            [UserID]
+        )
+        following = cursor.fetchall()
+        print(following)
+        if following:
+            return following
         else:
             return None

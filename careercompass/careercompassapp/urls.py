@@ -15,5 +15,6 @@ urlpatterns = [
     path('<str:postedBy>/post/<str:date>', views.post, name='post'),
     path('search', views.search, name='search'),
     path('followers/<str:username>/', views.show_followers_view, name='followers'),
+    path('following/<str:username>/', views.show_following_view, name='following'),
     # TODO: Add all pages here
 ]
