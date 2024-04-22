@@ -4,6 +4,7 @@
 <head>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
         body {
@@ -109,6 +110,36 @@
             font-size: 16px;
         }
 
+        .card {
+            background-color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-width: 1px;
+            border-color:#f5f5f5;
+            border-style: solid;
+            width: 300px;
+            max-width: calc(100% - 20px);
+        }
+
+        .profile-name {
+            color: #8C55AA;
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .profile-username {
+            color: rgba(0, 0, 0, 0.7);
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .user-type {
+            color: #777;
+            font-size: 16px;
+            font-weight: lighter;
+            margin-left: 5px;
+        }
+
         @media (max-width: 600px) {
             .dynamic-field {
                 width: 100%; /* Show dynamic fields in full width on smaller screens */
@@ -127,14 +158,30 @@
     <div class="main">
         <div class="profile-header">
             <div class="profile-info">
-                <p class="profile-name">{{ user.username }}'s followers:</p>
+                <p class="profile-name">@{{ username }} is Followed By</p>
             </div>
         </div>
         <div class="followers-list">
             {% if followers %}
             <ul>
                 {% for follower in followers %}
-                <li>{{ follower }}</li>
+                <div>
+                </div>
+                    {% if follower.user_type.0 == 'R' %}
+                        <a href="/careercompass/recruiter/{{follower.follower.0}}" style="text-decoration: none;">
+                        <div class="card">
+                            <p class="profile-name">{{ follower.follower.1 }} {{ follower.follower.2 }} <span class="user-type"><em>Recruiter</em></span></p>
+                            <p class="profile-username"><i class="fa fa-user" style="color: #8C55AA;"></i> @{{ follower.follower.0 }}</p>
+                        </div>
+                        </a>
+                    {% else %}
+                    <a href="/careercompass/student/{{follower.follower.0}}" style="text-decoration: none;">
+                        <div class="card">
+                            <p class="profile-name">{{ follower.follower.1 }} {{ follower.follower.2 }} <span class="user-type"><em>Student</em></span></p>
+                            <p class="profile-username"><i class="fa fa-user" style="color: #8C55AA;"></i> @{{ follower.follower.0 }}</p>
+                        </div>
+                        </a>
+                    {% endif %}
                 {% endfor %}
             </ul>
             {% else %}

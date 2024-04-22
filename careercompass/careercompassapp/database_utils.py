@@ -313,15 +313,19 @@ def search_user(input):
         else:
             return None
 
-def show_followers(UserID):
+def get_user_card_data(UserID):
     with connection.cursor() as cursor:
         cursor.execute(
             """
-            SELECT *
-            FROM followers
-            WHERE userid = %s;
+            SELECT f.FollowerID, u.FirstName, u.LastName
+            FROM followers f JOIN users u ON f.FollowerID=u.UserID
+            WHERE f.UserID = %s;
             """,
             [UserID]
         )
         followers = cursor.fetchall()
-        return [follower[0] for follower in followers]
+        print(followers)
+        if followers:
+            return followers
+        else:
+            return None

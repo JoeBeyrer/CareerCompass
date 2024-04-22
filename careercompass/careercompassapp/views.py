@@ -218,5 +218,11 @@ def create_new_post(request):
         return render(request, 'create-post.html', {'type': user_type})
 
 def show_followers_view(request, username):
-    followers = show_followers(username)
-    return render(request, 'followers.html', {'followers': followers, 'username': username})
+    followers = get_user_card_data(username)
+    follower_data = []
+    if followers:
+        for follower in followers:
+            follower_type = get_user_type(follower[0])
+            follower_data.append({'follower': follower, 'user_type': follower_type})
+    print(follower_data)
+    return render(request, 'followers.html', {'followers': follower_data, 'username': username})
