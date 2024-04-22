@@ -13,5 +13,6 @@ urlpatterns = [
     path('logout', views.user_logout, name='logout'),
     path('create-post/', views.create_new_post, name='create-post'),
     path('<str:postedBy>/post/<str:date>', views.post, name='post'),
+    path('followers/<str:username>/', views.show_followers_view, name='followers'),
     # TODO: Add all pages here
 ]
