@@ -120,7 +120,6 @@
         .posts-section {
             display: flex;
             flex-wrap: wrap;
-            justify-content: space-between; /* Distribute items evenly */
             background-color: #F3EBF6;
             border-radius: 1.5EM;
         }
@@ -162,7 +161,7 @@
                     <p class="profile-username">@{{ student.0 }}</p>
                     <p class="profile-followers">
                         <a href="/careercompass/followers/{{ student.0 }}">{{ followers.0 }} Followers</a>
-                        <a href="#">{{ following.0 }} Following</a>
+                        <a href="/careercompass/following/{{ student.0 }}">{{ following.0 }} Following</a>
                     </p>
                     <!-- Dynamic fields for student -->
                     <div class="dynamic-fields">

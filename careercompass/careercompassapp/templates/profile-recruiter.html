@@ -125,7 +125,6 @@
         .posts-section {
             display: flex;
             flex-wrap: wrap;
-            justify-content: space-between; /* Distribute items evenly */
             background-color: #F3EBF6;
             border-radius: 1.5EM;
         }
@@ -166,8 +165,8 @@
                     <p class="profile-name">{{ recruiter.6 }} {{ recruiter.7 }}</p>
                     <p class="profile-username">@{{ recruiter.0 }}</p>
                     <p class="profile-followers">
-                        <a href="#">{{ followers.0 }} Followers</a>
-                        <a href="#">{{ following.0 }} Following</a>
+                        <a href="/careercompass/followers/{{ recruiter.0 }}">{{ followers.0 }} Followers</a>
+                        <a href="/careercompass/following/{{ recruiter.0 }}">{{ following.0 }} Following</a>
                     </p>
                     <!-- Dynamic fields for student -->
                     <div class="dynamic-fields">
