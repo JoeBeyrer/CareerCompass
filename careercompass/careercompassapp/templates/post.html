@@ -81,7 +81,7 @@
         }
 
         .post-buttons {
-            margin-top: 10px;
+
             bottom:5px;
             left: 30px;
         }
@@ -106,6 +106,27 @@
             color: #333;
         }
 
+
+        .delete-buttons {
+            position: absolute;
+            top: 35px; /* Adjust the vertical position as needed */
+            right: 40px; /* Adjust the horizontal position as needed */
+        }
+
+        .delete-buttons button {
+            cursor: pointer;
+            border: 0;
+            font-family: 'Ubuntu', sans-serif;
+            font-size: 20px;
+            padding-top: 5px;
+            background-color: #f9f9f9;
+            color: #777;
+        }
+
+        .delete-buttons button:hover {
+            color: red;
+        }
+
         @media (max-width: 800px) {
             .main {
                 width: 90%;
@@ -121,7 +142,17 @@
     {% block content %}
     <div class="main">
         <div class="post">
-            <div class="post-title">{{ post.2 }}</div>
+            <div class="post-title">
+                {{ post.2 }}
+            </div>
+            <div class="delete-buttons">
+                {% if post.0 == user.username %}
+                <form method="POST" name="delete">
+                    {% csrf_token %}
+                        <button title="Delete Post" type="submit" value="delete" name="delete"><i class="fa fa-trash"></i></button>
+                </form>
+                {% endif %}
+            </div>
             <div class="post-field">{{ post.4 }}</div>
             <p class="post-body">{{ post.3 }}</p>
             <div class="post-buttons">
@@ -129,10 +160,11 @@
                     {% csrf_token %}
                     {% if has_liked %}
                         <button type="submit" name="like" value="unlike" class="like-button"><i class="fa fa-heart" style="color: #8C55AA;"></i></button>
+                        <span class="like-count" style="font-size: 20px; color: #8C55AA;">{{ likes_count.0  }}</span>
                     {% else %}
                         <button type="submit" name="like" value="like" class="unlike-button"><i class="fa fa-heart" style="color: #B3A3C8;"></i></button>
+                        <span class="like-count" style="font-size: 20px; color: #B3A3C8;">{{ likes_count.0  }}</span>
                     {% endif %}
-                    <span class="like-count">{{ likes_count.0  }}</span>
                 </form>
             </div>
             <div class="post-user">

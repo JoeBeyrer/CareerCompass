@@ -41,11 +41,16 @@ def post(request, postedBy, date):
     post = get_post(postedBy, date)
     current_user = request.user.username
     if request.method == "POST":
-            action = request.POST['like']
-            if action =='like':
-                liked(current_user, postedBy, date)
-            elif action =='unlike':
-                unlike(current_user, postedBy, date)
+            if 'like' in request.POST:
+                action = request.POST['like']
+                if action =='like':
+                    liked(current_user, postedBy, date)
+                elif action =='unlike':
+                    unlike(current_user, postedBy, date)
+            elif 'delete' in request.POST:
+                delete_post(postedBy, date)
+                return redirect('home')
+
     has_liked = check_liked_post(request.user.username, post[0], post[1])
     likes_count = get_like_count(post[0], post[1])
     poster_type = get_user_type(post[0])
@@ -152,6 +157,7 @@ def create_student_account(request):
         university = request.POST['university']
         degree = request.POST['degree']
         current_year = request.POST['current_year']
+        current_year = 'Graduate' if current_year == 'Graduate_Student' else current_year
         expected = request.POST['expected']
         gpa = request.POST['gpa']
         open_to_work = request.POST['open_to_work']
