@@ -19,7 +19,7 @@ def create_recruiters_table():
     with connection.cursor() as cursor:
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS Recruiters (
-                UserID VARCHAR(15) PRIMARY KEY REFERENCES Users,
+                UserID VARCHAR(15) PRIMARY KEY REFERENCES Users ON DELETE CASCADE,
                 CompanyName VARCHAR(20) NOT NULL,
                 AboutCompany TEXT,
                 Title VARCHAR(20) NOT NULL,
@@ -31,10 +31,10 @@ def create_students_table():
     with connection.cursor() as cursor:
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS Students (
-                UserID VARCHAR(15) PRIMARY KEY REFERENCES Users,
+                UserID VARCHAR(15) PRIMARY KEY REFERENCES Users ON DELETE CASCADE,
                 University VARCHAR(60) NOT NULL,
                 Degree VARCHAR(48) NOT NULL,
-                CurrentYear CHAR(9) NOT NULL,
+                CurrentYear VARCHAR(9) NOT NULL,
                 ExpectedGraduation DATE NOT NULL,
                 GPA NUMERIC(3, 2),
                 OpenToWork VARCHAR(3)
@@ -46,7 +46,7 @@ def create_posts_table():
     with connection.cursor() as cursor:
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS Posts (
-                PostedBy VARCHAR(15) REFERENCES Users,
+                PostedBy VARCHAR(15) REFERENCES Users ON DELETE CASCADE,
                 DatePosted TIMESTAMP,
                 Title VARCHAR(30),
                 BodyText TEXT,
@@ -60,12 +60,12 @@ def create_likes_table():
     with connection.cursor() as cursor:
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS Likes (
-                UserID VARCHAR(15) REFERENCES Users,
+                UserID VARCHAR(15) REFERENCES Users ON DELETE CASCADE,
                 PostedBy VARCHAR(15),
                 DatePosted TIMESTAMP,
                 CONSTRAINT like_pk PRIMARY KEY (UserID, PostedBy, DatePosted),
                 CONSTRAINT post_fk FOREIGN KEY (PostedBy, DatePosted) REFERENCES 
-                Posts (PostedBy, DatePosted)
+                Posts (PostedBy, DatePosted) ON DELETE CASCADE
             );
         """)
 
@@ -73,8 +73,8 @@ def create_followers_table():
     with connection.cursor() as cursor:
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS Followers (
-                UserID VARCHAR(15) REFERENCES Users,
-                FollowerID VARCHAR(15) REFERENCES Users,
+                UserID VARCHAR(15) REFERENCES Users ON DELETE CASCADE,
+                FollowerID VARCHAR(15) REFERENCES Users ON DELETE CASCADE,
                 CONSTRAINT follower_pk PRIMARY KEY (UserID, FollowerID)      
             );
         """)
