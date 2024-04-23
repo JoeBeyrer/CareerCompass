@@ -66,6 +66,7 @@ def student_profile(request, username):
     following = get_following_count(username)
     followsList = following_list(current_user)
     posts = get_user_posts(username)
+    total_num_likes = get_user_likes_count(username)
     post_data = []
     if posts:
         for post in posts:
@@ -76,7 +77,7 @@ def student_profile(request, username):
 
     return render(request, 'profile-student.html', {'student': student, 'followers': 
                     followers, 'following': following, 'following_list': followsList, 
-                    'type': user_type, 'posts': post_data})
+                    'type': user_type, 'posts': post_data, 'total_likes': total_num_likes})
 
 def recruiter_profile(request, username):
     current_user = request.user.username
@@ -92,6 +93,7 @@ def recruiter_profile(request, username):
     following = get_following_count(username)
     followsList = following_list(current_user)
     posts = get_user_posts(username)
+    total_num_likes = get_user_likes_count(username)
     post_data = []
     if posts:
         for post in posts:
@@ -102,7 +104,7 @@ def recruiter_profile(request, username):
 
     return render(request, 'profile-recruiter.html', {'recruiter': recruiter, 
                     'followers': followers, 'following': following, 'following_list': 
-                    followsList, 'type': user_type, 'posts': post_data})
+                    followsList, 'type': user_type, 'posts': post_data, 'total_likes': total_num_likes})
 
 def edit_profile(request): 
     current_user = request.user.username

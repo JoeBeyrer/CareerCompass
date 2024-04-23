@@ -329,3 +329,17 @@ def get_following(UserID):
             return following
         else:
             return None
+
+def get_user_likes_count(UserID):
+    with connection.cursor() as cursor:
+        cursor.execute(
+            """
+            SELECT COUNT(postedby) FROM likes WHERE likes.postedby = %s;
+            """,
+            [UserID]
+        )
+        total_likes = cursor.fetchone()
+        if total_likes:
+            return total_likes
+        else:
+            return 0  # Return 0 if no likes found for the user
