@@ -43,61 +43,20 @@
 
         .profile-name {
             color: #8C55AA;
-            font-size: 23px;
+            font-size: 20px;
             font-weight: bold;
             margin: 0;
+            margin-bottom: 5px;
         }
 
-        .field-content {
-            color: #8C55AA;
-            font-size: 23px;
-        }
 
         .profile-username {
             color: rgba(0, 0, 0, 0.7);
             font-size: 14px;
+            margin-bottom: 10px;
         }
 
-        .follow-button {
-            cursor: pointer;
-            border-radius: 5em;
-            color: #fff;
-            background: linear-gradient(to right, #9C27B0, #E040FB);
-            border: 0;
-            padding: 10px 20px;
-            font-size: 13px;
-            box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
-        }
 
-        .description {
-            color: rgba(0, 0, 0, 0.7);
-            font-size: 14px;
-        }
-
-        .dynamic-fields {
-            display: flex;
-            flex-wrap: wrap; /* Allow dynamic fields to wrap */
-            width: 70%; /* Take 70% width */
-        }
-
-        .dynamic-field {
-            width: 35%; /* Show dynamic fields in 35% width */
-            padding-right: 20px;
-
-        }
-
-        .dynamic-field p {
-            margin-top: 5px; /* Add margin between label and field */
-        }
-
-        .dynamic-field p:first-child {
-            margin-top: 0; /* Remove margin from first label */
-        }
-
-        .field-label {
-            font-size: 10px;
-            color: rgba(0, 0, 0, 0.7);
-        }
 
         .followers-list {
             margin-top: 20px;
@@ -123,17 +82,6 @@
             margin: 2px 2px;
         }
 
-        .profile-name {
-            color: #8C55AA;
-            font-size: 20px;
-            margin-bottom: 5px;
-        }
-
-        .profile-username {
-            color: rgba(0, 0, 0, 0.7);
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
 
         .user-type {
             color: #777;
@@ -142,12 +90,15 @@
             margin-left: 5px;
         }
 
-        @media (max-width: 600px) {
-            .dynamic-field {
-                width: 100%; /* Show dynamic fields in full width on smaller screens */
-                margin-right: 0; /* Remove margin on smaller screens */
-            }
+        .no-following {
+            color: #8C55AA;
+            margin: auto;
+            font-size: 20px;
+            text-align: center;
+            margin-top: 20px;
         }
+
+
     </style>
     <title>Followers</title>
 </head>
@@ -187,7 +138,10 @@
                 </div>
             </ul>
             {% else %}
-            <p>This user has not followed anyone.</p>
+                <div class="no-following">
+                    <i class="fa fa-ban" style="font-size: 40px"></i>
+                    <p>This User Does Not Follow Anyone</p>
+                </div>
             {% endif %}
         </div>
     </div>
