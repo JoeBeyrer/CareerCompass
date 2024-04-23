@@ -50,6 +50,7 @@
         
         .field-content {
             color: #8C55AA;
+            padding-bottom: 15px;
             font-size: 23px;
         }
 
@@ -112,7 +113,7 @@
         }
 
         .field-label {
-            font-size: 10px; 
+            font-size: 13px; 
             color: rgba(0, 0, 0, 0.7); 
         }
 
@@ -168,6 +169,10 @@
                     </p>
                     <!-- Dynamic fields for student -->
                     <div class="dynamic-fields">
+                        <div class="dynamic-field">
+                            <p class="field-label">Role</p>
+                            <p class="field-content">Recruiter</p>
+                        </div>
                         <div class="dynamic-field">
                             <p class="field-label">Company</p>
                             <p class="field-content">{{ recruiter.1 }}</p>
