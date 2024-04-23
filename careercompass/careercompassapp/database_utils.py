@@ -129,6 +129,16 @@ def create_post(PostedBy, Title, BodyText, Field, Link=None):
             [PostedBy, Title, BodyText, Field, Link]
         )
 
+def delete_post(PostedBy, DatePosted):
+    with connection.cursor() as cursor:
+        # Using cursor.execute with %s fields keeps the query safe from SQL injections
+        cursor.execute(
+            """
+            DELETE FROM posts WHERE PostedBy=%s AND DatePosted=%s;
+            """,
+            [PostedBy, DatePosted]
+        )
+
 def follow(UserID, FollowerID):
     with connection.cursor() as cursor:
         # Using cursor.execute with %s fields keeps the query safe from SQL injections
