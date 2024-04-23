@@ -26,7 +26,6 @@ def index(request):
     current_user = request.user.username
     user_type = get_user_type(current_user)
     posts = get_following_posts(current_user)
-    print(posts)
     post_data = []
     if posts:
         for post in posts:
@@ -34,19 +33,12 @@ def index(request):
             likes_count = get_like_count(post[0], post[1])
             poster_type = get_user_type(post[0])
             post_data.append({'post': post, 'likes_count': likes_count, 'user_type': poster_type, 'has_liked': has_liked})
-    print(post_data)
     return render(request, 'index.html', {'type': user_type, 'posts': post_data})
 
 
 def post(request, postedBy, date):
     date = datetime.strptime(date, '%Y-%m-%d-%H-%M-%S-%f')
-    print("dog")
-    print(date)
-    print("dog")
     post = get_post(postedBy, date)
-    print("dog")
-    print(post)
-    print("dog")
     current_user = request.user.username
     if request.method == "POST":
             action = request.POST['like']
@@ -181,10 +173,7 @@ def user_login(request):
         if user is not None and check_password(password, user[4]):
             # Set up session for the user
             request.session['user_id'] = user[0]
-            print(username)
-            print(password)
             auth_user = authenticate(request, username=username, password=password)
-            print(auth_user)
             login(request, auth_user)
 
 
@@ -222,7 +211,6 @@ def show_followers_view(request, username):
         for follower in followers:
             follower_type = get_user_type(follower[0])
             follower_data.append({'follower': follower, 'user_type': follower_type})
-    print(follower_data)
     return render(request, 'followers.html', {'followers': follower_data, 'username': username})
 
 def show_following_view(request, username):
@@ -232,21 +220,17 @@ def show_following_view(request, username):
         for following in following_list:
             following_type = get_user_type(following[0])
             following_data.append({'followed': following, 'user_type': following_type})
-    print(following_data)
     return render(request, 'following.html', {'following_list': following_data, 'username': username})
 
 def search(request):
     results = search_user('')
     results_data = []
     if request.method == "POST":
-        print("dog")
         search_query = request.POST['search_query']
-        print("dog2")
         if search_query:  # Check if search query is not empty
             results = search_user(search_query)
     if results:
         for result in results:
             user_type = get_user_type(result[0])
             results_data.append({'result': result, 'user_type': user_type})
-    print(results_data)
     return render(request, 'search.html', {'search_results': results_data})

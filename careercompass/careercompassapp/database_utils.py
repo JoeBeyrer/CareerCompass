@@ -64,7 +64,6 @@ def get_student_data(UserID):
         )
         # Fetch the row with the correct UserID
         student_data = cursor.fetchone()
-        print(student_data)
         if student_data:
             return student_data
         else:
@@ -83,7 +82,6 @@ def get_recruiter_data(UserID):
         )
         # Fetch the row with the correct UserID
         recruiter_data = cursor.fetchone()
-        print(recruiter_data)
         if recruiter_data:
             return recruiter_data
         else:
@@ -100,7 +98,6 @@ def get_follower_count(UserID):
         )
         # Fetch the row with the correct UserID
         followers = cursor.fetchone()
-        print(followers)
         if followers:
             return followers
         else:
@@ -182,7 +179,6 @@ def following_list(UserID):
             [UserID]
         )
         following = cursor.fetchall()
-        print(following)
         if following:
             return [item[0] for item in following]
         else:
@@ -202,8 +198,6 @@ def get_user_type(UserID):
             [UserID]
         )
         user_type = cursor.fetchone()
-        
-        print(user_type)
         if user_type:
             return user_type
         else:
@@ -219,8 +213,6 @@ def get_user_posts(UserID):
             [UserID]
         )
         posts = cursor.fetchall()
-        
-        print(posts)
         if posts:
             return posts
         else:
@@ -238,8 +230,6 @@ def get_following_posts(UserID):
             [UserID]
         )
         posts = cursor.fetchall()
-        
-        print(posts)
         if posts:
             return posts
         else:
@@ -254,11 +244,9 @@ def get_like_count(PostedBy, DatePosted):
             """,
             [PostedBy, DatePosted]
         )
-        posts = cursor.fetchone()
-        
-        print(posts)
-        if posts:
-            return posts
+        likes = cursor.fetchone()
+        if likes:
+            return likes
         else:
             return None
 
@@ -272,8 +260,6 @@ def check_liked_post(UserID, PostedBy, DatePosted):
             [UserID, PostedBy, DatePosted]
         )
         posts = cursor.fetchone()
-        
-        print(posts)
         if posts:
             return posts
         else:
@@ -289,16 +275,12 @@ def get_post(PostedBy, DatePosted):
             [PostedBy, DatePosted]
         )
         post = cursor.fetchone()
-        
-        print(post)
         if post:
             return post
         else:
             return None
 
 def search_user(input):
-    print("dog3")
-    print(input)
     with connection.cursor() as cursor:
         # Using cursor.execute with %s fields keeps the query safe from SQL injections
         cursor.execute(
@@ -311,8 +293,6 @@ def search_user(input):
             ['%' + input + '%', input + '%', input + '%', input]
         )
         users = cursor.fetchall()
-        
-        print(users)
         if users:
             return users
         else:
@@ -329,7 +309,6 @@ def get_followers(UserID):
             [UserID]
         )
         followers = cursor.fetchall()
-        print(followers)
         if followers:
             return followers
         else:
@@ -346,7 +325,6 @@ def get_following(UserID):
             [UserID]
         )
         following = cursor.fetchall()
-        print(following)
         if following:
             return following
         else:
