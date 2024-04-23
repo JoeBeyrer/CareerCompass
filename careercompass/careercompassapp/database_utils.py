@@ -297,13 +297,18 @@ def get_post(PostedBy, DatePosted):
             return None
 
 def search_user(input):
+    print("dog3")
+    print(input)
     with connection.cursor() as cursor:
         # Using cursor.execute with %s fields keeps the query safe from SQL injections
         cursor.execute(
             """
-            SELECT UserID FROM users WHERE UserID LIKE '%' || %s || '%' ORDER BY LENGTH(UserID) LIMIT 10;
+            SELECT UserID, FirstName, LastName FROM users WHERE LOWER(UserID) LIKE 
+            LOWER(%s) OR LOWER(FirstName) LIKE LOWER(%s) OR LOWER(LastName) LIKE 
+            LOWER(%s) OR LOWER(FirstName || ' ' || LastName) LIKE LOWER(%s) ORDER 
+            BY LENGTH(UserID) LIMIT 30;
             """,
-            [input]
+            ['%' + input + '%', input + '%', input + '%', input]
         )
         users = cursor.fetchall()
         

@@ -37,8 +37,6 @@ def index(request):
     print(post_data)
     return render(request, 'index.html', {'type': user_type, 'posts': post_data})
 
-def search(request):
-    return render(request, 'search.html')
 
 def post(request, postedBy, date):
     date = datetime.strptime(date, '%Y-%m-%d-%H-%M-%S-%f')
@@ -236,3 +234,19 @@ def show_following_view(request, username):
             following_data.append({'followed': following, 'user_type': following_type})
     print(following_data)
     return render(request, 'following.html', {'following_list': following_data, 'username': username})
+
+def search(request):
+    results = search_user('')
+    results_data = []
+    if request.method == "POST":
+        print("dog")
+        search_query = request.POST['search_query']
+        print("dog2")
+        if search_query:  # Check if search query is not empty
+            results = search_user(search_query)
+    if results:
+        for result in results:
+            user_type = get_user_type(result[0])
+            results_data.append({'result': result, 'user_type': user_type})
+    print(results_data)
+    return render(request, 'search.html', {'search_results': results_data})
