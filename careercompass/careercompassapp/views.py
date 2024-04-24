@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from .create_tables import *
 from datetime import datetime
+from .forms import *
 
 UserModel = get_user_model()
 create_users_table()
@@ -168,52 +169,60 @@ def edit_profile(request):
 
 def create_recruiter_account(request): 
     if request.method == "POST":
-        # Get all data entered in the html form fields
-        username = request.POST['userID']
-        password = request.POST['password'] # Password hashed with django's built-in make_password()
-        fName = request.POST['fName']
-        lName = request.POST['lName']
-        email = request.POST['email']
-        about_me = request.POST['about_me']
-        # Get all recruiter specific data in the html form fields
-        company_name = request.POST['company_name']
-        about_company = request.POST['about_company']
-        position = request.POST['position']
-        # Add the user to the Users table in PostgreSQL
-        user = User.objects.create_user(username=username, password=password)
-        user.save()
-        add_user(username, fName, lName, make_password(password), email, about_me)
-        add_recruiter(username, company_name, about_company, position)
-        return redirect('login')
+        form = RecruiterForm(request.POST)
+        print(form.errors)
+        if form.is_valid():
+            # Get cleaned form data
+            username = form.cleaned_data['userID']
+            password = form.cleaned_data['password']
+            fName = form.cleaned_data['fName']
+            lName = form.cleaned_data['lName']
+            email = form.cleaned_data['email']
+            about_me = form.cleaned_data['about_me']
+            company_name = form.cleaned_data['company_name']
+            about_company = form.cleaned_data['about_company']
+            position = form.cleaned_data['position']
+            
+            # Process and save data
+            user = User.objects.create_user(username=username, password=password)
+            user.save()
+            add_user(username, fName, lName, make_password(password), email, about_me)
+            add_recruiter(username, company_name, about_company, position)
+            return redirect('login')
     else:
-        # Render form html page if GET request
-        return render(request, 'create-recruiter-account.html')
+        form = RecruiterForm()
+        
+    return render(request, 'create-recruiter-account.html', {'form': form})
     
 def create_student_account(request): 
     if request.method == "POST":
-        # Get all user data entered in the html form fields
-        username = request.POST['userID']
-        password = request.POST['password'] # Password hashed with django's built-in make_password()
-        fName = request.POST['fName']
-        lName = request.POST['lName']
-        email = request.POST['email']
-        about_me = request.POST['about_me']
-        # Get all student specific data in the html form fields
-        university = request.POST['university']
-        degree = request.POST['degree']
-        current_year = request.POST['current_year']
-        expected = request.POST['expected']
-        gpa = request.POST['gpa']
-        open_to_work = request.POST['open_to_work']
-        # Add the user to the Users table in PostgreSQL
-        user = User.objects.create_user(username=username, password=password)
-        user.save()
-        add_user(username, fName, lName, make_password(password), email, about_me)
-        add_student(username, university, degree, current_year, expected, gpa, open_to_work)
-        return redirect('login')
+            form = StudentForm(request.POST)
+            print(form.errors)
+            if form.is_valid():
+                # Get all user data entered in the html form fields
+                username = form.cleaned_data['userID']
+                password = form.cleaned_data['password'] # Password hashed with django's built-in make_password()
+                fName = form.cleaned_data['fName']
+                lName = form.cleaned_data['lName']
+                email = form.cleaned_data['email']
+                about_me = form.cleaned_data['about_me']
+                # Get all student specific data in the html form fields
+                university = form.cleaned_data['university']
+                degree = form.cleaned_data['degree']
+                current_year = form.cleaned_data['current_year']
+                expected = form.cleaned_data['expected']
+                gpa = form.cleaned_data['gpa']
+                open_to_work = form.cleaned_data['open_to_work']
+                # Add the user to the Users table in PostgreSQL
+                user = User.objects.create_user(username=username, password=password)
+                user.save()
+                add_user(username, fName, lName, make_password(password), email, about_me)
+                add_student(username, university, degree, current_year, expected, gpa, open_to_work)
+                return redirect('login')
     else:
-        # Render form html page if GET request
-        return render(request, 'create-student-account.html')
+        form = StudentForm()
+    
+    return render(request, 'create-student-account.html', {'form': form})
 
 def user_login(request):
     if request.method == "POST":
