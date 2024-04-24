@@ -16,6 +16,17 @@ create_posts_table()
 create_followers_table()
 create_likes_table()
 
+# with connection.cursor() as cursor:
+#         cursor.execute("""
+#             DROP TABLE Likes;
+#             DROP TABLE Followers;
+#             DROP TABLE Posts;
+#             DROP TABLE Recruiters;
+#             DROP TABLE Students;
+#             DROP TABLE Users;
+#             DELETE FROM auth_user;                      
+#         """)
+
 
 
 # Create your views here.
@@ -114,6 +125,44 @@ def recruiter_profile(request, username):
 def edit_profile(request): 
     current_user = request.user.username
     user_type = get_user_type(current_user)
+    print(user_type)
+    if request.method == "POST":
+        UserID = request.POST.get('userID', None)
+        FirstName = request.POST.get('fname', None)
+        LastName = request.POST.get('lname', None)
+        Email = request.POST.get('email', None)
+        Phone = request.POST.get('phone', None)
+        DOB = request.POST.get('dob', None)
+        OldPassword = request.POST.get('old_password', None)
+        Password = request.POST.get('new_password', None)
+        about_me = request.POST.get('about_me', None)
+        update_user(UserID, FirstName, LastName, Phone, make_password(Password), DOB, about_me, Email, current_user)
+        if user_type[0] == 'R':
+            company_name = request.POST.get('company_name', None)
+            about_company = request.POST.get('about_company', None)
+            position = request.POST.get('position', None)
+            company_link = request.POST.get('company_link', None)
+            update_recruiter(UserID, company_name, about_company, position, company_link, current_user)
+        else:
+            university = request.POST.get('university', None)
+            degree = request.POST.get('degree', None)
+            current_year = request.POST.get('current_year', None)
+            expected = request.POST.get('expected', None)
+            gpa = request.POST.get('gpa', None)
+            open_to_work = request.POST.get('open_to_work', None)
+            update_student(UserID, university, degree, current_year, expected, gpa, open_to_work, current_user)
+
+        if UserID != '' or Password != '': 
+            UserID = current_user if UserID == '' else UserID
+            Password = current_user if Password == '' else Password   
+            user = User.objects.create_user(username=UserID, password=Password)
+            user.save()
+            auth_user = authenticate(request, username=UserID, password=Password)
+            login(request, auth_user)
+            oldUser = User.objects.get(username = current_user)
+            oldUser.delete()
+        return redirect('home')
+
     return render(request, 'edit-profile.html', {'type': user_type})
 
 def create_recruiter_account(request): 
@@ -133,7 +182,7 @@ def create_recruiter_account(request):
         position = request.POST['position']
         company_link = request.POST['company_link']
         # Add the user to the Users table in PostgreSQL
-        user = User.objects.create_user(username=username, email=email,   password=password)
+        user = User.objects.create_user(username=username, password=password)
         user.save()
         add_user(username, fName, lName, phone, make_password(password), dob, email, about_me)
         add_recruiter(username, company_name, about_company, position, company_link)
@@ -157,7 +206,6 @@ def create_student_account(request):
         university = request.POST['university']
         degree = request.POST['degree']
         current_year = request.POST['current_year']
-        current_year = 'Graduate' if current_year == 'Graduate_Student' else current_year
         expected = request.POST['expected']
         gpa = request.POST['gpa']
         open_to_work = request.POST['open_to_work']
