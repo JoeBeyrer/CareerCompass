@@ -353,3 +353,83 @@ def get_user_likes_count(UserID):
             return total_likes
         else:
             return 0  # Return 0 if no likes found for the user
+
+def update_user(UserID, FirstName, LastName, PhoneNumber, PasswordHash, DOB, AboutMe, Email, current_user):
+    with connection.cursor() as cursor:
+        UserID = None if UserID == "" else UserID
+        print(UserID)
+        FirstName = None if FirstName == "" else FirstName
+        LastName = None if LastName == "" else LastName
+        PhoneNumber = None if PhoneNumber == "" else PhoneNumber
+        PasswordHash = None if PasswordHash == "" else PasswordHash
+        DOB = None if DOB == "" else DOB
+        AboutMe = None if AboutMe == "" else AboutMe
+        Email = None if Email == "" else Email
+        cursor.execute(
+            """
+            UPDATE users 
+            SET 
+                UserID = CASE WHEN %s IS NOT NULL THEN %s ELSE UserID END,
+                FirstName = CASE WHEN %s IS NOT NULL THEN %s ELSE FirstName END,
+                LastName = CASE WHEN %s IS NOT NULL THEN %s ELSE LastName END,
+                PhoneNumber = CASE WHEN %s IS NOT NULL THEN %s ELSE PhoneNumber END,
+                PasswordHash = CASE WHEN %s IS NOT NULL THEN %s ELSE PasswordHash END,
+                DOB = CASE WHEN %s IS NOT NULL THEN %s ELSE DOB END,
+                AboutMe = CASE WHEN %s IS NOT NULL THEN %s ELSE AboutMe END,
+                Email = CASE WHEN %s IS NOT NULL THEN %s ELSE Email END
+            WHERE UserID = %s;
+            """,
+            [UserID, UserID, FirstName, FirstName, LastName, LastName, PhoneNumber, 
+             PhoneNumber, PasswordHash, PasswordHash, DOB, DOB, AboutMe, AboutMe, 
+             Email, Email, current_user]
+            
+        )
+
+def update_student(UserID, University, Degree, CurrentYear, ExpectedGraduation, GPA, OpenToWork, current_user):
+    with connection.cursor() as cursor:
+        UserID = None if UserID == "" else UserID
+        University = None if University == "" else University
+        Degree = None if Degree == "" else Degree
+        CurrentYear = None if CurrentYear == "" else CurrentYear
+        ExpectedGraduation = None if ExpectedGraduation == "" else ExpectedGraduation
+        GPA = None if GPA == "" else GPA
+        OpenToWork = None if OpenToWork == "" else OpenToWork
+        cursor.execute(
+            """
+            UPDATE students 
+            SET 
+                UserID = CASE WHEN %s IS NOT NULL THEN %s ELSE UserID END,
+                University = CASE WHEN %s IS NOT NULL THEN %s ELSE University END,
+                Degree = CASE WHEN %s IS NOT NULL THEN %s ELSE Degree END,
+                CurrentYear = CASE WHEN %s IS NOT NULL THEN %s ELSE CurrentYear END,
+                ExpectedGraduation = CASE WHEN %s IS NOT NULL THEN %s ELSE ExpectedGraduation END,
+                GPA = CASE WHEN %s IS NOT NULL THEN %s ELSE GPA END,
+                OpenToWork = CASE WHEN %s IS NOT NULL THEN %s ELSE OpenToWork END
+            WHERE UserID = %s;
+            """,
+            [UserID, UserID, University, University, Degree, Degree, CurrentYear, CurrentYear, 
+             ExpectedGraduation, ExpectedGraduation, GPA, GPA, OpenToWork, OpenToWork, current_user]
+
+        )
+
+def update_recruiter(UserID, CompanyName, AboutCompany, Position, CompanyLink, current_user):
+    with connection.cursor() as cursor:
+        UserID = None if UserID == "" else UserID
+        CompanyName = None if CompanyName == "" else CompanyName
+        AboutCompany = None if AboutCompany == "" else AboutCompany
+        Position = None if Position == "" else Position
+        CompanyLink = None if CompanyLink == "" else CompanyLink
+        cursor.execute(
+            """
+            UPDATE recruiters 
+            SET 
+                UserID = CASE WHEN %s IS NOT NULL THEN %s ELSE UserID END,
+                CompanyName = CASE WHEN %s IS NOT NULL THEN %s ELSE CompanyName END,
+                AboutCompany = CASE WHEN %s IS NOT NULL THEN %s ELSE AboutCompany END,
+                Title = CASE WHEN %s IS NOT NULL THEN %s ELSE Title END,
+                CompanyLink = CASE WHEN %s IS NOT NULL THEN %s ELSE CompanyLink END
+            WHERE UserID = %s;
+            """,
+            [UserID, UserID, CompanyName, CompanyName, AboutCompany, AboutCompany, 
+             Position, Position, CompanyLink, CompanyLink, current_user]
+        )
