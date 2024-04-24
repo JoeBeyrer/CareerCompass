@@ -2,6 +2,7 @@
 # This file contains all database querying functions
 
 from django.db import connection
+from django.contrib.auth.hashers import make_password
 
 # Add the user to the database
 def add_user(UserID, FirstName, LastName, PasswordHash, Email, AboutMe=None):
@@ -358,9 +359,8 @@ def update_user(UserID, FirstName, LastName, PasswordHash, AboutMe, Email, curre
     with connection.cursor() as cursor:
         UserID = None if UserID == "" else UserID
         FirstName = None if FirstName == "" else FirstName
-        print(FirstName)
         LastName = None if LastName == "" else LastName
-        PasswordHash = None if PasswordHash == "" else PasswordHash
+        PasswordHash = None if PasswordHash == "" else make_password(PasswordHash)
         AboutMe = None if AboutMe == "" else AboutMe
         Email = None if Email == "" else Email
         cursor.execute(
