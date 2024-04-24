@@ -128,8 +128,8 @@ def edit_profile(request):
     print(user_type)
     if request.method == "POST":
         UserID = request.POST.get('userID', None)
-        FirstName = request.POST.get('fname', None)
-        LastName = request.POST.get('lname', None)
+        FirstName = request.POST.get('fName', None)
+        LastName = request.POST.get('lName', None)
         Email = request.POST.get('email', None)
         Phone = request.POST.get('phone', None)
         DOB = request.POST.get('dob', None)
@@ -154,13 +154,13 @@ def edit_profile(request):
 
         if UserID != '' or Password != '': 
             UserID = current_user if UserID == '' else UserID
-            Password = current_user if Password == '' else Password   
+            Password = current_user if Password == '' else Password
+            oldUser = User.objects.get(username = current_user)
+            oldUser.delete()   
             user = User.objects.create_user(username=UserID, password=Password)
             user.save()
             auth_user = authenticate(request, username=UserID, password=Password)
             login(request, auth_user)
-            oldUser = User.objects.get(username = current_user)
-            oldUser.delete()
         return redirect('home')
 
     return render(request, 'edit-profile.html', {'type': user_type})
