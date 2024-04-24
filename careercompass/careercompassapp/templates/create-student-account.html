@@ -48,7 +48,6 @@
             outline: none;
             box-sizing: border-box;
             border: 2px solid rgba(0, 0, 0, 0.02);
-            margin-bottom: 20px;
             text-align: center;
             margin-left: auto;
             margin-right: auto;
@@ -113,6 +112,24 @@
             margin-bottom: 10px;
         }
 
+        .error {
+            color: red;
+            font-size: 10px;
+            border: none;
+            outline: none;
+            box-sizing: border-box;
+            text-align: left;
+            margin-left: 20px;
+            margin-right: auto;
+            display: block;
+            font-family: 'Ubuntu', sans-serif;
+            max-width: 400px;
+        }
+
+        .field {
+            margin-bottom: 20px;
+        }
+
         @media (max-width: 600px) {
             .main {
                 width: 90%;
@@ -128,14 +145,75 @@
         <p class="sign">Create Student Account</p>
         <form action="http://127.0.0.1:8000/careercompass/create-student-account/" method="post" class="create_account_form">
             {% csrf_token %}
-            <input name="userID" type="text" placeholder="Username">
+            <div class="field">
+                <input name="userID" type="text" placeholder="Username">
+                {% if form.userID.errors %}
+                    <p class="error">{{ form.userID.errors.as_text }}</p>
+                {% endif %}
+            </div>
+
+            <div class="field">
             <input name="password" type="password" placeholder="Password">
-            <input name="confirm_password" type="password" placeholder="Confirm Password">
-            <input name="fName" type="text" placeholder="First Name">
-            <input name="lName" type="text" placeholder="Last Name">
-            <input name="email" type="email" placeholder="Email">
-            <input name="university" type="text" placeholder="University Name">
-            <input name="degree" type="text" placeholder="Major">
+                {% if form.password.errors %}
+                    <p class="error">{{ form.password.errors.as_text }}</p>
+                {% endif %}
+            </div>
+            <div class="field">
+                <input name="confirm_password" type="password" placeholder="Confirm Password">
+                {% if form.confirm_password.errors %}
+                    <p class="error">{{ form.confirm_password.errors.as_text }}</p>
+                {% endif %}
+            </div>
+            <div class="field">
+                <input name="fName" type="text" placeholder="First Name">
+                {% if form.fName.errors %}
+                    <p class="error">{{ form.fName.errors.as_text }}</p>
+                {% endif %}
+            </div>
+            <div class="field">
+                <input name="lName" type="text" placeholder="Last Name">
+                {% if form.lName.errors %}
+                    <p class="error">{{ form.lName.errors.as_text }}</p>
+                {% endif %}
+            </div>
+            <div class="field">
+                <input name="email" type="email" placeholder="Email">
+                {% if form.email.errors %}
+                    <p class="error">{{ form.email.errors.as_text }}</p>
+                {% endif %}
+            </div>
+
+
+            <div class="field">
+                <input name="university" type="text" placeholder="University Name">
+                {% if form.university.errors %}
+                    <p class="error">{{ form.university.errors.as_text }}</p>
+                {% endif %}
+            </div>
+            <div class="field">
+                <input name="degree" type="text" placeholder="Major">
+                {% if form.degree.errors %}
+                    <p class="error">{{ form.degree.errors.as_text }}</p>
+                {% endif %}
+            </div>
+            <div class="field">
+                <input name="expected" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Expected Graduation Date">
+                {% if form.expected.errors %}
+                    <p class="error">{{ form.expected.errors.as_text }}</p>
+                {% endif %}
+            </div>
+            <div class="field">
+                <input name="gpa" type="text" placeholder="GPA (2 Decimal Places)">
+                {% if form.gpa.errors %}
+                    <p class="error">{{ form.gpa.errors.as_text }}</p>
+                {% endif %}
+            </div>
+            <div class="field">
+                <input name="about_me" type="text" placeholder="About You">
+                {% if form.about_me.errors %}
+                    <p class="error">{{ form.about_me.errors.as_text }}</p>
+                {% endif %}
+            </div>
 
             <div class="radio-container">
                 <div class="open-to-work-label">Current Year</div>
@@ -159,10 +237,10 @@
                     <input id="current_year_graduate_student" name="current_year" type="radio" value="Graduate">
                     <label for="current_year_graduate_student">Graduate Student</label>
                 </div>
+                {% if form.current_year.errors %}
+                    <p class="error">{{ form.current_year.errors.as_text }}</p>
+                {% endif %}
             </div>
-
-            <input name="expected" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Expected Graduation Date">
-            <input name="gpa" type="text" placeholder="GPA (2 Decimal Places)">
             <div class="radio-container">
                 <div class="open-to-work-label">Open to Work?</div>
                 <div class="radio-button-container">
@@ -173,8 +251,10 @@
                     <input id="open_to_work_no" name="open_to_work" type="radio" value="No">
                     <label for="open_to_work_no">No</label>
                 </div>
+                {% if form.open_to_work.errors %}
+                    <p class="error">{{ form.open_to_work.errors.as_text }}</p>
+                {% endif %}
             </div>
-            <input name="about_me" type="text" placeholder="About You">
             <button type="submit" class="submit">Sign Up</button>
         </form>
         <p class="login_link"><a href="http://127.0.0.1:8000/careercompass/login/">Already have an account? Sign in</a></p>

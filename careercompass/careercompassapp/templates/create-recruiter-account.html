@@ -48,7 +48,6 @@
             outline: none;
             box-sizing: border-box;
             border: 2px solid rgba(0, 0, 0, 0.02);
-            margin-bottom: 20px;
             text-align: center;
             margin-left: auto;
             margin-right: auto;
@@ -89,6 +88,24 @@
             text-align: center;
         }
 
+        .error {
+            color: red;
+            font-size: 10px;
+            border: none;
+            outline: none;
+            box-sizing: border-box;
+            text-align: left;
+            margin-left: 20px;
+            margin-right: auto;
+            display: block;
+            font-family: 'Ubuntu', sans-serif;
+            max-width: 400px;
+        }
+
+        .field {
+            margin-bottom: 20px;
+        }
+
         a {
             text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);
             color: #8C55AA;
@@ -112,17 +129,68 @@
         <p class="sign">Create Recruiter Account</p>
         <form action="http://127.0.0.1:8000/careercompass/create-recruiter-account/" method="post" class="create_account_form">
             {% csrf_token %}
-            <input name="userID" type="text" placeholder="Username">
-            <input name="password" type="password" placeholder="Password">
-            <input name="confirm_password" type="password" placeholder="Confirm Password">
-            <input name="fName" type="text" placeholder="First Name">
-            <input name="lName" type="text" placeholder="Last Name">
-            <input name="email" type="email" placeholder="Email">
+            <div class="field">
+                <input name="userID" type="text" placeholder="Username">
+                {% if form.userID.errors %}
+                    <p class="error">{{ form.userID.errors.as_text }}</p>
+                {% endif %}
+            </div>
 
-            <input name="company_name" type="text" placeholder="Company Name">
-            <input name="position" type="text" placeholder="Position/Title">
-            <input name="about_company" type="text" placeholder="About the Company">
-            <input name="about_me" type="text" placeholder="About You">
+            <div class="field">
+            <input name="password" type="password" placeholder="Password">
+                {% if form.password.errors %}
+                    <p class="error">{{ form.password.errors.as_text }}</p>
+                {% endif %}
+            </div>
+            <div class="field">
+                <input name="confirm_password" type="password" placeholder="Confirm Password">
+                {% if form.confirm_password.errors %}
+                    <p class="error">{{ form.confirm_password.errors.as_text }}</p>
+                {% endif %}
+            </div>
+            <div class="field">
+                <input name="fName" type="text" placeholder="First Name">
+                {% if form.fName.errors %}
+                    <p class="error">{{ form.fName.errors.as_text }}</p>
+                {% endif %}
+            </div>
+            <div class="field">
+                <input name="lName" type="text" placeholder="Last Name">
+                {% if form.lName.errors %}
+                    <p class="error">{{ form.lName.errors.as_text }}</p>
+                {% endif %}
+            </div>
+            <div class="field">
+                <input name="email" type="email" placeholder="Email">
+                {% if form.email.errors %}
+                    <p class="error">{{ form.email.errors.as_text }}</p>
+                {% endif %}
+            </div>
+
+            <div class="field">
+                <input name="company_name" type="text" placeholder="Company Name">
+                {% if form.company_name.errors %}
+                    <p class="error">{{ form.company_name.errors.as_text }}</p>
+                {% endif %}
+            </div>
+            <div class="field">
+                <input name="position" type="text" placeholder="Position/Title">
+                {% if form.position.errors %}
+                    <p class="error">{{ form.position.errors.as_text }}</p>
+                {% endif %}
+            </div>
+            <div class="field">
+                <input name="about_company" type="text" placeholder="About the Company">
+                {% if form.about_company.errors %}
+                    <p class="error">{{ form.about_company.errors.as_text }}</p>
+                {% endif %}
+            </div>
+            <div class="field">
+                <input name="about_me" type="text" placeholder="About You">
+                {% if form.about_me.errors %}
+                    <p class="error">{{ form.about_me.errors.as_text }}</p>
+                {% endif %}
+            </div>
             <button type="submit" class="submit">Sign Up</button>
         </form>
         <p class="login_link"><a href="http://127.0.0.1:8000/careercompass/login/">Already have an account? Sign in</a></p>
