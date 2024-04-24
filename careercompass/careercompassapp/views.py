@@ -255,14 +255,17 @@ def create_new_post(request):
     current_user = request.user.username
     user_type = get_user_type(current_user)
     if request.method == "POST":
-        Title = request.POST['Title']
-        BodyText = request.POST['BodyText']
-        Field = request.POST['Field']
-        create_post(request.user.username, Title, BodyText, Field)
-        return redirect('home')
+        form = PostForm(request.POST)
+        print(form.errors)
+        if form.is_valid():
+            Title = form.cleaned_data['Title']
+            BodyText = form.cleaned_data['BodyText']
+            Field = form.cleaned_data['Field']
+            create_post(request.user.username, Title, BodyText, Field)
+            return redirect('home')
     else:
-        # Render form html page if GET request
-        return render(request, 'create-post.html', {'type': user_type})
+        form = PostForm()
+    return render(request, 'create-post.html', {'type': user_type, 'form': form})
 
 def show_followers_view(request, username):
     followers = get_followers(username)
