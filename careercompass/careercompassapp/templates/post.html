@@ -168,7 +168,7 @@
                 </form>
             </div>
             <div class="post-user">
-                {% if post.user_type.0 == 'R' %}
+                {% if user_type.0 == 'R' %}
                     <a href="/careercompass/recruiter/{{ post.0 }}" style="text-decoration:none; color: #8C55AA"><i class="fa fa-user"></i> {{ post.0 }}</a>
                 {% else %}
                     <a href="/careercompass/student/{{ post.0 }}" style="text-decoration:none; color: #8C55AA"><i class="fa fa-user"></i> {{ post.0 }}</a>
