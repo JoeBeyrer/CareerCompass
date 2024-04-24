@@ -48,6 +48,8 @@ def index(request):
 
 
 def post(request, postedBy, date):
+    current_user = request.user.username
+    user_type = get_user_type(current_user)
     date = datetime.strptime(date, '%Y-%m-%d-%H-%M-%S-%f')
     post = get_post(postedBy, date)
     current_user = request.user.username
@@ -65,8 +67,8 @@ def post(request, postedBy, date):
     has_liked = check_liked_post(request.user.username, post[0], post[1])
     likes_count = get_like_count(post[0], post[1])
     poster_type = get_user_type(post[0])
-    
-    return render(request, 'post.html', {'post': post, 'likes_count': likes_count, 'has_liked': has_liked, 'user_type': poster_type})
+    print(poster_type)
+    return render(request, 'post.html', {'post': post, 'likes_count': likes_count, 'has_liked': has_liked, 'user_type': poster_type, 'type': user_type})
 
 def student_profile(request, username):
     current_user = request.user.username
@@ -272,6 +274,8 @@ def show_following_view(request, username):
     return render(request, 'following.html', {'following_list': following_data, 'username': username})
 
 def search(request):
+    current_user = request.user.username
+    user_type = get_user_type(current_user)
     results = search_user('')
     results_data = []
     if request.method == "POST":
@@ -280,6 +284,6 @@ def search(request):
             results = search_user(search_query)
     if results:
         for result in results:
-            user_type = get_user_type(result[0])
-            results_data.append({'result': result, 'user_type': user_type})
-    return render(request, 'search.html', {'search_results': results_data})
+            result_type = get_user_type(result[0])
+            results_data.append({'result': result, 'user_type': result_type})
+    return render(request, 'search.html', {'search_results': results_data, 'type': user_type})

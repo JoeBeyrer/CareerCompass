@@ -80,7 +80,7 @@
             cursor: pointer;
             border-radius: 5em;
             color: #fff;
-            background: linear-gradient(to right, #9C27B0, #E040FB);
+            background: #8C55AA;
             border: 0;
             padding: 10px 20px;
             font-size: 13px;
@@ -147,6 +147,12 @@
             margin-left: 10px;
         }
 
+        .mail {
+            margin-left: 25px;
+            font-size: 40px;
+            margin-top: 10px;
+        }
+
         @media (max-width: 600px) {
             .dynamic-field {
                 width: 100%; /* Show dynamic fields in full width on smaller screens */
@@ -207,9 +213,11 @@
                             {% if student.0 in following_list %}
                                 <button type="submit" class="follow-button" name="follow" 
                                 value="unfollow" type="submit">Unfollow</button>
+                                <a href="mailto:{{student.12}}" class="mail"><i class="fa fa-envelope"></i></a>
                             {% else %}
                                 <button type="submit" class="follow-button" name="follow" 
                                 value="follow" type="submit">Follow</button>
+                                <a href="mailto:{{student.12}}" class="mail" style="margin-left: 20px;"><i class="fa fa-envelope"></i></a>
                             {% endif %}
                         {% endif %}
                 </form>
