@@ -7,9 +7,7 @@ def create_users_table():
                 UserID VARCHAR(15) PRIMARY KEY,
                 FirstName VARCHAR(20) NOT NULL,
                 LastName VARCHAR(20) NOT NULL,
-                PhoneNumber CHAR(10) NOT NULL,
                 PasswordHash VARCHAR(128) NOT NULL,
-                DOB DATE NOT NULL,
                 AboutMe TEXT,
                 Email VARCHAR(63) UNIQUE NOT NULL
             );
@@ -22,8 +20,7 @@ def create_recruiters_table():
                 UserID VARCHAR(15) PRIMARY KEY REFERENCES Users ON DELETE CASCADE ON UPDATE CASCADE,
                 CompanyName VARCHAR(20) NOT NULL,
                 AboutCompany TEXT,
-                Title VARCHAR(20) NOT NULL,
-                CompanyLink CHAR(255)
+                Title VARCHAR(20) NOT NULL
             );
         """)
 
@@ -51,7 +48,6 @@ def create_posts_table():
                 Title VARCHAR(30),
                 BodyText TEXT,
                 Field VARCHAR(20),
-                Link VARCHAR(255),
                 CONSTRAINT post_pk PRIMARY KEY (PostedBy, DatePosted)
             );
         """)

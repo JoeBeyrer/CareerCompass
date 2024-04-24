@@ -4,14 +4,14 @@
 from django.db import connection
 
 # Add the user to the database
-def add_user(UserID, FirstName, LastName, PhoneNumber, PasswordHash, DOB, Email, Type, AboutMe=None):
+def add_user(UserID, FirstName, LastName, PasswordHash, Email, AboutMe=None):
      with connection.cursor() as cursor:
         # Using cursor.execute with %s fields keeps the query safe from SQL injections
         cursor.execute(
             """
-            INSERT INTO users VALUES (%s, %s, %s, %s, %s, %s, %s, %s);
+            INSERT INTO users VALUES (%s, %s, %s, %s, %s, %s);
             """,
-            [UserID, FirstName, LastName, PhoneNumber, PasswordHash, DOB, AboutMe, Email]
+            [UserID, FirstName, LastName, PasswordHash, AboutMe, Email]
         )
 
 def add_student(UserID, University, Degree, CurrentYear, ExpectedGraduation, GPA, OpenToWork):
@@ -24,14 +24,14 @@ def add_student(UserID, University, Degree, CurrentYear, ExpectedGraduation, GPA
             [UserID, University, Degree, CurrentYear, ExpectedGraduation, GPA, OpenToWork]
         )
 
-def add_recruiter(UserID, CompanyName, AboutCompany, Position, CompanyLink):
+def add_recruiter(UserID, CompanyName, AboutCompany, Position):
      with connection.cursor() as cursor:
         # Using cursor.execute with %s fields keeps the query safe from SQL injections
         cursor.execute(
             """
-            INSERT INTO recruiters VALUES (%s, %s, %s, %s, %s);
+            INSERT INTO recruiters VALUES (%s, %s, %s, %s);
             """,
-            [UserID, CompanyName, AboutCompany, Position, CompanyLink]
+            [UserID, CompanyName, AboutCompany, Position]
         ) 
 
 # Get the user information from the database
@@ -119,14 +119,14 @@ def get_following_count(UserID):
         else:
             return None
         
-def create_post(PostedBy, Title, BodyText, Field, Link=None):
+def create_post(PostedBy, Title, BodyText, Field):
     with connection.cursor() as cursor:
         # Using cursor.execute with %s fields keeps the query safe from SQL injections
         cursor.execute(
             """
-            INSERT INTO posts VALUES (%s, NOW(), %s, %s, %s, %s);
+            INSERT INTO posts VALUES (%s, NOW(), %s, %s, %s);
             """,
-            [PostedBy, Title, BodyText, Field, Link]
+            [PostedBy, Title, BodyText, Field]
         )
 
 def delete_post(PostedBy, DatePosted):
@@ -354,15 +354,13 @@ def get_user_likes_count(UserID):
         else:
             return 0  # Return 0 if no likes found for the user
 
-def update_user(UserID, FirstName, LastName, PhoneNumber, PasswordHash, DOB, AboutMe, Email, current_user):
+def update_user(UserID, FirstName, LastName, PasswordHash, AboutMe, Email, current_user):
     with connection.cursor() as cursor:
         UserID = None if UserID == "" else UserID
-        print(UserID)
         FirstName = None if FirstName == "" else FirstName
+        print(FirstName)
         LastName = None if LastName == "" else LastName
-        PhoneNumber = None if PhoneNumber == "" else PhoneNumber
         PasswordHash = None if PasswordHash == "" else PasswordHash
-        DOB = None if DOB == "" else DOB
         AboutMe = None if AboutMe == "" else AboutMe
         Email = None if Email == "" else Email
         cursor.execute(
@@ -372,15 +370,13 @@ def update_user(UserID, FirstName, LastName, PhoneNumber, PasswordHash, DOB, Abo
                 UserID = CASE WHEN %s IS NOT NULL THEN %s ELSE UserID END,
                 FirstName = CASE WHEN %s IS NOT NULL THEN %s ELSE FirstName END,
                 LastName = CASE WHEN %s IS NOT NULL THEN %s ELSE LastName END,
-                PhoneNumber = CASE WHEN %s IS NOT NULL THEN %s ELSE PhoneNumber END,
                 PasswordHash = CASE WHEN %s IS NOT NULL THEN %s ELSE PasswordHash END,
-                DOB = CASE WHEN %s IS NOT NULL THEN %s ELSE DOB END,
                 AboutMe = CASE WHEN %s IS NOT NULL THEN %s ELSE AboutMe END,
                 Email = CASE WHEN %s IS NOT NULL THEN %s ELSE Email END
             WHERE UserID = %s;
             """,
-            [UserID, UserID, FirstName, FirstName, LastName, LastName, PhoneNumber, 
-             PhoneNumber, PasswordHash, PasswordHash, DOB, DOB, AboutMe, AboutMe, 
+            [UserID, UserID, FirstName, FirstName, LastName, LastName, PasswordHash, 
+             PasswordHash, AboutMe, AboutMe, 
              Email, Email, current_user]
             
         )
@@ -412,13 +408,12 @@ def update_student(UserID, University, Degree, CurrentYear, ExpectedGraduation, 
 
         )
 
-def update_recruiter(UserID, CompanyName, AboutCompany, Position, CompanyLink, current_user):
+def update_recruiter(UserID, CompanyName, AboutCompany, Position, current_user):
     with connection.cursor() as cursor:
         UserID = None if UserID == "" else UserID
         CompanyName = None if CompanyName == "" else CompanyName
         AboutCompany = None if AboutCompany == "" else AboutCompany
         Position = None if Position == "" else Position
-        CompanyLink = None if CompanyLink == "" else CompanyLink
         cursor.execute(
             """
             UPDATE recruiters 
@@ -426,10 +421,9 @@ def update_recruiter(UserID, CompanyName, AboutCompany, Position, CompanyLink, c
                 UserID = CASE WHEN %s IS NOT NULL THEN %s ELSE UserID END,
                 CompanyName = CASE WHEN %s IS NOT NULL THEN %s ELSE CompanyName END,
                 AboutCompany = CASE WHEN %s IS NOT NULL THEN %s ELSE AboutCompany END,
-                Title = CASE WHEN %s IS NOT NULL THEN %s ELSE Title END,
-                CompanyLink = CASE WHEN %s IS NOT NULL THEN %s ELSE CompanyLink END
+                Title = CASE WHEN %s IS NOT NULL THEN %s ELSE Title END
             WHERE UserID = %s;
             """,
             [UserID, UserID, CompanyName, CompanyName, AboutCompany, AboutCompany, 
-             Position, Position, CompanyLink, CompanyLink, current_user]
+             Position, Position, current_user]
         )

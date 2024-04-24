@@ -29,7 +29,7 @@ create_likes_table()
 
 
 
-# Create your views here.
+#Create your views here.
 
 #TODO: Fill in requests for entering pages - will need to make view functions for queries
 
@@ -84,6 +84,7 @@ def student_profile(request, username):
     posts = get_user_posts(username)
     total_num_likes = get_user_likes_count(username)
     post_data = []
+    print(student)
     if posts:
         for post in posts:
             has_liked = check_liked_post(request.user.username, post[0], post[1])
@@ -111,6 +112,7 @@ def recruiter_profile(request, username):
     posts = get_user_posts(username)
     total_num_likes = get_user_likes_count(username)
     post_data = []
+    print(recruiter)
     if posts:
         for post in posts:
             has_liked = check_liked_post(request.user.username, post[0], post[1])
@@ -130,19 +132,16 @@ def edit_profile(request):
         UserID = request.POST.get('userID', None)
         FirstName = request.POST.get('fName', None)
         LastName = request.POST.get('lName', None)
-        Email = request.POST.get('email', None)
-        Phone = request.POST.get('phone', None)
-        DOB = request.POST.get('dob', None)
         OldPassword = request.POST.get('old_password', None)
         Password = request.POST.get('new_password', None)
         about_me = request.POST.get('about_me', None)
-        update_user(UserID, FirstName, LastName, Phone, make_password(Password), DOB, about_me, Email, current_user)
+        email = request.POST.get('email', None)
+        update_user(UserID, FirstName, LastName, make_password(Password), email, about_me, current_user)
         if user_type[0] == 'R':
             company_name = request.POST.get('company_name', None)
             about_company = request.POST.get('about_company', None)
             position = request.POST.get('position', None)
-            company_link = request.POST.get('company_link', None)
-            update_recruiter(UserID, company_name, about_company, position, company_link, current_user)
+            update_recruiter(UserID, company_name, about_company, position, current_user)
         else:
             university = request.POST.get('university', None)
             degree = request.POST.get('degree', None)
@@ -172,20 +171,17 @@ def create_recruiter_account(request):
         password = request.POST['password'] # Password hashed with django's built-in make_password()
         fName = request.POST['fName']
         lName = request.POST['lName']
-        phone = request.POST['phone']
         email = request.POST['email']
-        dob = request.POST['dob']
         about_me = request.POST['about_me']
         # Get all recruiter specific data in the html form fields
         company_name = request.POST['company_name']
         about_company = request.POST['about_company']
         position = request.POST['position']
-        company_link = request.POST['company_link']
         # Add the user to the Users table in PostgreSQL
         user = User.objects.create_user(username=username, password=password)
         user.save()
-        add_user(username, fName, lName, phone, make_password(password), dob, email, about_me)
-        add_recruiter(username, company_name, about_company, position, company_link)
+        add_user(username, fName, lName, make_password(password), email, about_me)
+        add_recruiter(username, company_name, about_company, position)
         return redirect('login')
     else:
         # Render form html page if GET request
@@ -198,9 +194,7 @@ def create_student_account(request):
         password = request.POST['password'] # Password hashed with django's built-in make_password()
         fName = request.POST['fName']
         lName = request.POST['lName']
-        phone = request.POST['phone']
         email = request.POST['email']
-        dob = request.POST['dob']
         about_me = request.POST['about_me']
         # Get all student specific data in the html form fields
         university = request.POST['university']
@@ -212,7 +206,7 @@ def create_student_account(request):
         # Add the user to the Users table in PostgreSQL
         user = User.objects.create_user(username=username, password=password)
         user.save()
-        add_user(username, fName, lName, phone, make_password(password), dob, email, about_me)
+        add_user(username, fName, lName, make_password(password), email, about_me)
         add_student(username, university, degree, current_year, expected, gpa, open_to_work)
         return redirect('login')
     else:
@@ -226,7 +220,7 @@ def user_login(request):
         password = request.POST['password']
         # Get the users credentials using a select query and the username
         user = get_user(username)
-        if user is not None and check_password(password, user[4]):
+        if user is not None and check_password(password, user[3]):
             # Set up session for the user
             request.session['user_id'] = user[0]
             auth_user = authenticate(request, username=username, password=password)
@@ -253,8 +247,7 @@ def create_new_post(request):
         Title = request.POST['Title']
         BodyText = request.POST['BodyText']
         Field = request.POST['Field']
-        Link = request.POST['Link'] # May need to change
-        create_post(request.user.username, Title, BodyText, Field, Link)
+        create_post(request.user.username, Title, BodyText, Field)
         return redirect('home')
     else:
         # Render form html page if GET request
