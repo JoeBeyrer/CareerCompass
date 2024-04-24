@@ -360,7 +360,7 @@ def update_user(UserID, FirstName, LastName, PasswordHash, AboutMe, Email, curre
         UserID = None if UserID == "" else UserID
         FirstName = None if FirstName == "" else FirstName
         LastName = None if LastName == "" else LastName
-        PasswordHash = None if PasswordHash == "" else make_password(PasswordHash)
+        PasswordHash = None if PasswordHash == "" else PasswordHash
         AboutMe = None if AboutMe == "" else AboutMe
         Email = None if Email == "" else Email
         cursor.execute(

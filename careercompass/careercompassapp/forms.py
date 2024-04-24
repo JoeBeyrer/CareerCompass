@@ -73,8 +73,11 @@ class EditProfileForm(forms.Form):
         password = cleaned_data.get("password")
         confirm_password = cleaned_data.get("confirm_password")
 
+        if password and not confirm_password:
+            raise ValidationError("Please confirm your password.")
+        
         if password != confirm_password:
-            raise ValidationError("The passwords do not match. Please enter the same password in both fields.")
+            self.add_error('confirm_password', ValidationError("The passwords do not match. Please enter the same password in both fields."))
 
 class PostForm(forms.Form):
     Title = forms.CharField(max_length=30, required=True)

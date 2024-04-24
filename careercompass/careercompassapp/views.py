@@ -130,18 +130,20 @@ def recruiter_profile(request, username):
 def edit_profile(request): 
     current_user = request.user.username
     user_type = get_user_type(current_user)
+    checked_password = True
     if request.method == "POST":
         form = EditProfileForm(request.POST)
-        checked_password = True
         UserID = request.POST.get('userID', None)
         OldPassword = request.POST.get('old_password', None)
         Password = request.POST.get('password', None)
         if Password != '':
             user = get_user(current_user)
             checked_password = check_password(OldPassword, user[3])
+            print(user)
+            print(checked_password)
         if not checked_password:
                 messages.error(request, "Old password is incorrect.")
-                return render(request, 'edit-profile.html', {'type': user_type, 'form': form})
+                return render(request, 'edit-profile.html', {'type': user_type, 'form': form, 'password_check': checked_password})
         if form.is_valid():
             UserID = form.cleaned_data['userID']
             Password = form.cleaned_data['password']
@@ -153,7 +155,7 @@ def edit_profile(request):
                 company_name = form.cleaned_data['company_name']
                 about_company = form.cleaned_data['about_company']
                 position = form.cleaned_data['position']
-                update_user(UserID, FirstName, LastName, Password, email, about_me, current_user)
+                update_user(UserID, FirstName, LastName, '' if Password == '' else make_password(Password), email, about_me, current_user)
                 update_recruiter(UserID, company_name, about_company, position, current_user)
             else:
                 university = form.cleaned_data['university']
@@ -162,7 +164,7 @@ def edit_profile(request):
                 expected = form.cleaned_data['expected']
                 gpa = form.cleaned_data['gpa']
                 open_to_work = form.cleaned_data['open_to_work']
-                update_user(UserID, FirstName, LastName, Password, email, about_me, current_user)
+                update_user(UserID, FirstName, LastName,  '' if Password == '' else make_password(Password), email, about_me, current_user)
                 update_student(UserID, university, degree, current_year, expected, gpa, open_to_work, current_user)
 
             if UserID != '':
@@ -182,12 +184,13 @@ def edit_profile(request):
                 if auth_user is not None:
                     login(request, auth_user)
 
-        return redirect('home')
-    
+            return redirect('home')
+        else:
+            print(form.errors)
     else:
         form = EditProfileForm()
 
-    return render(request, 'edit-profile.html', {'type': user_type, 'form': form})
+    return render(request, 'edit-profile.html', {'type': user_type, 'form': form, 'password_check': checked_password})
 
 
 def create_recruiter_account(request): 
@@ -254,9 +257,7 @@ def user_login(request):
         password = request.POST['password']
         # Get the users credentials using a select query and the username
         user = get_user(username)
-        print(user)
-        if user is not None:
-            print(check_password(password, user[3]))
+        if user is not None and check_password(password, user[3]):
             # Set up session for the user
             request.session['user_id'] = user[0]
             auth_user = authenticate(request, username=username, password=password)
