@@ -127,7 +127,7 @@
 <body>
     <div class="main">
         <p class="sign">Create Recruiter Account</p>
-        <form action="http://127.0.0.1:8000/careercompass/create-recruiter-account/" method="post" class="create_account_form">
+        <form action="/create-recruiter-account/" method="post" class="create_account_form">
             {% csrf_token %}
             <div class="field">
                 <input name="userID" type="text" placeholder="Username">
@@ -193,7 +193,7 @@
             </div>
             <button type="submit" class="submit">Sign Up</button>
         </form>
-        <p class="login_link"><a href="http://127.0.0.1:8000/careercompass/login/">Already have an account? Sign in</a></p>
+        <p class="login_link"><a href="/careercompass/login/">Already have an account? Sign in</a></p>
     </div>
 </body>
 

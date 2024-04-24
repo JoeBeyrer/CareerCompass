@@ -114,15 +114,15 @@
         {% if error %}
             <p class="error">Invalid username or password.</p>
         {% endif%}
-        <form action="http://127.0.0.1:8000/careercompass/login/" method="post" class="login_form">
+        <form action="/careercompass/login/" method="post" class="login_form">
             {% csrf_token %}
             <input name="userID" type="text" placeholder="Username">
             <input name="password" type="password" placeholder="Password">
             <button type="submit" class="submit">Sign In</button>
         </form>
         <div class="create">
-            <p><a href="http://127.0.0.1:8000/careercompass/create-recruiter-account/">Create Recruiter Account</a></p>
-            <p><a href="http://127.0.0.1:8000/careercompass/create-student-account/">Create Student Account</a></p>
+            <p><a href="/careercompass/create-recruiter-account/">Create Recruiter Account</a></p>
+            <p><a href="/careercompass/create-student-account/">Create Student Account</a></p>
         </div>
     </div>
 </body>
