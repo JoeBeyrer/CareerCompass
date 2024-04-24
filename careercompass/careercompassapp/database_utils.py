@@ -427,3 +427,32 @@ def update_recruiter(UserID, CompanyName, AboutCompany, Position, current_user):
             [UserID, UserID, CompanyName, CompanyName, AboutCompany, AboutCompany, 
              Position, Position, current_user]
         )
+
+def check_email(email):
+    with connection.cursor() as cursor:
+        cursor.execute(
+            """
+            SELECT Email FROM users WHERE Email=%s;
+            """,
+            [email]
+        )
+        email_exists = cursor.fetchone()
+        print(email_exists)
+        if email_exists != None:
+            return True
+        else:
+            return False  
+        
+def check_username(UserID):
+    with connection.cursor() as cursor:
+        cursor.execute(
+            """
+            SELECT UserID FROM users WHERE UserID=%s;
+            """,
+            [UserID]
+        )
+        UserID_exists = cursor.fetchone()
+        if UserID_exists != None:
+            return True
+        else:
+            return False  

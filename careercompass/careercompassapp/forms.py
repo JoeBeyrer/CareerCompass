@@ -1,6 +1,7 @@
 from django import forms
 from django.core.validators import MinValueValidator, MaxValueValidator, RegexValidator
 from django.core.exceptions import ValidationError
+from .database_utils import *
 
 
 class RecruiterForm(forms.Form):
@@ -19,9 +20,20 @@ class RecruiterForm(forms.Form):
         cleaned_data = super().clean()
         password = cleaned_data.get("password")
         confirm_password = cleaned_data.get("confirm_password")
+        email = cleaned_data.get("email")
+        userID = cleaned_data.get("userID")
 
+        if password and not confirm_password:
+            raise ValidationError("Please confirm your password.")
+        
         if password != confirm_password:
-            raise ValidationError("The passwords do not match. Please enter the same password in both fields.")
+            self.add_error('confirm_password', ValidationError("The passwords do not match. Please enter the same password in both fields."))
+
+        if check_email(email):
+            self.add_error('email', ValidationError("This email is already tied to an account."))
+
+        if check_username(userID):
+            self.add_error('userID', ValidationError("This username is taken."))
 
 class StudentForm(forms.Form):
     userID = forms.CharField(max_length=15, required=True, validators=[RegexValidator(r'^[a-zA-Z0-9_]*$', message='Only alphanumeric characters and underscore are allowed.')])
@@ -42,9 +54,20 @@ class StudentForm(forms.Form):
         cleaned_data = super().clean()
         password = cleaned_data.get("password")
         confirm_password = cleaned_data.get("confirm_password")
+        email = cleaned_data.get("email")
+        userID = cleaned_data.get("userID")
 
+        if password and not confirm_password:
+            raise ValidationError("Please confirm your password.")
+        
         if password != confirm_password:
-            raise ValidationError("The passwords do not match. Please enter the same password in both fields.")
+            self.add_error('confirm_password', ValidationError("The passwords do not match. Please enter the same password in both fields."))
+        
+        if check_email(email):
+            self.add_error('email', ValidationError("This email is already tied to an account."))
+
+        if check_username(userID):
+            self.add_error('userID', ValidationError("This username is taken."))
 
 class EditProfileForm(forms.Form):
     userID = forms.CharField(max_length=15, required=False, validators=[RegexValidator(r'^[a-zA-Z0-9_]*$', message='Only alphanumeric characters and underscore are allowed.')])
@@ -72,12 +95,20 @@ class EditProfileForm(forms.Form):
         cleaned_data = super().clean()
         password = cleaned_data.get("password")
         confirm_password = cleaned_data.get("confirm_password")
+        email = cleaned_data.get("email")
+        userID = cleaned_data.get("userID")
 
         if password and not confirm_password:
             raise ValidationError("Please confirm your password.")
         
         if password != confirm_password:
             self.add_error('confirm_password', ValidationError("The passwords do not match. Please enter the same password in both fields."))
+        
+        if check_email(email):
+            self.add_error('email', ValidationError("This email is already tied to an account."))
+
+        if check_username(userID):
+            self.add_error('userID', ValidationError("This username is taken."))
 
 class PostForm(forms.Form):
     Title = forms.CharField(max_length=30, required=True)
