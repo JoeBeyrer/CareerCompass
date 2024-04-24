@@ -50,7 +50,6 @@
             outline: none;
             box-sizing: border-box;
             border: 2px solid rgba(0, 0, 0, 0.02);
-            margin-bottom: 20px;
             text-align: center;
             margin-left: auto;
             margin-right: auto;
@@ -96,6 +95,24 @@
             text-align: center;
         }
 
+        .error {
+            color: red;
+            font-size: 10px;
+            border: none;
+            outline: none;
+            box-sizing: border-box;
+            text-align: left;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+            font-family: 'Ubuntu', sans-serif;
+            max-width: 400px;
+        }
+
+        .form-field {
+            margin-bottom: 20px;
+        }
+
         @media (max-width: 600px) {
             .main {
                 width: 90%;
@@ -113,11 +130,26 @@
     {% block content %}
         <div class="main">
             <p class="sign">Create Post</p>
-            <form action="http://127.0.0.1:8000/careercompass/create-post/" method="post" class="create_post_form">
+            <form action="/careercompass/create-post/" method="post" class="create_post_form">
                 {% csrf_token %}
-                <input name="Title" type="text" placeholder="Title">
+                <div class="form-field">
+                    <input name="Title" type="text" placeholder="Title">
+                    {% if form.Title.errors %}
+                        <p class="error">{{ form.Title.errors.as_text }}</p>
+                    {% endif %}
+                </div>
+                <div class="form-field">
                 <input name="Field" type="text" placeholder="Related Job Field">
-                <input name="BodyText" type="text" placeholder="Body Text">
+                    {% if form.Field.errors %}
+                        <p class="error">{{ form.Field.errors.as_text }}</p>
+                    {% endif %}
+                </div>
+                <div class="form-field">
+                    <input name="BodyText" type="text" placeholder="Body Text">
+                    {% if form.BodyText.errors %}
+                        <p class="error">{{ form.BodyText.errors.as_text }}</p>
+                    {% endif %}
+                </div>
                 <button type="submit" class="submit">Post</button>
             </form>
             <p class="cancel"><a href="/careercompass/">Cancel</a></p>
