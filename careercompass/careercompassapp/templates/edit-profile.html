@@ -38,6 +38,21 @@
             text-align: center;
         }
 
+        .notice {
+
+            color: #8C55AA;
+            font-family: 'Ubuntu', sans-serif;
+
+            font-size: 10px;
+            width: 90%;
+            margin-bottom: 20px;
+            text-align: left;
+            margin-left: auto;
+            margin-right: auto;
+            font-family: 'Ubuntu', sans-serif;
+            max-width: 400px;
+        }
+
         input[type="text"],
         input[type="password"],
         input[type="email"],
@@ -64,11 +79,31 @@
             max-width: 400px; /* Set a maximum width */
         }
 
+        .radio-container {
+            width: 90%;
+            color: rgb(38, 50, 56);
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 1px;
+            padding: 10px 20px;
+            border: none;
+            outline: none;
+            box-sizing: border-box;
+            margin-bottom: 0px;
+            text-align: left;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+            font-family: 'Ubuntu', sans-serif;
+            max-width: 400px;
+        }
+
         input[type="text"]:focus,
         input[type="password"]:focus,
         input[type="email"]:focus,
         input[type="tel"]:focus,
-        input[type="date"]:focus {
+        input[type="date"]:focus,
+        input[type="radio"]:checked {
             border: 2px solid rgba(0, 0, 0, 0.18) !important;
         }
 
@@ -97,6 +132,18 @@
             text-align: center;
         }
 
+        .radio-button-container {
+            display: block;
+            margin-bottom: 10px;
+            margin-left: 15px;
+        }
+
+
+        .radio-label {
+            margin-bottom: 10px;
+        }
+
+
         a {
             text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);
             color: #8C55AA;
@@ -122,14 +169,71 @@
     {% block content %}
         <div class="main">
             <p class="sign">Edit Profile</p>
-            <form action="http://127.0.0.1:8000/careercompass/edit-profile/" method="post" class="edit_profile_form">
+            <div class="notice">
+                <p>* Only fill fields you wish to change.</p>
+                <p>* Setting a new password requires entering your old password.</p>
+            </div>
+            <form method="POST" name="edit_profile">
                 {% csrf_token %}
                 <input name="userID" type="text" placeholder="Username">
+                <input name="old_password" type="password" placeholder="Password">
+                <input name="new_password" type="password" placeholder="New Password">
+                <input name="confirm_password" type="password" placeholder="Confirm New Password">
                 <input name="fName" type="text" placeholder="First Name">
                 <input name="lName" type="text" placeholder="Last Name">
                 <input name="email" type="email" placeholder="Email">
                 <input name="phone" type="tel" placeholder="Phone Number">
-                <input name="dob" type="date" placeholder="Date of Birth">
+                <input name="dob" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Date of Birth">
+                {% if type.0 == 'R' %}
+                    <input name="company_name" type="text" placeholder="Company Name">
+                    <input name="position" type="text" placeholder="Position/Title">
+                    <input name="company_link" type="text" placeholder="Link to Company Webpage">
+                    <input name="about_company" type="text" placeholder="About the Company (Max: 255 Chars)">
+                    <input name="about_me" type="text" placeholder="About You (Max: 255 Chars)">
+                {% else %}
+                    <input name="university" type="text" placeholder="University Name">
+                    <input name="degree" type="text" placeholder="Major">
+                    <input name="expected" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Expected Graduation Date">
+                    <input name="gpa" type="text" placeholder="GPA (2 Decimal Places)">
+                    
+                    <input name="about_me" type="text" placeholder="About You (Max: 255 Chars)">
+
+                    <div class="radio-container">
+                        <div class="radio-label">Current Year</div>
+                        <div class="radio-button-container">
+                            <input id="current_year_freshman" name="current_year" type="radio" value="Freshman">
+                            <label for="current_year_freshman">Freshman</label>
+                        </div>
+                        <div class="radio-button-container">
+                            <input id="current_year_sophomore" name="current_year" type="radio" value="Sophomore">
+                            <label for="current_year_sophomore">Sophomore</label>
+                        </div>
+                        <div class="radio-button-container">
+                            <input id="current_year_junior" name="current_year" type="radio" value="Junior">
+                            <label for="current_year_junior">Junior</label>
+                        </div>
+                        <div class="radio-button-container">
+                            <input id="current_year_senior" name="current_year" type="radio" value="Senior">
+                            <label for="current_year_senior">Senior</label>
+                        </div>
+                        <div class="radio-button-container">
+                            <input id="current_year_graduate_student" name="current_year" type="radio" value="Graduate">
+                            <label for="current_year_graduate_student">Graduate Student</label>
+                        </div>
+                    </div>
+                    <div class="radio-container" style="margin-bottom: 20px;">
+                        <div class="radio-label">Open to Work?</div>
+                        <div class="radio-button-container">
+                            <input id="open_to_work_yes" name="open_to_work" type="radio" value="Yes">
+                            <label for="open_to_work_yes">Yes</label>
+                        </div>
+                        <div class="radio-button-container">
+                            <input id="open_to_work_no" name="open_to_work" type="radio" value="No">
+                            <label for="open_to_work_no">No</label>
+                        </div>
+                    </div>
+                    
+                {% endif %}
                 <button type="submit" class="submit">Save Changes</button>
             </form>
             <p class="cancel"><a href="/careercompass/">Cancel</a></p>
