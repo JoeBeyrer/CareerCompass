@@ -91,10 +91,17 @@
             text-align: center;
         }
 
-        @media (max-width: 600px) {
+        .error {
+            color: red;
+            font-size: 10px;
+            margin-left: 25px;
+            
+        }
+
+        @media (max-width: 500px) {
             .main {
                 width: 90%;
-                border-radius: 0px;
+                border-radius: 1.5em;
             }
         }
     </style>
@@ -104,6 +111,9 @@
 <body>
     <div class="main">
         <p class="sign">Sign In to CareerCompass</p>
+        {% if error %}
+            <p class="error">Invalid username or password.</p>
+        {% endif%}
         <form action="http://127.0.0.1:8000/careercompass/login/" method="post" class="login_form">
             {% csrf_token %}
             <input name="userID" type="text" placeholder="Username">

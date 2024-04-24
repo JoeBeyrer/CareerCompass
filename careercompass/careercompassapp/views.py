@@ -269,9 +269,9 @@ def user_login(request):
         else:
             # Display an error message for invalid credentials
             messages.error(request, 'Invalid username or password.')
-            return redirect('login')
+            return render(request, 'login.html', {'error': True})
     else:
-        return render(request, 'login.html')
+        return render(request, 'login.html', {'error': False})
 
 def user_logout(request):
     logout(request)
