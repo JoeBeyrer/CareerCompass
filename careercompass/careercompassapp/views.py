@@ -325,3 +325,30 @@ def search(request):
             result_type = get_user_type(result[0])
             results_data.append({'result': result, 'user_type': result_type})
     return render(request, 'search.html', {'search_results': results_data, 'type': user_type})
+
+
+def delete_account(request):
+    current_user = request.user.username
+    user_type = get_user_type(current_user)
+    if request.user.is_authenticated and request.method == "POST":
+        userID = request.POST.get('userID')
+        password = request.POST.get('password')
+        
+        try:
+            user = User.objects.get(username=current_user)
+            if user.check_password(password) and current_user == userID:
+                user.delete()
+                delete_user(userID)
+                logout(request)
+                return redirect('login')  # Redirect to home or any other page after successful deletion
+            else:
+                # Incorrect username or password
+                return render(request, 'delete-account.html', {'error': 'Invalid username or password'})
+        except User.DoesNotExist:
+            # User does not exist
+            return render(request, 'delete-account.html', {'error': 'User does not exist'})
+        except Exception as e:
+            # Handle other exceptions
+            return render(request, 'delete-account.html', {'error': str(e)})
+    else:
+        return render(request, 'delete-account.html', {'type': user_type})
