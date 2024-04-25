@@ -155,7 +155,7 @@ def edit_profile(request):
                 company_name = form.cleaned_data['company_name']
                 about_company = form.cleaned_data['about_company']
                 position = form.cleaned_data['position']
-                update_user(UserID, FirstName, LastName, '' if Password == '' else make_password(Password), email, about_me, current_user)
+                update_user(UserID, FirstName, LastName, '' if Password == '' else make_password(Password), about_me, email, current_user)
                 update_recruiter(UserID, company_name, about_company, position, current_user)
             else:
                 university = form.cleaned_data['university']
@@ -164,7 +164,7 @@ def edit_profile(request):
                 expected = form.cleaned_data['expected']
                 gpa = form.cleaned_data['gpa']
                 open_to_work = form.cleaned_data['open_to_work']
-                update_user(UserID, FirstName, LastName,  '' if Password == '' else make_password(Password), email, about_me, current_user)
+                update_user(UserID, FirstName, LastName,  '' if Password == '' else make_password(Password), about_me, email, current_user)
                 update_student(UserID, university, degree, current_year, expected, gpa, open_to_work, current_user)
 
             if UserID != '':
