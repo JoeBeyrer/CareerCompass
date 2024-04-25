@@ -1,0 +1,159 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        body {
+            background-color: #F3EBF6;
+            font-family: 'Ubuntu', sans-serif;
+        }
+
+        .main {
+            background-color: #FFFFFF;
+            box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
+            padding: 20px;
+            box-sizing: border-box;
+            position: relative;
+            padding-top: 60px;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #ffffff;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000; /* Ensure the navbar stays above other content */
+        }
+
+        .delete-account {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .post-container {
+            flex: 0 0 calc(33.33% - 20px); /* Adjust width of post containers */
+            margin-bottom: 20px; /* Add some margin between post cards */
+            box-sizing: border-box;
+        }
+
+        .post-container .post-card {
+            /* Your post card styles */
+            width: 100%;
+        }
+
+        .no-posts {
+            color: #8C55AA;
+            margin: auto;
+            font-size: 20px;
+            text-align: center;
+            margin-top: 30px;
+
+        }
+
+        .delete-account-button {
+            cursor: pointer;
+            border-radius: 5em;
+            color: #fff;
+            background: linear-gradient(to right, #ff0000, #e08181);
+            border: 0;
+            padding-left: 40px;
+            padding-right: 40px;
+            padding-bottom: 10px;
+            padding-top: 10px;
+            font-family: 'Ubuntu', sans-serif;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+            font-size: 13px;
+            box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
+        }
+
+        .cancel {
+            text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);
+            color: #8C55AA;
+            text-align: center;
+            font-size: 15px;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            border: 2px solid rgba(0, 0, 0, 0.18) !important;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 90%;
+            color: rgb(38, 50, 56);
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 1px;
+            background: rgba(136, 126, 126, 0.04);
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            outline: none;
+            box-sizing: border-box;
+            border: 2px solid rgba(0, 0, 0, 0.02);
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+            font-family: 'Ubuntu', sans-serif;
+            max-width: 400px; /* Set a maximum width */
+            margin-bottom: 20px;
+        }
+
+        .error {
+            color: red;
+            font-size: 10px;
+            margin-left: 25px;
+            
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        @media (max-width: 200px) {
+            .main {
+                width: 90%;
+                border-radius: 0px;
+            }
+        }
+        
+    </style>
+    <title>Home Page</title>
+</head>
+
+<body>
+    <div class="navbar"></div>
+        {% extends './base.html' %}
+    </div>
+    {% block content %}
+        <div class="main">
+            <div class="delete-account">
+                <div class="no-posts">
+                    <p>Are you sure you would like to delete your account? This action is permanent and irreversible.</p>
+                    {% if error %}
+                        <p class="error">Invalid username or password.</p>
+                    {% endif %}
+                    <form method="POST" name="edit_profile">
+                        {% csrf_token %}
+                        <input name="userID" type="text" placeholder="Username">
+                        <input name="password" type="password" placeholder="Password">
+                        <a href="/careercompass/delete-account"><button type="submit" class="delete-account-button">Yes, Delete Account</button></a>
+                    </form>
+                    <p class="cancel"><a href="/careercompass/">Cancel</a></p>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+</body>
+
+</html>

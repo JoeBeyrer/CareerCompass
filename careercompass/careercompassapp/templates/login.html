@@ -113,7 +113,7 @@
         <p class="sign">Sign In to CareerCompass</p>
         {% if error %}
             <p class="error">Invalid username or password.</p>
-        {% endif%}
+        {% endif %}
         <form action="/careercompass/login/" method="post" class="login_form">
             {% csrf_token %}
             <input name="userID" type="text" placeholder="Username">
