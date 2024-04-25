@@ -2,7 +2,6 @@
 # This file contains all database querying functions
 
 from django.db import connection
-from django.contrib.auth.hashers import make_password
 
 # Add the user to the database
 def add_user(UserID, FirstName, LastName, PasswordHash, Email, AboutMe=None):
@@ -456,3 +455,12 @@ def check_username(UserID):
             return True
         else:
             return False  
+
+def delete_user(UserID):
+     with connection.cursor() as cursor:
+        cursor.execute(
+            """
+            DELETE FROM users WHERE UserID=%s;
+            """,
+            [UserID]
+        )
