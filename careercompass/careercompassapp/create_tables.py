@@ -9,7 +9,8 @@ def create_users_table():
                 LastName VARCHAR(20) NOT NULL,
                 PasswordHash VARCHAR(128) NOT NULL,
                 AboutMe TEXT,
-                Email VARCHAR(63) UNIQUE NOT NULL
+                Email VARCHAR(63) UNIQUE NOT NULL,
+                CHECK (Email LIKE '%@%.%')
             );
         """)
 
@@ -34,7 +35,8 @@ def create_students_table():
                 CurrentYear VARCHAR(9) NOT NULL,
                 ExpectedGraduation DATE NOT NULL,
                 GPA NUMERIC(3, 2),
-                OpenToWork VARCHAR(3)
+                OpenToWork VARCHAR(3),
+                CHECK (GPA <= 4.0 AND GPA >= 0.0)
             );
         """)
 
@@ -57,7 +59,7 @@ def create_likes_table():
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS Likes (
                 UserID VARCHAR(20) REFERENCES Users ON DELETE CASCADE ON UPDATE CASCADE,
-                PostedBy VARCHAR(15),
+                PostedBy VARCHAR(20),
                 DatePosted TIMESTAMP,
                 CONSTRAINT like_pk PRIMARY KEY (UserID, PostedBy, DatePosted),
                 CONSTRAINT post_fk FOREIGN KEY (PostedBy, DatePosted) REFERENCES 
