@@ -153,6 +153,15 @@
             margin-top: 10px;
         }
 
+        .not-found {
+            color: #8C55AA;
+            margin: auto;
+            font-size: 20px;
+            text-align: center;
+            margin-top: 30px;
+
+        }
+
         @media (max-width: 600px) {
             .dynamic-field {
                 width: 100%; /* Show dynamic fields in full width on smaller screens */
@@ -169,6 +178,7 @@
     </div>
     {% block content %}
         <div class="main">
+            {% if recruiter.0 %}
             <div class="profile-header">
                 <div class="profile-info">
                     <p class="profile-name">{{ recruiter.5 }} {{ recruiter.6 }} <span><em class="role">Recruiter</em></span></p>
@@ -229,6 +239,12 @@
                     </div>
                 </div>
             </div>
+            {% else %}
+            <div class="not-found">
+                <i class="fa fa-ban" style="font-size: 40px"></i>
+                <p>User Not Found</p>
+            </div>
+            {% endif %}
         </div>
     {% endblock %}
 </body>
