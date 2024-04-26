@@ -49,27 +49,31 @@ def index(request):
 
 
 def post(request, postedBy, date):
-    current_user = request.user.username
-    user_type = get_user_type(current_user)
-    date = datetime.strptime(date, '%Y-%m-%d-%H-%M-%S-%f')
-    post = get_post(postedBy, date)
-    current_user = request.user.username
-    if request.method == "POST":
-            if 'like' in request.POST:
-                action = request.POST['like']
-                if action =='like':
-                    liked(current_user, postedBy, date)
-                elif action =='unlike':
-                    unlike(current_user, postedBy, date)
-            elif 'delete' in request.POST:
-                delete_post(postedBy, date)
-                return redirect('home')
+    try:
+        current_user = request.user.username
+        user_type = get_user_type(current_user)
+        date = datetime.strptime(date, '%Y-%m-%d-%H-%M-%S-%f')
+        post = get_post(postedBy, date)
+        current_user = request.user.username
+        if request.method == "POST":
+                if 'like' in request.POST:
+                    action = request.POST['like']
+                    if action =='like':
+                        liked(current_user, postedBy, date)
+                    elif action =='unlike':
+                        unlike(current_user, postedBy, date)
+                elif 'delete' in request.POST:
+                    delete_post(postedBy, date)
+                    return redirect('home')
 
-    has_liked = check_liked_post(request.user.username, post[0], post[1])
-    likes_count = get_like_count(post[0], post[1])
-    poster_type = get_user_type(post[0])
-    print(poster_type)
-    return render(request, 'post.html', {'post': post, 'likes_count': likes_count, 'has_liked': has_liked, 'user_type': poster_type, 'type': user_type})
+        has_liked = check_liked_post(request.user.username, post[0], post[1])
+        likes_count = get_like_count(post[0], post[1])
+        poster_type = get_user_type(post[0])
+        print(poster_type)
+        return render(request, 'post.html', {'post': post, 'likes_count': likes_count, 'has_liked': has_liked, 'user_type': poster_type, 'type': user_type})
+    except:
+        return redirect('home')
+
 
 def student_profile(request, username):
     current_user = request.user.username
@@ -294,22 +298,32 @@ def create_new_post(request):
     return render(request, 'create-post.html', {'type': user_type, 'form': form})
 
 def show_followers_view(request, username):
-    followers = get_followers(username)
-    follower_data = []
-    if followers:
-        for follower in followers:
-            follower_type = get_user_type(follower[0])
-            follower_data.append({'follower': follower, 'user_type': follower_type})
-    return render(request, 'followers.html', {'followers': follower_data, 'username': username})
+    current_user = request.user.username
+    current_user_type = get_user_type(current_user)
+    if get_user(username):
+        followers = get_followers(username)
+        follower_data = []
+        if followers:
+            for follower in followers:
+                follower_type = get_user_type(follower[0])
+                follower_data.append({'follower': follower, 'user_type': follower_type})
+        return render(request, 'followers.html', {'followers': follower_data, 'username': username,  'type': current_user_type})
+    else:
+        return redirect('home')
 
 def show_following_view(request, username):
-    following_list = get_following(username)
-    following_data = []
-    if following_list:
-        for following in following_list:
-            following_type = get_user_type(following[0])
-            following_data.append({'followed': following, 'user_type': following_type})
-    return render(request, 'following.html', {'following_list': following_data, 'username': username})
+    current_user = request.user.username
+    current_user_type = get_user_type(current_user)
+    if get_user(username):
+        following_list = get_following(username)
+        following_data = []
+        if following_list:
+            for following in following_list:
+                following_type = get_user_type(following[0])
+                following_data.append({'followed': following, 'user_type': following_type})
+        return render(request, 'following.html', {'following_list': following_data, 'username': username, 'type': current_user_type})
+    else:
+        return redirect('home')
 
 def search(request):
     current_user = request.user.username
