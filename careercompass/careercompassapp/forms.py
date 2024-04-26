@@ -5,14 +5,14 @@ from .database_utils import *
 
 
 class RecruiterForm(forms.Form):
-    userID = forms.CharField(max_length=15, required=True, validators=[RegexValidator(r'^[a-zA-Z0-9_]*$', message='Only alphanumeric characters and underscore are allowed.')])
+    userID = forms.CharField(max_length=20, required=True, validators=[RegexValidator(r'^[a-zA-Z0-9_]*$', message='Only alphanumeric characters and underscore are allowed.')])
     password = forms.CharField(max_length=128, widget=forms.PasswordInput, required=True)
     confirm_password = forms.CharField(max_length=128, widget=forms.PasswordInput, required=True)
     fName = forms.CharField(max_length=20, required=True)
     lName = forms.CharField(max_length=20, required=True)
     email = forms.EmailField(max_length=63, required=True)
-    company_name = forms.CharField(max_length=20, required=True)
-    position = forms.CharField(max_length=20, required=True)
+    company_name = forms.CharField(max_length=48, required=True)
+    position = forms.CharField(max_length=40, required=True)
     about_company = forms.CharField(widget=forms.Textarea, required=True)
     about_me = forms.CharField(widget=forms.Textarea, required=True)
 
@@ -36,7 +36,7 @@ class RecruiterForm(forms.Form):
             self.add_error('userID', ValidationError("This username is taken."))
 
 class StudentForm(forms.Form):
-    userID = forms.CharField(max_length=15, required=True, validators=[RegexValidator(r'^[a-zA-Z0-9_]*$', message='Only alphanumeric characters and underscore are allowed.')])
+    userID = forms.CharField(max_length=20, required=True, validators=[RegexValidator(r'^[a-zA-Z0-9_]*$', message='Only alphanumeric characters and underscore are allowed.')])
     password = forms.CharField(max_length=128, widget=forms.PasswordInput, required=True)
     confirm_password = forms.CharField(max_length=128, widget=forms.PasswordInput, required=True)
     fName = forms.CharField(max_length=20, required=True)
@@ -70,7 +70,7 @@ class StudentForm(forms.Form):
             self.add_error('userID', ValidationError("This username is taken."))
 
 class EditProfileForm(forms.Form):
-    userID = forms.CharField(max_length=15, required=False, validators=[RegexValidator(r'^[a-zA-Z0-9_]*$', message='Only alphanumeric characters and underscore are allowed.')])
+    userID = forms.CharField(max_length=20, required=False, validators=[RegexValidator(r'^[a-zA-Z0-9_]*$', message='Only alphanumeric characters and underscore are allowed.')])
     password = forms.CharField(max_length=128, widget=forms.PasswordInput, required=False)
     confirm_password = forms.CharField(max_length=128, widget=forms.PasswordInput, required=False)
     fName = forms.CharField(max_length=20, required=False)
@@ -79,8 +79,8 @@ class EditProfileForm(forms.Form):
     about_me = forms.CharField(widget=forms.Textarea, required=False)
 
     # Recruiter fields
-    company_name = forms.CharField(max_length=20, required=False)
-    position = forms.CharField(max_length=20, required=False)
+    company_name = forms.CharField(max_length=48, required=False)
+    position = forms.CharField(max_length=40, required=False)
     about_company = forms.CharField(widget=forms.Textarea, required=False)
 
     # Student fields
