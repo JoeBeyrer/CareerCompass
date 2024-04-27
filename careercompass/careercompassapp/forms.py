@@ -3,8 +3,9 @@ from django.core.validators import MinValueValidator, MaxValueValidator, RegexVa
 from django.core.exceptions import ValidationError
 from .database_utils import *
 
-
+# Form with fields and validation for creating a recruiter account
 class RecruiterForm(forms.Form):
+    # Username must be alphanumeric or contain _ only, no special characters
     userID = forms.CharField(max_length=20, required=True, validators=[RegexValidator(r'^[a-zA-Z0-9_]*$', message='Only alphanumeric characters and underscore are allowed.')])
     password = forms.CharField(max_length=128, widget=forms.PasswordInput, required=True)
     confirm_password = forms.CharField(max_length=128, widget=forms.PasswordInput, required=True)
@@ -22,20 +23,22 @@ class RecruiterForm(forms.Form):
         confirm_password = cleaned_data.get("confirm_password")
         email = cleaned_data.get("email")
         userID = cleaned_data.get("userID")
-
+        # Ensure the user enters a password confirmation
         if password and not confirm_password:
             raise ValidationError("Please confirm your password.")
-        
+        # Ensure the password set matches the "confirm password" entry
         if password != confirm_password:
             self.add_error('confirm_password', ValidationError("The passwords do not match. Please enter the same password in both fields."))
-
+        # Ensures the email is unique to the user
         if check_email(email):
             self.add_error('email', ValidationError("This email is already tied to an account."))
-
+        # Ensures the password is unique to the user
         if check_username(userID):
             self.add_error('userID', ValidationError("This username is taken."))
 
+# Form with fields and validation for creating a student account
 class StudentForm(forms.Form):
+    # Username must be alphanumeric or contain _ only, no special characters
     userID = forms.CharField(max_length=20, required=True, validators=[RegexValidator(r'^[a-zA-Z0-9_]*$', message='Only alphanumeric characters and underscore are allowed.')])
     password = forms.CharField(max_length=128, widget=forms.PasswordInput, required=True)
     confirm_password = forms.CharField(max_length=128, widget=forms.PasswordInput, required=True)
@@ -56,20 +59,22 @@ class StudentForm(forms.Form):
         confirm_password = cleaned_data.get("confirm_password")
         email = cleaned_data.get("email")
         userID = cleaned_data.get("userID")
-
+        # Ensure the user enters a password confirmation
         if password and not confirm_password:
             raise ValidationError("Please confirm your password.")
-        
+        # Ensure the password set matches the "confirm password" entry
         if password != confirm_password:
             self.add_error('confirm_password', ValidationError("The passwords do not match. Please enter the same password in both fields."))
-        
+        # Ensures the email is unique to the user
         if check_email(email):
             self.add_error('email', ValidationError("This email is already tied to an account."))
-
+        # Ensures the password is unique to the user
         if check_username(userID):
             self.add_error('userID', ValidationError("This username is taken."))
 
+# Form for editing profile data, no fields are required, only those that are entered will be modified
 class EditProfileForm(forms.Form):
+    # Username must be alphanumeric or contain _ only, no special characters
     userID = forms.CharField(max_length=20, required=False, validators=[RegexValidator(r'^[a-zA-Z0-9_]*$', message='Only alphanumeric characters and underscore are allowed.')])
     password = forms.CharField(max_length=128, widget=forms.PasswordInput, required=False)
     confirm_password = forms.CharField(max_length=128, widget=forms.PasswordInput, required=False)
@@ -97,19 +102,20 @@ class EditProfileForm(forms.Form):
         confirm_password = cleaned_data.get("confirm_password")
         email = cleaned_data.get("email")
         userID = cleaned_data.get("userID")
-
+        # Ensure the user enters a password confirmation
         if password and not confirm_password:
             raise ValidationError("Please confirm your password.")
-        
+        # Ensure the password set matches the "confirm password" entry
         if password != confirm_password:
             self.add_error('confirm_password', ValidationError("The passwords do not match. Please enter the same password in both fields."))
-        
+        # Ensures the email is unique to the user
         if check_email(email):
             self.add_error('email', ValidationError("This email is already tied to an account."))
-
+        # Ensures the password is unique to the user
         if check_username(userID):
             self.add_error('userID', ValidationError("This username is taken."))
 
+# Form for creating posts
 class PostForm(forms.Form):
     Title = forms.CharField(max_length=30, required=True)
     BodyText = forms.CharField(widget=forms.Textarea, required=True)
