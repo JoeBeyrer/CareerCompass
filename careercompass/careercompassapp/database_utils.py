@@ -452,7 +452,6 @@ def check_email(email):
             [email]
         )
         email_exists = cursor.fetchone()
-        print(email_exists)
         if email_exists != None:
             return True
         else:

@@ -78,7 +78,6 @@ def post(request, postedBy, date):
         has_liked = check_liked_post(request.user.username, post[0], post[1])
         likes_count = get_like_count(post[0], post[1])
         poster_type = get_user_type(post[0])
-        print(poster_type)
         # Render the post with all gathered fields
         return render(request, 'post.html', {'post': post, 'likes_count': likes_count, 'has_liked': has_liked, 'user_type': poster_type, 'type': user_type})
     except:
@@ -104,7 +103,6 @@ def student_profile(request, username):
     posts = get_user_posts(username)
     total_num_likes = get_user_likes_count(username)
     post_data = []
-    print(student)
     if posts:
         for post in posts:
             has_liked = check_liked_post(request.user.username, post[0], post[1])
@@ -310,7 +308,6 @@ def create_new_post(request):
     user_type = get_user_type(current_user)
     if request.method == "POST":
         form = PostForm(request.POST)
-        print(form.errors)
         if form.is_valid():
             Title = form.cleaned_data['Title']
             BodyText = form.cleaned_data['BodyText']
