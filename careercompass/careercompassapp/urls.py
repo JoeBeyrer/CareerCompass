@@ -17,5 +17,4 @@ urlpatterns = [
     path('followers/<str:username>/', views.show_followers_view, name='followers'),
     path('following/<str:username>/', views.show_following_view, name='following'),
     path('delete-account/', views.delete_account, name='delete-account'),
-    # TODO: Add all pages here
 ]
