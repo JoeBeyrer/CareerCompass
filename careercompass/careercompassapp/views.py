@@ -119,7 +119,6 @@ def recruiter_profile(request, username):
     posts = get_user_posts(username)
     total_num_likes = get_user_likes_count(username)
     post_data = []
-    print(recruiter)
     if posts:
         for post in posts:
             has_liked = check_liked_post(request.user.username, post[0], post[1])
@@ -143,8 +142,6 @@ def edit_profile(request):
         if Password != '':
             user = get_user(current_user)
             checked_password = check_password(OldPassword, user[3])
-            print(user)
-            print(checked_password)
         if not checked_password:
                 messages.error(request, "Old password is incorrect.")
                 return render(request, 'edit-profile.html', {'type': user_type, 'form': form, 'password_check': checked_password})
@@ -155,12 +152,13 @@ def edit_profile(request):
             LastName = form.cleaned_data['lName']
             email = form.cleaned_data['email']
             about_me = form.cleaned_data['about_me']
+            user_type = get_user_type(current_user)
             if user_type[0] == 'R':
                 company_name = form.cleaned_data['company_name']
                 about_company = form.cleaned_data['about_company']
                 position = form.cleaned_data['position']
+                update_recruiter(company_name, about_company, position, current_user)
                 update_user(UserID, FirstName, LastName, '' if Password == '' else make_password(Password), about_me, email, current_user)
-                update_recruiter(UserID, company_name, about_company, position, current_user)
             else:
                 university = form.cleaned_data['university']
                 degree = form.cleaned_data['degree']
@@ -168,8 +166,8 @@ def edit_profile(request):
                 expected = form.cleaned_data['expected']
                 gpa = form.cleaned_data['gpa']
                 open_to_work = form.cleaned_data['open_to_work']
+                update_student(university, degree, current_year, expected, gpa, open_to_work, current_user)
                 update_user(UserID, FirstName, LastName,  '' if Password == '' else make_password(Password), about_me, email, current_user)
-                update_student(UserID, university, degree, current_year, expected, gpa, open_to_work, current_user)
 
             if UserID != '':
                 user = User.objects.get(username = current_user)

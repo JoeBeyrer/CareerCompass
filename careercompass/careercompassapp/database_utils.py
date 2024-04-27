@@ -89,7 +89,8 @@ def get_recruiter_data(UserID):
 
 def get_follower_count(UserID):
     with connection.cursor() as cursor:
-        # Using cursor.execute with %s fields keeps the query safe from SQL injections
+        # Using cursor.execute with %s fields keeps the query safe from SQL 
+        # injections
         cursor.execute(
             """
             SELECT COUNT(*) FROM followers WHERE followers.UserID = %s;
@@ -131,7 +132,6 @@ def create_post(PostedBy, Title, BodyText, Field):
 
 def delete_post(PostedBy, DatePosted):
     with connection.cursor() as cursor:
-        # Using cursor.execute with %s fields keeps the query safe from SQL injections
         cursor.execute(
             """
             DELETE FROM posts WHERE PostedBy=%s AND DatePosted=%s;
@@ -161,7 +161,6 @@ def unfollow(UserID, FollowerID):
 
 def liked(UserID, PostedBy, DatePosted):
     with connection.cursor() as cursor:
-        # Using cursor.execute with %s fields keeps the query safe from SQL injections
         cursor.execute(
             """
             INSERT INTO likes VALUES (%s, %s, %s);
@@ -181,7 +180,6 @@ def unlike(UserID, PostedBy, DatePosted):
 
 def following_list(UserID):
     with connection.cursor() as cursor:
-        # Using cursor.execute with %s fields keeps the query safe from SQL injections
         cursor.execute(
             """
             SELECT UserID FROM followers WHERE FollowerID=%s;
@@ -196,12 +194,12 @@ def following_list(UserID):
 
 def get_user_type(UserID):
     with connection.cursor() as cursor:
-        # Using cursor.execute with %s fields keeps the query safe from SQL injections
         cursor.execute(
             """
             SELECT 
             CASE 
-                WHEN EXISTS (SELECT UserID FROM recruiters WHERE UserID=%s) THEN 'R'
+                WHEN EXISTS (SELECT UserID FROM recruiters WHERE UserID=%s) 
+                THEN 'R'
                 ELSE 'S'
             END;
             """,
@@ -230,11 +228,11 @@ def get_user_posts(UserID):
 
 def get_following_posts(UserID):
     with connection.cursor() as cursor:
-        # Using cursor.execute with %s fields keeps the query safe from SQL injections
         cursor.execute(
             """
-            SELECT * FROM posts JOIN followers ON posts.PostedBy=followers.UserID 
-            WHERE followers.FollowerID=%s AND posts.DatePosted BETWEEN NOW() - INTERVAL 
+            SELECT * FROM posts JOIN followers ON 
+            posts.PostedBy=followers.UserID WHERE followers.FollowerID=%s AND 
+            posts.DatePosted BETWEEN NOW() - INTERVAL 
             '1 year' AND NOW() ORDER BY posts.DatePosted DESC;
             """,
             [UserID]
@@ -292,13 +290,12 @@ def get_post(PostedBy, DatePosted):
 
 def search_user(input):
     with connection.cursor() as cursor:
-        # Using cursor.execute with %s fields keeps the query safe from SQL injections
         cursor.execute(
             """
-            SELECT UserID, FirstName, LastName FROM users WHERE LOWER(UserID) LIKE 
-            LOWER(%s) OR LOWER(FirstName) LIKE LOWER(%s) OR LOWER(LastName) LIKE 
-            LOWER(%s) OR LOWER(FirstName || ' ' || LastName) LIKE LOWER(%s) ORDER 
-            BY LENGTH(UserID) LIMIT 30;
+            SELECT UserID, FirstName, LastName FROM users WHERE LOWER(UserID) 
+            LIKE LOWER(%s) OR LOWER(FirstName) LIKE LOWER(%s) OR 
+            LOWER(LastName) LIKE LOWER(%s) OR LOWER(FirstName || ' ' || 
+            LastName) LIKE LOWER(%s) ORDER BY LENGTH(UserID) LIMIT 30;
             """,
             ['%' + input + '%', input + '%', input + '%', input]
         )
@@ -380,9 +377,8 @@ def update_user(UserID, FirstName, LastName, PasswordHash, AboutMe, Email, curre
             
         )
 
-def update_student(UserID, University, Degree, CurrentYear, ExpectedGraduation, GPA, OpenToWork, current_user):
+def update_student(University, Degree, CurrentYear, ExpectedGraduation, GPA, OpenToWork, current_user):
     with connection.cursor() as cursor:
-        UserID = None if UserID == "" else UserID
         University = None if University == "" else University
         Degree = None if Degree == "" else Degree
         CurrentYear = None if CurrentYear == "" else CurrentYear
@@ -393,7 +389,6 @@ def update_student(UserID, University, Degree, CurrentYear, ExpectedGraduation, 
             """
             UPDATE students 
             SET 
-                UserID = CASE WHEN %s IS NOT NULL THEN %s ELSE UserID END,
                 University = CASE WHEN %s IS NOT NULL THEN %s ELSE University END,
                 Degree = CASE WHEN %s IS NOT NULL THEN %s ELSE Degree END,
                 CurrentYear = CASE WHEN %s IS NOT NULL THEN %s ELSE CurrentYear END,
@@ -402,14 +397,13 @@ def update_student(UserID, University, Degree, CurrentYear, ExpectedGraduation, 
                 OpenToWork = CASE WHEN %s IS NOT NULL THEN %s ELSE OpenToWork END
             WHERE UserID = %s;
             """,
-            [UserID, UserID, University, University, Degree, Degree, CurrentYear, CurrentYear, 
+            [University, University, Degree, Degree, CurrentYear, CurrentYear, 
              ExpectedGraduation, ExpectedGraduation, GPA, GPA, OpenToWork, OpenToWork, current_user]
 
         )
 
-def update_recruiter(UserID, CompanyName, AboutCompany, Position, current_user):
+def update_recruiter(CompanyName, AboutCompany, Position, current_user):
     with connection.cursor() as cursor:
-        UserID = None if UserID == "" else UserID
         CompanyName = None if CompanyName == "" else CompanyName
         AboutCompany = None if AboutCompany == "" else AboutCompany
         Position = None if Position == "" else Position
@@ -417,13 +411,12 @@ def update_recruiter(UserID, CompanyName, AboutCompany, Position, current_user):
             """
             UPDATE recruiters 
             SET 
-                UserID = CASE WHEN %s IS NOT NULL THEN %s ELSE UserID END,
                 CompanyName = CASE WHEN %s IS NOT NULL THEN %s ELSE CompanyName END,
                 AboutCompany = CASE WHEN %s IS NOT NULL THEN %s ELSE AboutCompany END,
                 Title = CASE WHEN %s IS NOT NULL THEN %s ELSE Title END
             WHERE UserID = %s;
             """,
-            [UserID, UserID, CompanyName, CompanyName, AboutCompany, AboutCompany, 
+            [CompanyName, CompanyName, AboutCompany, AboutCompany, 
              Position, Position, current_user]
         )
 
