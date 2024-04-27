@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 <html>
-
+<!-- Post Card html page -->
 <head>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
@@ -124,17 +124,19 @@
 
 <body>
     <div class="card">
+        <!-- Clicking the card brings you to the posts webpage using the postedby and timestamp parameters -->
         <a href="/careercompass/{{ post.post.0 }}/post/{{ post.post.1|date:'Y-m-d-H-i-s-u' }}"  style="text-decoration:none; color: #333">
             <div class="post">
                 <div class="post-title">{{ post.post.2 }}</div>
                 <div class="post-field">{{ post.post.4 }}</div>
+                <!-- Only display the first 37 characters on the card and add "..." -->
                 {% if post.post.3|length > 37 %}
                     <p class="post-body">{{ post.post.3|slice:":38" }}...</p>
                 {% else %}
                     <p class="post-body">{{ post.post.3|slice:":38" }}</p>
                 {% endif %}
                 <div class="post-buttons">
-                    
+                    <!-- Like button will show differently depending on if the user has already liked the post -->
                     {% if post.has_liked %}
                         <button type="submit" name="like" value="unlike" class="like-button"><i class="fa fa-heart" style="color: #8C55AA;"></i></button>
                     {% else %}

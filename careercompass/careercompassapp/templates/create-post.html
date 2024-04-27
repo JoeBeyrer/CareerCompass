@@ -1,5 +1,5 @@
 <html>
-
+<!-- Create post html -->
 <head>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
@@ -134,18 +134,21 @@
                 {% csrf_token %}
                 <div class="form-field">
                     <input name="Title" type="text" placeholder="Title">
+                    <!-- Displays errors in input validation -->
                     {% if form.Title.errors %}
                         <p class="error">{{ form.Title.errors.as_text }}</p>
                     {% endif %}
                 </div>
                 <div class="form-field">
                 <input name="Field" type="text" placeholder="Related Job Field">
+                    <!-- Displays errors in input validation -->
                     {% if form.Field.errors %}
                         <p class="error">{{ form.Field.errors.as_text }}</p>
                     {% endif %}
                 </div>
                 <div class="form-field">
                     <input name="BodyText" type="text" placeholder="Body Text">
+                     <!-- Displays errors in input validation -->
                     {% if form.BodyText.errors %}
                         <p class="error">{{ form.BodyText.errors.as_text }}</p>
                     {% endif %}

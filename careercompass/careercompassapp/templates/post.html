@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 <html>
-
+<!-- Post html page -->
 <head>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
@@ -160,6 +160,7 @@
                 {{ post.2 }}
             </div>
             <div class="delete-buttons">
+                <!-- If the user owns the post, they may delete it using this button -->
                 {% if post.0 == user.username %}
                 <form method="POST" name="delete">
                     {% csrf_token %}
@@ -167,11 +168,13 @@
                 </form>
                 {% endif %}
             </div>
+            <!-- Populate the post with post parameter values -->
             <div class="post-field">{{ post.4 }}</div>
             <p class="post-body">{{ post.3 }}</p>
             <div class="post-buttons">
                 <form method="POST" name="like">
                     {% csrf_token %}
+                    <!-- Display the like button differently depending on if the post has been liked -->
                     {% if has_liked %}
                         <button type="submit" name="like" value="unlike" class="like-button"><i class="fa fa-heart" style="color: #8C55AA;"></i></button>
                         <span class="like-count" style="font-size: 20px; color: #8C55AA;">{{ likes_count.0  }}</span>

@@ -1,6 +1,6 @@
 
 <html>
-
+<!-- Edit profile html page -->
 <head>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
@@ -209,6 +209,7 @@
                 <p>* Setting a new password requires entering your old password.</p>
             </div>
             <form method="POST" name="edit_profile" novalidate>
+                <!-- All input fields display errors in input validation -->
                 {% csrf_token %}
                 <div class="field">
                     <input name="userID" type="text" placeholder="Username">
@@ -252,6 +253,7 @@
                         <p class="error">{{ form.email.errors.as_text }}</p>
                     {% endif %}
                 </div>
+                <!-- Fields specific to recruiter accounts -->
                 {% if type.0 == 'R' %}
                     <div class="field">
                         <input name="company_name" type="text" placeholder="Company Name">
@@ -277,6 +279,7 @@
                             <p class="error">{{ form.about_me.errors.as_text }}</p>
                         {% endif %}
                     </div>
+                <!-- Fields specific to student accounts -->
                 {% else %}
                     <div class="field">
                         <input name="university" type="text" placeholder="University Name">

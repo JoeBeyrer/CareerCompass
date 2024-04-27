@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 <html>
-
+<!-- Recruiter profile html page -->
 <head>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
@@ -178,6 +178,7 @@
     </div>
     {% block content %}
         <div class="main">
+            <!-- Populate the page witht he recruiters data -->
             {% if recruiter.0 %}
             <div class="profile-header">
                 <div class="profile-info">
@@ -211,6 +212,7 @@
                 </div>
                 <form method="POST">
                     {% csrf_token %}
+                    <!-- Add a follow/unfollow button on the profile page if it is not the current users profile - changes depending on status -->
                     {% if recruiter.0 != user.username %}
                         {% if recruiter.0 in following_list %}
                             <button type="submit" class="follow-button" name="follow" 
@@ -226,6 +228,7 @@
             </div>
                 <div class="posts">
                     <div class="posts-section">
+                        <!-- Show post cards for all posts made by the user -->
                         {% if posts %}
                             {% for post in posts %}
                                 {% include './post-card.html' %}

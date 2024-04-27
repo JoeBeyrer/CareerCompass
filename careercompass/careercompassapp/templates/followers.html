@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-
+<!-- Followers list html page -->
 <head>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
@@ -115,6 +115,7 @@
             <ul>
                 <div class="followers-list">
                 {% for follower in followers %}
+                    <!-- If statement used to set proper profile links and follower displays -->
                     {% if follower.user_type.0 == 'R' %}
                         <a href="/careercompass/recruiter/{{follower.follower.0}}" style="text-decoration: none;">
                         <div class="card">

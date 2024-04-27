@@ -3,7 +3,7 @@
 
 <!DOCTYPE html>
 <html>
-
+ <!-- Search html page-->
 <head>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
@@ -148,10 +148,12 @@
             </div>
         </div>
         <div class="results-list">
+             <!-- Populate the page with the list of users returned as results of the search query -->
             {% if search_results %}
             <ul>
                 <div class="results-list">
                 {% for result in search_results %}
+                     <!-- User cards will show differently and link to profiles differently depending on the type of user -->
                     {% if result.user_type.0 == 'R' %}
                         <a href="/careercompass/recruiter/{{result.result.0}}" style="text-decoration: none;">
                         <div class="card">

@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 <html>
-
+<!-- Delete account html page -->
 <head>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
@@ -143,6 +143,7 @@
                 <div class="delete-account-section">
                     <p>Are you sure you would like to delete your account? This action is permanent and irreversible.</p>
                     {% if error %}
+                        <!-- Displays error if wrong username or password were entered -->
                         <p class="error">Invalid username or password.</p>
                     {% endif %}
                     <form method="POST" name="edit_profile">

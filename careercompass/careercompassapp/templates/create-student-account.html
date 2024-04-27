@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-
+<!-- Create student account html -->
 <head>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
@@ -145,6 +145,7 @@
         <p class="sign">Create Student Account</p>
         <form action="/careercompass/create-student-account/" method="post" class="create_account_form">
             {% csrf_token %}
+            <!-- All input fields display errors in input validation -->
             <div class="field">
                 <input name="userID" type="text" placeholder="Username">
                 {% if form.userID.errors %}

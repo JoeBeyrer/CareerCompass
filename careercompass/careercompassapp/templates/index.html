@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 <html>
-
+<!-- Home page html -->
 <head>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
@@ -75,10 +75,12 @@
         <div class="main">
             <div class="posts-section">
                 {% if posts %}
+                    <!-- Iterate through all posts of users the current user follows and create a post card for each -->
                     {% for post in posts %}
                         {% include './post-card.html' %}
                     {% endfor %}
                 {% else %}
+                <!-- No posts found message if the posts list is empty -->
                     <div class="no-posts">
                         <i class="fa fa-ban" style="font-size: 40px"></i>
                         <p>No Posts Found!</p>

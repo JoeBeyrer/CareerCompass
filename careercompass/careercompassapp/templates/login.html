@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-
+<!-- Login html -->
 <head>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
@@ -111,6 +111,7 @@
 <body>
     <div class="main">
         <p class="sign">Sign In to CareerCompass</p>
+        <!-- Display error message on invalid username or password, otherwise continue with login request -->
         {% if error %}
             <p class="error">Invalid username or password.</p>
         {% endif %}
